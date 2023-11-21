@@ -1,0 +1,53 @@
+---
+title: User Role
+authors: ['sam']
+date: '2023-04-04'
+tags: ['CMMS', 'scope', 'features', 'user']
+draft: false
+summary: User Authentication and Authorization
+---
+
+`User` is person operate CMMS system. Prior operate, user shall:
+
+- Registration
+- Login/Logout
+- Setup profile
+- Activated by CMMS Admin
+
+And `authenticated` user has `authorize` with following role :
+
+- ## General User Role:
+
+  - `Unregistered` user
+
+    - View document through Help menu
+
+  - Successfully `registered` user
+
+    - Login/Logout
+    - Perform setup user profile regarding flow approval for Work-order/Job-ticket
+    - Use CMMS for view-only
+
+![Setup User Profile][userProfile]
+
+[userProfile]: /static/images/userProfile.jpg
+
+- Successfully `activated` user
+
+  - Perform CMMS activities as user role (internal section, department) for jobticketing
+  - Perform CMMS activities as user role for cross department - Work-order
+
+![User Activation Profile][userActivation]
+
+[userActivation]: /static/images/userActivation.jpg
+
+- `Admin CMMS` user
+
+  - Verify successfully registered user for flow approval
+  - Activate user for CMMS operation
+
+- ## `User Class Relationship Diagram`
+
+![User Class Diagram][userClassDiagram]
+
+[userClassDiagram]: /static/images/classDiagram/userDiagram.jpg

@@ -1,0 +1,223 @@
+---
+title: Module Job Ticket - MJT
+authors: ['sam']
+date: '2023-05-10'
+tags: ['CMMS', 'MJT', 'scope', 'features']
+draft: false
+summary: Job Ticket Flow Diagram, user dashboard and actions
+---
+
+- [`MJT` is part of `CMMS` system and this module for following task :](#mjt-is-part-of-cmms-system-and-this-module-for-following-task-)
+- [`Job Ticket Flowchart`](#job-ticket-flowchart)
+- [User Dashboard](#user-dashboard)
+- [Requirements](#requirements)
+- [`Job Ticket Dashboard Role` :](#job-ticket-dashboard-role-)
+- [`Job Ticket Class Model`](#job-ticket-class-model)
+
+## `MJT` is part of `CMMS` system and this module for following task :
+
+![Sample Job Ticket][sampleJt]
+
+[sampleJt]: /static/images/jobTicket/sampleJT.jpg
+
+- Create/open instructions/detail tasks regarding to `solve particular case related to work-order, Time Base Maintenance or direct instruction` for internal department during normal working hour and holidays
+- Submit to subordinate or peer of approval/examiner according to the flowchart
+- Record the history of the journey from originator until the job is declared complete
+- Provides `detail tasks` should be executed/consideration.
+- Provides `detail SHE` - Safety Health & Environmental
+- Provides `detail action`, manpower, materials, tools
+- Tracking every Job Ticket
+- Make a report (daily – monthly) of the activities carried out during the period of time
+
+## `Job Ticket Flowchart`
+
+![Flow Chart Job Ticket][JtFlowChart]
+
+[JtFlowChart]: /static/images/JtFlowChart.jpg
+
+## User Dashboard
+
+Successful login user will direct to personal dashboard for further operation through left side navigation menu as following picture
+
+![User Dashboard][userDashboard]
+
+[userDashboard]: /static/images/userDashboard.jpg
+
+## Requirements
+
+1. `MJT` is one of the modules that supports the `CMMS` program
+2. `MJT` has several menus in GUI (Graphical User Interface) format so that users can choose the desired activity/transaction.
+3. Each `user` must log in via the login menu
+4. If the `user` has been registered, he/she will able to perform:
+
+   - List of `Job Ticket on Dashboard` in accordance with the status that requires attention
+   - Able to do tracing of `Job Ticket`
+
+5. All of these activities can be monitored from the internet
+6. `Originator` is the `Job Ticket` publisher user group
+7. `Executor` is a group of executing `Job Ticket`
+8. `Users` can submit any requests they have to the next level as follows:
+
+   - Perform `Job Ticket` approval
+   - Approve the completion of `Job Ticket`
+   - Perform `Job Ticket` returns
+   - Able to provide `Job Ticket` status according to the authority given
+
+9. Every change in `Job Ticket` status is recorded in the `Job Ticket Dashboard`
+10. `Frm(Foreman) – Executor`: Carry out the Job Ticket that has been assigned to him/her and provide reports related to the Job Ticket including:
+
+    - RequestToOpen
+    - NeedShutdown
+    - NeedMaterials
+    - NeedMOC
+    - NeedRegulations
+    - Inprogress
+    - Finish
+    - Close
+    - Cancel
+
+11. `Eng(Engineer) – Executor`: Carry out activities including:
+
+    - RequestToOpen
+    - NeedShutdown
+    - NeedMaterials
+    - NeedMOC
+    - NeedRegulations
+    - Inprogress
+    - Finish
+    - Close
+    - Cancel
+
+12. `Spv(Supervisor) – Executor`: Carry out activities including:
+
+    - RequestToOpen
+    - NeedShutdown
+    - NeedMaterials
+    - NeedMOC
+    - NeedRegulations
+    - Inprogress
+    - Finish
+    - Close
+    - ReadyToComplete
+    - ReadyToSchedule
+    - Schedule
+    - Reject
+
+13. `Sptd(Superintendent) – Executor`: Carry out activities including:
+
+    - Open
+    - Close
+    - NeedShutdown
+    - NeedMaterials
+    - NeedMOC
+    - NeedRegulations
+    - Inprogress
+    - Finish
+    - ReadyToComplete
+    - Complete
+    - ReadyToSchedule
+    - Schedule
+    - Reject
+
+14. `Mgr – Executor` : Makes an executive summary and follows up on pending
+    Job Tickets
+    - Open
+    - Close
+    - NeedShutdown
+    - NeedMaterials
+    - NeedMOC
+    - NeedRegulations
+    - Inprogress
+    - Finish
+    - ReadyToComplete
+    - Complete
+    - ReadyToSchedule
+    - Schedule
+    - Reject
+
+## `Job Ticket Dashboard Role` :
+
+1. `Frm(Foreman)-Executor` :
+
+   - Inprogress
+   - Schedule
+   - Complete
+
+2. `Eng(Engineer)-Executor` :
+
+   - Inprogress
+   - Finish
+   - Open
+   - Schedule
+   - Complete
+
+3. `Spv(Supervisor)-Executor` :
+
+   - RequestToOpen
+   - Open
+   - Finish
+   - Complete
+   - ReadyToSchedule
+   - Inprogress
+   - Reject
+   - Cancel
+   - NeedShutdown
+   - NeedMaterials
+   - NeedMOC
+   - NeedRegulations
+
+4. `Spd(Superintendent)-Executor` :
+
+   - RequestToOpen
+   - Open
+   - Finish
+   - Complete
+   - ReadyToComplete
+   - Inprogress
+   - Reject
+   - Cancel
+   - NeedShutdown
+   - NeedMaterials
+   - NeedMOC
+   - NeedRegulations
+
+5. `Mgr(Manager)-Executor` :
+
+   - RequestToOpen
+   - Open
+   - Finish
+   - Complete
+   - ReadyToComplete
+   - Inprogress
+   - Reject
+   - Cancel
+   - NeedShutdown
+   - NeedMaterials
+   - NeedMOC
+   - NeedRegulations
+
+## `Job Ticket Class Model`
+
+```javascript
+const jobticketSchema = new mongoose.Schema({
+  id: { type: Number, require: true },
+  jtNumber: { type: String, require: true },
+  tagnumber: { type: String, require: true },
+  title: { type: String, require: false },
+  respSectionId: { type: Number, require: true },
+  originatorId: { type: Number, require: true },
+  currentUserId: { type: Number, require: true },
+  trackUserId: { type: [Number], require: false },
+  priorityId: { type: Number, require: true },
+  location: { type: String, require: true },
+  statusId: { type: Number, require: true },
+  ref: { type: String, require: true },
+  executor: { type: [String], require: true },
+  detailTask: { type: [String], require: true },
+  detailSHE: { type: [String], require: true },
+  scheduleDate: { type: String, require: true },
+  executeDate: { type: String, require: true },
+  swpNumber: { type: [String], require: true },
+  detailAction: { type: [String], require: true },
+})
+```

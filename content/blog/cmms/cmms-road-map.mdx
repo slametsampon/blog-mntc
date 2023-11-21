@@ -1,0 +1,193 @@
+---
+title: CMMS Road Map
+authors: ['sam']
+date: '2023-05-27'
+tags: ['CMMS', 'scope', 'road-map']
+draft: false
+summary: CMMS Road Map
+---
+
+- [The features of `CMMS`:](#the-features-of-cmms)
+- [`CMMS` scope :](#cmms-scope-)
+- [CMMS Project steps:](#cmms-project-steps)
+  - [Road Mad](#road-mad)
+  - [0. `Ground Breaking` - April 01, 2023](#0-ground-breaking---april-01-2023)
+  - [1. `Job Ticket` - May 15, 2023](#1-job-ticket---may-15-2023)
+  - [2. `Time Base Maintenance - TBM` - July 31, 2023](#2-time-base-maintenance---tbm---july-31-2023)
+  - [3. `Wor Order - WO` - Oct 02, 2023](#3-wor-order---wo---oct-02-2023)
+  - [4. `Project - MOC` - Dec 04, 2023](#4-project---moc---dec-04-2023)
+- [Change Log Version:](#change-log-version)
+
+`CMMS` (Computer Maintenance Management System) is a system designed to manage plant maintenance activities. This system is developed web-base so that it can be accessed via the internet.
+
+## The features of `CMMS`:
+
+- Paperless
+- Traceability of each activity
+- Minimize administrative work with the `OTE system: One Time Entry`
+- User friendly
+- Accessibility – any devices, any where
+- Real Time – KPI status
+- Intuitive
+
+## `CMMS` scope :
+
+- Work Orders, Job Ticket
+- TBM – Time Base Maintenance (PM, PdM, Calibration, Certification)
+- Projects - MOC - Management Of Change
+- Activities – Shift up to Month
+- Material Requirements Planning
+- KPIs
+- Reporting
+- Setup & Configuration
+
+## CMMS Project steps:
+
+### Road Mad
+
+![CMMS Road Map][cmmsRoadMap]
+
+[cmmsRoadMap]: /static/images/CmmsRoadMap.jpg
+
+### 0. `Ground Breaking` - April 01, 2023
+
+- [Git-clone Next js, Tailwind css](https://github.com/timlrx/tailwind-nextjs-starter-blog)
+- [Idea Next js, Tailwind css, MongoDb, Vercel](https://github.com/basir/next-tailwind-amazona/commits/main)
+- #### Build up static data :
+
+  - Jobticket, Workorder, user
+  - Department, section, level
+  - User role, for actions and statuses
+  - MongoDB Atlas - setup
+  - Database - seeds for Users-figurant, Jobtickets
+
+- #### Build layout :
+
+  - CMMS layout
+  - CMMS menus
+  - Jobticket view detail
+  - Workorder view detail
+  - User view detail
+
+- #### Build form :
+  - User Login/Logout
+  - User Registration
+  - Jobticket create/update
+
+### 1. `Job Ticket` - May 15, 2023
+
+- 1.0.0 First launch - RFC - Request For Comments
+- 1.0.1 Fix for following issue :
+  - SWP - Number, select not included in calculation
+  - SWP - Build, separated from reporting
+  - View all Jobticket in user section concern
+
+### 2. `Time Base Maintenance - TBM` - July 31, 2023
+
+- 2.0.0 Get all tagnumber from excel file complete with :
+  - Equipment Name
+  - Build template for TBM
+  - Link template to jobticket
+  - Setup Tagnumber from excel file
+  - Setup TBM for all tagnumber
+  - Link to Onhand spare-part
+
+### 3. `Wor Order - WO` - Oct 02, 2023
+
+- 3.0.0 Handling work order included :
+  - Setup user from other Dept
+  - Open/Create WO
+  - Handle forwarding, execution and completion
+  - Link to Job Ticket
+
+### 4. `Project - MOC` - Dec 04, 2023
+
+- 4.0.0 Handling MOC included :
+  - Build static data model
+  - Build detail vew and form
+  - Build MOC role (users, flowchart, approval)
+  - MOC - Flow
+    - Feasibility Study
+    - PFD, P&ID
+    - HAZOPS
+    - ISO Metric, BOM
+    - Budgeting
+    - Procurement
+    - Construction
+    - Mechanical Completion
+    - Punch List
+    - Commissioning
+    - Performance Test
+  - Monitoring & Evaluation
+
+## Change Log Version:
+
+- #### 1.0.1 - May 24, 2023 : Fix for Engineer user role
+
+- #### 1.0.2 - May 24, 2023 : Fix for creating (request to open) for Foreman related to currentUser
+
+- #### 1.0.3 - May 25, 2023 : Fix updating currentUser
+
+- #### 1.0.4 - May 26, 2023 : Add Originator Jobticket Dashboard
+
+- #### 1.0.5 - May 26, 2023 : Add Request To Open for Foreman to Superordinate
+
+- #### 1.0.6 - May 26, 2023 : Jobticket Model and Database :
+
+  - Delete properties: scheduleDate and executeDate
+  - Add properties: openDate and updated type Date
+  - Update Jobticket api/updating related to database change
+  - Update jobTicket creating related to database change
+  - Update jobTicket updating related to database change
+
+- #### 1.0.7 - May 28, 2023 :
+
+  - User Profile setup : Build form for updating
+  - Add road map CMMS on blog
+  - Update User Role for CMMS operations
+  - Update User data model - add jointDate, updated type Date
+  - Update UserLevel data model - more space
+  - Update User database
+  - Add User Profile setup
+  - Add User Activation
+
+- #### 1.0.8 - May 30, 2023 :
+
+  - User Role for isActive & isAdmin
+  - Slider on landing page
+  - More info for Dashboard
+  - Change user password, hide & show password entry
+  - Fix : setup user profile
+
+- #### 1.0.9 - May 02, 2023 :
+
+  - User feedback - form
+  - Setup real user
+
+- #### 1.0.10 - May 05, 2023 :
+
+  - Fix : register on Home Page - cmmsLayout
+  - User Profile update : Pre-setting Section & Level
+  - Jobticket Housekeeping
+  - Setup real user
+  - Migration Jobticket to real user
+
+- #### 1.0.11 - May 09, 2023 :
+
+  - Reset Password User
+  - Fix: Foreman create Jobticket - Detail Action
+  - Fix: Spv create Jobticket - Detail Action - replace
+  - Fix: Tagnumber for 5 characters
+  - Add: Jobticket dashboard for Dept. Head
+
+- #### 1.0.12 - May 12, 2023 :
+
+  - Optimization of rendering pages
+  - TBM - Template
+  - Link Jobticket to TBM-Template
+
+- ## Outstanding :
+  - One click report
+  - Filter for Jobticket dashboard
+  - Dashboard statistic
+  - Dashboard for Dept Head

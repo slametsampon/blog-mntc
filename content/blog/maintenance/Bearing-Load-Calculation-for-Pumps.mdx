@@ -1,0 +1,112 @@
+---
+title: Bearing Load Calculation for Centrifugal Pumps
+authors: ['fan']
+date: '2023-11-10'
+tags: ['Bearing', 'load', 'Bearing Configuration']
+draft: false
+summary: Artikel ini memberikan pengetahuan mengenai perhitungan load bearing untuk tipe centrifugal pumps beserta contoh perhitungan yang digunakan dalam pabrik petrokimia dengan jenis pompa KSB Aquavane
+---
+
+Dalam perhitungan load bearing, terdapat 2 jenis beban yang perlu dihitung, yakni beban radial, yang arahnya tegak lurus terhadap shaft dan beban axial, yang arahnya sejajar dengan orientasi shaft
+
+1 Perhitungan radial load bearing
+∑M=0
+(Untuk Bearing Drive End)
+Perhitungan parameter didasarkan atas beban dan jarak beban terhadap masing-masing bearing
+
+    ∑Fy=0
+    (Untuk Bearing Non-Drive End)
+
+2 Perhitungan Axial Load Bearing
+Fa = (Fr)/(2 x (Y))
+
+3 Load Calculation for Each Bearing
+Fe = X.Fr+Y.Fa - Parameter X dan Y mengacu pada konstanta yang ditetapkan oleh pihak manufaktur dan tercantum pada katalog/spesifikasi bearing
+
+    Example Equation for centrifugal pumps at plant PT.Petro Oxo Nusantara
+    Existing Bearing :
+
+![Gambar1](/static/images/artikel/Gambar-1-Deep-Groove-Ball-Bearing.jpg)
+
+Source : https://www.skf.com/id/products/rolling-bearings/ball-bearings/deep-groove-ball-bearings/productid-6311
+
+    Replacement Bearing
+
+![gambar2](/static/images/artikel/Gambar-2-Angular-Contact-Ball-Bearing.jpg)
+
+Source : https://www.skf.com/sg/products/rolling-bearings/ball-bearings/angular-contact-ball-bearings/single-row-angular-contact-ball-bearings/productid-7311%20BECBM
+
+    Perhitungan beban yang bekerja pada bearing
+
+![gambar3](/static/images/artikel/Gambar-3-Posisi-dan-Beban-Shaft-dan-Impeller-pada-Pompa.jpg)
+
+∑M=0
+[(300 x 500)+(200 x 500)]-[(Fr A x 250)+(100 x 250)]=0
+[150000+100000]= [(Fr A x 250)+25000]
+Fr A=900 N (0,9 kN)
+(Radial Load for DE Bearing)
+
+∑Fy=0
+Fr B=900N+300N+300 N
+Fr B=1500N (1,5kN)
+(Radial Load for NDE Bearing)
+
+![gambar4](/static/images/artikel/Gambar-4-Perhitungan-Load-Axial-pada-Bearing.jpg)
+
+Source : https://koyo.jtekt.co.jp/en/support/bearing-knowledge/5-4000.html
+
+Fa A = (0,9)/(2 x (0,57))
+Fa A = (0,9)/(1,14)
+Fa A = 0,8 kN
+(Axial Load for DE Bearing)
+
+Fa B = (1,5)/(2 x (0,57))
+Fa B = (1,5)/(1,14)
+Fa B = 1,3 kN
+(Axial Load for NDE Bearing)
+
+Calculation for Single/Tandem angular contact ball bearing
+
+![gambar5](/static/images/artikel/Gambar-5-Calculation-Factor-for-Single-Tandem-Bearing.jpg)
+
+Source : https://www.skf.com/sg/products/rolling-bearings/ball-bearings/angular-contact-ball-bearings/single-row-angular-contact-ball-bearings/productid-7311%20BECBM
+
+Given :
+X = 0,35
+Y = 0,57
+
+Load Calculation for DE Bearing with single configuration
+Fe = X.Fr+Y.Fa
+= (0,35) (0,9) + (0,57) (0,8)
+= 0,315 + 0,456
+= 0,771 kN
+
+Load Calculation for NDE Bearing with single configuration
+Fe = X.Fr+Y.Fa
+= (0,35) (1,5) + (0,57) (1,3)
+= 0,525 + 0,741
+= 1,266 kN
+
+Calculation for Double Pair Bearing
+
+![gambar6](/static/images/artikel/Gambar-6-Calculation-Factor-for-Double-Pair-Bearing.jpg)
+
+Source : https://www.skf.com/sg/products/rolling-bearings/ball-bearings/angular-contact-ball-bearings/single-row-angular-contact-ball-bearings/productid-7311%20BECBM
+
+Given :
+X = 0,57
+Y = 0,93
+
+Load Calculation for DE Bearing with double pair configuration
+Fe = X.Fr+Y.Fa
+= (0,57) (0,9) + (0,93) (0,8)
+= 0,513 + 0,744
+= 1,257 kN
+
+Load Calculation for NDE Bearing with double pair configuration
+Fe = X.Fr+Y.Fa
+= (0,57) (1,5) + (0,93) (1,3)
+= 0,855 + 1,209
+= 2,064 kN
+
+\*\*\*Artikel ini ditulis berdasarkan beberapa referensi luar dan pengalaman penulis, penulis tidak bertanggung jawab atas kesalahan yang diakibatkan oleh tulisan ini
