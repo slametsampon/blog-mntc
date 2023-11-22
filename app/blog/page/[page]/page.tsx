@@ -1,6 +1,6 @@
-import ListLayoutWithTags from '@/layouts/ListLayoutWithTags'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { allBlogs } from 'contentlayer/generated'
+import ListLayoutWithAuthors from '@/layouts/ListLayoutWithAuthors'
 
 const POSTS_PER_PAGE = 5
 
@@ -24,7 +24,7 @@ export default function Page({ params }: { params: { page: string } }) {
   }
 
   return (
-    <ListLayoutWithTags
+    <ListLayoutWithAuthors
       posts={posts}
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}

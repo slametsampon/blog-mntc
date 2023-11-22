@@ -80,9 +80,9 @@ export const Blog = defineDocumentType(() => ({
   },
 }))
 
-export const Authors = defineDocumentType(() => ({
-  name: 'Authors',
-  filePathPattern: 'authors/**/*.mdx',
+export const Author = defineDocumentType(() => ({
+  name: 'Author',
+  filePathPattern: 'author/**/*.mdx',
   contentType: 'mdx',
   fields: {
     name: { type: 'string', required: true },
@@ -141,6 +141,24 @@ function createTagCount(allBlogs) {
   writeFileSync('./app/tag-data.json', JSON.stringify(tagCount))
 }
 
+function createAuthorCount(allBlogs) {
+  const authorCount: Record<string, number> = {}
+  allBlogs.forEach((file) => {
+    if (file.authors && (!isProduction || file.draft !== true)) {
+      file.authors.forEach((author) => {
+        // const formattedTag = GithubSlugger.slug(tag)
+        const formattedAuthor = slug(author)
+        if (formattedAuthor in authorCount) {
+          authorCount[formattedAuthor] += 1
+        } else {
+          authorCount[formattedAuthor] = 1
+        }
+      })
+    }
+  })
+  writeFileSync('./app/author-data.json', JSON.stringify(authorCount))
+}
+
 function createSearchIndex(allBlogs) {
   if (
     siteMetadata?.search?.provider === 'kbar' &&
@@ -156,7 +174,7 @@ function createSearchIndex(allBlogs) {
 
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [Blog, Authors, Page],
+  documentTypes: [Blog, Author, Page],
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [
@@ -183,6 +201,7 @@ export default makeSource({
 
   onSuccess: async (importData) => {
     const { allBlogs } = await importData()
+    createAuthorCount(allBlogs)
     createTagCount(allBlogs)
     createSearchIndex(allBlogs)
   },
