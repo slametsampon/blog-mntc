@@ -1,9 +1,9 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Blog-Mntc',
+  title: 'Metrics-Mntc',
   author: 'Slamet-Sam',
-  headerTitle: 'BlogMntc',
-  description: 'Blog Maintenance',
+  headerTitle: 'MetricsMntc',
+  description: 'Metrics Maintenance',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://mntc-blog.netlify.app/',
