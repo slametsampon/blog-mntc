@@ -14,5 +14,17 @@ const metricsStatic = {
     monthBudget: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12],
     monthActual: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12],
   },
+  disturbance: {
+    internal: [
+      { date: '2023-01-15', desc: 'disturbance internal-1', duration: 5 },
+      { date: '2023-02-15', desc: 'disturbance internal-2', duration: 1.4 },
+      { date: '2023-03-15', desc: 'disturbance internal-3', duration: 2 },
+    ],
+    external: [
+      { date: '2023-02-15', desc: 'disturbance external-1', duration: 5 },
+      { date: '2023-03-15', desc: 'disturbance external-2', duration: 1.4 },
+      { date: '2023-05-15', desc: 'disturbance external-3', duration: 2 },
+    ],
+  },
 }
 export default metricsStatic
