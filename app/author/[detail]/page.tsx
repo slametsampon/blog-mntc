@@ -2,20 +2,20 @@ import { slug } from 'github-slugger'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayoutWithTags'
-import { allBlogs } from 'contentlayer/generated'
+import { allAuthors, allBlogs } from 'contentlayer/generated'
 import authorData from 'app/author-data.json'
 import { genPageMetadata } from 'app/seo'
-import { Metadata } from 'next'
+import CardAuthor from '@/components/CardAuthor'
 
-export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
-  const tag = decodeURI(params.tag)
+export async function generateMetadata({ params }: { params: { detail: string } }) {
+  const detail = decodeURI(params.detail)
   return genPageMetadata({
-    title: tag,
-    description: `${siteMetadata.title} ${tag} tagged content`,
+    title: detail,
+    description: `${siteMetadata.title} ${detail} tagged content`,
     alternates: {
       canonical: './',
       types: {
-        'application/rss+xml': `${siteMetadata.siteUrl}/tags/${tag}/feed.xml`,
+        'application/rss+xml': `${siteMetadata.siteUrl}/author/${detail}/feed.xml`,
       },
     },
   })
@@ -39,5 +39,12 @@ export default function AuthorPage({ params }: { params: { detail: string } }) {
       allBlogs.filter((post) => post.authors && post.authors.map((t) => slug(t)).includes(detail))
     )
   )
-  return <ListLayout posts={filteredPosts} title={title} />
+  //get author
+  const authorResult = allAuthors.find((p) => p.slug === detail)
+  return (
+    <>
+      <CardAuthor author={authorResult} />
+      <ListLayout posts={filteredPosts} title={title} />
+    </>
+  )
 }

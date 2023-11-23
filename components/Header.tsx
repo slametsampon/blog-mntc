@@ -7,7 +7,7 @@ import ThemeSwitch from './ThemeSwitch'
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-between rounded-xl py-5 bg-green-50 dark:bg-gray-900 shadow-sm">
+    <header className="flex items-center justify-between rounded-2xl bg-blue-50 py-7 shadow-md dark:bg-gray-900">
       <div>
         <Link href="/" aria-label={siteMetadata.headerTitle}>
           <div className="flex items-center justify-between">
@@ -15,7 +15,7 @@ const Header = () => {
               <Logo />
             </div>
             {typeof siteMetadata.headerTitle === 'string' ? (
-              <div className="hidden h-6 text-2xl font-semibold text-green-700 sm:block">
+              <div className="hidden h-6 text-2xl font-semibold sm:block">
                 {siteMetadata.headerTitle}
               </div>
             ) : (
@@ -31,7 +31,7 @@ const Header = () => {
             <Link
               key={link.title}
               href={link.href}
-              className="link-active p-1 hidden sm:block font-semibold text-blue-700 dark:text-gray-100"
+              className="link-active p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4"
             >
               {link.title}
             </Link>
