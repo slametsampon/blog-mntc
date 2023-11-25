@@ -8,7 +8,7 @@
     "preview": "next build && next start",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build",
-    "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts --dir data",
+    "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts --dir data --dir utils",
     "lintAll": "next lint --fix --dir ."
   },
   "dependencies": {
