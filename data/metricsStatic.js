@@ -1,9 +1,8 @@
 const metricsStatic = {
   reliability: {
-    currentYear: { day: 365, schSdDay: 13, uschSdDay: 5 },
+    currentYear: { day: 365, schSdDay: 13, uschSdDay: 5, operationDay: 0, operationHour: 0 },
     monthDay: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     monthTargetDay: [24, 11, 30, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-    monthActualDay: [24, 11, 30, 29, 30, 30, 31, 31, 30, 31, 30, 31],
     monthTargetHrs: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     monthActualHrs: [
       24 * 24,
@@ -25,26 +24,36 @@ const metricsStatic = {
     ytdActual: { day: 0, operationDay: 0, operationHour: 0 },
     prognoseTarget: { day: 0, operationDay: 0, operationHour: 0 },
     prognoseActual: { day: 0, operationDay: 0, operationHour: 0 },
+    percentage: { currentMonthDay: 0, currentMonthHour: 0, ytdDay: 0, ytdHour: 0, prognoseHour: 0 },
   },
   opex: {
-    monthBudget: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12],
-    monthActual: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12],
+    month: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    monthBudget: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    monthActual: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    percentage: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    ytd: { budget: 1, actual: 2, percentage: 3 },
+    prognose: { budget: 4, actual: 5, percentage: 6 },
   },
   capex: {
-    monthBudget: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12],
-    monthActual: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12],
+    month: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    monthBudget: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    monthActual: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    percentage: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    ytd: { budget: 11, actual: 12, percentage: 13 },
+    prognose: { budget: 14, actual: 15, percentage: 16 },
   },
   disturbance: {
     internal: [
-      { date: '2023-01-15', desc: 'disturbance internal-1', duration: 5 },
-      { date: '2023-02-15', desc: 'disturbance internal-2', duration: 1.4 },
-      { date: '2023-03-15', desc: 'disturbance internal-3', duration: 2 },
+      { date: '2023-01-15', description: 'disturbance internal-1', duration: 5 },
+      { date: '2023-02-15', description: 'disturbance internal-2', duration: 1.4 },
+      { date: '2023-03-15', description: 'disturbance internal-3', duration: 2 },
     ],
     external: [
-      { date: '2023-02-15', desc: 'disturbance external-1', duration: 5 },
-      { date: '2023-03-15', desc: 'disturbance external-2', duration: 1.4 },
-      { date: '2023-05-15', desc: 'disturbance external-3', duration: 2 },
+      { date: '2023-02-15', description: 'disturbance external-1', duration: 1.5 },
+      { date: '2023-03-15', description: 'disturbance external-2', duration: 1.4 },
+      { date: '2023-05-15', description: 'disturbance external-3', duration: 0.25 },
     ],
+    summary: { internal: 0, external: 0, total: 0 },
   },
 }
 export default metricsStatic
