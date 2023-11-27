@@ -48,14 +48,13 @@ export default function Page() {
     <div>
       {/* File Uploader */}
       <input
+        className="py-5 px-3 bg-green-100 rounded-2xl shadow-2xl"
         type="file"
         name="file"
         onChange={changeHandler}
         accept=".csv"
         style={{ display: 'block', margin: '10px auto' }}
       />
-      <br />
-      <br />
       <CardUploadData title={'Upload Data'} uploadHeader={tableRows} uploadData={values} />
     </div>
   )

@@ -41,7 +41,8 @@
     "**/*.json",
     ".contentlayer/generated",
     ".contentlayer/generated/**/*.json",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "app/metrics-inconstruct/upload/page.jsx"
   ],
   "exclude": ["node_modules"]
 }
