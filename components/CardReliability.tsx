@@ -1,4 +1,4 @@
-import getMonthString from '@/utils/getMonthString'
+import { getMonthFull } from '@/utils/getDateString'
 
 export default function CardReliability({ title, reliabilityData }) {
   const toDay = new Date()
@@ -39,7 +39,7 @@ export default function CardReliability({ title, reliabilityData }) {
         {/* Current month */}
         <div className="bg-yellow-50 p-3 rounded-2xl">
           <table className="table-auto ml-3 mb-4 border-2 mt-3 dark:bg-gray-900 dark:text-gray-50 bg-green-50 rounded-2xl shadow-2xl">
-            <caption className="pb-2 text-left text-xl">{`Current Month : ${getMonthString(
+            <caption className="pb-2 text-left text-xl">{`Current Month : ${getMonthFull(
               toDay
             )}`}</caption>
             <thead>

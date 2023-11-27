@@ -1,6 +1,6 @@
 const metricsNavLinks = [
-  { href: '/upload', title: 'Upload Data' },
-  { href: '/report', title: 'Report' },
+  { href: '/metrics-inconstruct/upload', title: 'Upload Data' },
+  { href: '/metrics-inconstruct/report', title: 'Report' },
   { href: '/', title: 'Home' },
 ]
 
