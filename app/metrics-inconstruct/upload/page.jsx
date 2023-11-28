@@ -4,6 +4,7 @@
 import { useState } from 'react'
 import Papa from 'papaparse'
 import CardUploadData from '@/components/CardUploadData'
+import csvToObjectMetric from '@/utils/csvToObjectMetric'
 
 // export const metadata = genPageMetadata({ title: 'Upload' })
 
@@ -40,6 +41,9 @@ export default function Page() {
 
         // Filtered Values
         setValues(valuesArray)
+
+        //convert and storing to metricsData
+        csvToObjectMetric(rowsArray[0], valuesArray)
       },
     })
   }

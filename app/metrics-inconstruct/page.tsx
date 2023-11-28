@@ -3,7 +3,7 @@ import { genPageMetadata } from '../seo'
 import CardReliability from '@/components/CardReliability'
 import CardBudget from '@/components/CardBudget'
 import metricsStatic from '@/data/metricsStatic'
-import { disturbanceCalc, hourCalc, yearTargetCalc } from '@/utils/metricsCalc'
+import { capexCalc, disturbanceCalc, hourCalc, opexCalc, yearTargetCalc } from '@/utils/metricsCalc'
 
 export const metadata = genPageMetadata({ title: 'Metrics' })
 
@@ -17,8 +17,13 @@ export default function Page() {
   yearTargetCalc(reliabilityData.currentYear)
   disturbanceCalc(reliabilityData, disturbanceData)
   hourCalc(reliabilityData, toDay)
+  opexCalc(opexData, toDay)
+  capexCalc(capexData, toDay)
 
   console.log('after Calc reliabilityData : ', reliabilityData)
+  console.log('after Calc disturbanceData : ', disturbanceData)
+  console.log('after Calc opexData : ', opexData)
+  console.log('after Calc capexData : ', capexData)
 
   return (
     <>
@@ -27,7 +32,7 @@ export default function Page() {
       </div>
       <CardReliability title={'Reliability'} reliabilityData={reliabilityData} />
       <CardDisturbance title={'Disturbances'} disturbanceData={disturbanceData} />
-      <CardBudget title={'Expenditure'} opexData={opexData} capexData={capexData} />
+      <CardBudget title={'Budget'} opexData={opexData} capexData={capexData} />
     </>
   )
 }

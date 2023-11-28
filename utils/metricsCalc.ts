@@ -121,3 +121,78 @@ export function hourCalc(reliabilityData, toDay) {
   // console.log('hourCalc - data : ', reliabilityData)
   return reliabilityData
 }
+
+export function opexCalc(opexData, toDay) {
+  const currentMonth = toDay.getMonth()
+  const currentDate = toDay.getDate()
+  let ytdOpexBudget = 0
+  let ytdOpexActual = 0
+  let ytdOpexPrognoseBudget = 0
+  let ytdOpexPrognoseActual = 0
+
+  //Calculate ytd
+  if (currentMonth >= 0) {
+    for (let i = 0; i <= currentMonth; i++) {
+      ytdOpexBudget += opexData.monthBudget[i]
+      ytdOpexActual += opexData.monthActual[i]
+      opexData.percentage[i] = Math.floor((opexData.monthActual[i] * 100) / opexData.monthBudget[i])
+    }
+    opexData.ytd.actual = ytdOpexActual
+    opexData.ytd.budget = ytdOpexBudget
+    opexData.ytd.percentage = Math.floor((ytdOpexActual * 100) / ytdOpexBudget)
+
+    //init prognose
+    ytdOpexPrognoseActual = ytdOpexActual
+    ytdOpexPrognoseBudget = ytdOpexBudget
+  }
+
+  //Calculate prognose
+  for (let i = currentMonth + 1; i <= 11; i++) {
+    ytdOpexPrognoseActual += opexData.monthBudget[i]
+    ytdOpexPrognoseBudget += opexData.monthBudget[i]
+  }
+  opexData.prognose.actual = ytdOpexPrognoseActual
+  opexData.prognose.budget = ytdOpexPrognoseBudget
+  opexData.prognose.percentage = Math.floor((ytdOpexPrognoseActual * 100) / ytdOpexPrognoseBudget)
+
+  return opexData
+}
+
+export function capexCalc(capexData, toDay) {
+  const currentMonth = toDay.getMonth()
+  let ytdCapexBudget = 0
+  let ytdCapexActual = 0
+  let ytdCapexPrognoseBudget = 0
+  let ytdCapexPrognoseActual = 0
+
+  //Calculate ytd
+  if (currentMonth >= 0) {
+    for (let i = 0; i <= currentMonth; i++) {
+      ytdCapexBudget += capexData.monthBudget[i]
+      ytdCapexActual += capexData.monthActual[i]
+      capexData.percentage[i] = Math.floor(
+        (capexData.monthActual[i] * 100) / capexData.monthBudget[i]
+      )
+    }
+    capexData.ytd.actual = ytdCapexActual
+    capexData.ytd.budget = ytdCapexBudget
+    capexData.ytd.percentage = Math.floor((ytdCapexActual * 100) / ytdCapexBudget)
+
+    //init prognose
+    ytdCapexPrognoseActual = ytdCapexActual
+    ytdCapexPrognoseBudget = ytdCapexBudget
+  }
+
+  //Calculate prognose
+  for (let i = currentMonth + 1; i <= 11; i++) {
+    ytdCapexPrognoseActual += capexData.monthBudget[i]
+    ytdCapexPrognoseBudget += capexData.monthBudget[i]
+  }
+  capexData.prognose.actual = ytdCapexPrognoseActual
+  capexData.prognose.budget = ytdCapexPrognoseBudget
+  capexData.prognose.percentage = Math.floor(
+    (ytdCapexPrognoseActual * 100) / ytdCapexPrognoseBudget
+  )
+
+  return capexData
+}

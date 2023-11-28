@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 const metricsStatic = {
   reliability: {
     currentYear: { day: 365, schSdDay: 13, uschSdDay: 5, operationDay: 0, operationHour: 0 },
@@ -55,5 +56,34 @@ const metricsStatic = {
     ],
     summary: { internal: 0, external: 0, total: 0 },
   },
+  users: [
+    {
+      id: 20300000,
+      name: 'expUser',
+      email: 'expUser@example.com',
+      password: await bcrypt.hash('start123', 10),
+      isActive: 1,
+      isAdmin: 0,
+      levelId: 1,
+    },
+    {
+      id: 20300001,
+      name: 'sampon',
+      email: 'sampon@example.com',
+      password: await bcrypt.hash('start123', 10),
+      isActive: 1,
+      isAdmin: 1,
+      levelId: 0,
+    },
+    {
+      id: 20300002,
+      name: 'slamet',
+      email: 'slamet@example.com',
+      password: await bcrypt.hash('start123', 10),
+      isActive: 1,
+      isAdmin: 1,
+      levelId: 0,
+    },
+  ],
 }
 export default metricsStatic

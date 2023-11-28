@@ -1,5 +1,4 @@
 export default function CardDisturbance({ title, disturbanceData }) {
-  console.log('disturbanceData : ', disturbanceData)
   const distInternal = disturbanceData.internal
   const distExternal = disturbanceData.external
   const distSummary = disturbanceData.summary
@@ -11,7 +10,7 @@ export default function CardDisturbance({ title, disturbanceData }) {
           {/* Disturbance Internal */}
           <div className="bg-slate-50 p-3 rounded-2xl mb-3">
             <table className="table-auto ml-3 mb-3 border-2 mt-3 bg-blue-50 rounded-2xl shadow-2xl dark:bg-gray-900 dark:text-gray-50">
-              <caption className="pb-2 text-left text-xl">Internal</caption>
+              <caption className="text-left text-xl">Internal</caption>
               <thead>
                 <tr>
                   <th className="px-3 py-2">Date</th>
@@ -23,25 +22,23 @@ export default function CardDisturbance({ title, disturbanceData }) {
                 {distInternal.map((disturbance) => (
                   <tr
                     key={disturbance.date}
-                    className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-blue-50"
+                    className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-green-50"
                   >
                     <td className="px-3 py-1">{disturbance.date}</td>
                     <td className="text-right px-3 font-semibold">{disturbance.description}</td>
                     <td className="text-right px-3 font-semibold">{disturbance.duration}</td>
                   </tr>
                 ))}
-                <tr className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-blue-50">
+                <tr className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-green-50">
                   <td className="text-right px-3 font-semibold"></td>
                   <td className="px-3 py-1 font-semibold">Total</td>
                   <td className="text-right px-3 font-semibold">{distSummary.internal}</td>
                 </tr>
               </tbody>
             </table>
-          </div>
-          {/* Disturbance External */}
-          <div className="bg-green-50 p-3 rounded-2xl mb-3">
+            {/* Disturbance External */}
             <table className="table-auto ml-3 mb-3 border-2 mt-3 bg-blue-50 rounded-2xl shadow-2xl dark:bg-gray-900 dark:text-gray-50">
-              <caption className="pb-2 text-left text-xl">External</caption>
+              <caption className="text-left text-xl">External</caption>
               <thead>
                 <tr>
                   <th className="px-3 py-2">Date</th>
@@ -53,19 +50,19 @@ export default function CardDisturbance({ title, disturbanceData }) {
                 {distExternal.map((disturbance) => (
                   <tr
                     key={disturbance.date}
-                    className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-blue-50"
+                    className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-green-50"
                   >
                     <td className="px-3 py-1">{disturbance.date}</td>
                     <td className="text-right px-3 font-semibold">{disturbance.description}</td>
                     <td className="text-right px-3 font-semibold">{disturbance.duration}</td>
                   </tr>
                 ))}
-                <tr className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-blue-50">
+                <tr className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-green-50">
                   <td className="text-right px-3 font-semibold"></td>
                   <td className="px-3 py-1 font-semibold">Total</td>
                   <td className="text-right px-3 font-semibold">{distSummary.external}</td>
                 </tr>
-                <tr className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-blue-50">
+                <tr className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-green-50">
                   <td className="text-right px-3 font-semibold"></td>
                   <td className="px-3 py-1 font-semibold">Total Disturbance</td>
                   <td className="text-right px-3 font-semibold">{distSummary.total}</td>
