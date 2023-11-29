@@ -10,9 +10,5 @@ import metricsStatic from '@/data/metricsStatic'
 // return new Response('users seeded successfully')
 // }
 export async function GET(request: Request) {
-  // await db.connect()
-  // await UserModel.deleteMany()
-  // await UserModel.insertMany(metricsStatic.users)
-  // await db.disconnect()
-  return new Response('users seeded successfully')
+  return new Response('Hello, GET - Method!')
 }
