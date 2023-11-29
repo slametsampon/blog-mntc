@@ -23,6 +23,6 @@ export default function csvToObjectMetric(headers, values) {
     metricsStatic.opex.monthBudget[i] = data_opexBudget[i]
     metricsStatic.opex.monthActual[i] = data_opexActual[i]
   }
-  console.log('metricsStatic.capex : ', metricsStatic.capex)
-  console.log('metricsStatic.opex : ', metricsStatic.opex)
+  console.log('headers : ', headers)
+  console.log('values : ', values)
 }

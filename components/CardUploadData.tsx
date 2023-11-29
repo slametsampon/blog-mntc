@@ -1,5 +1,4 @@
 export default function CardUploadData({ title, uploadHeader, uploadData }) {
-  console.log('uploadHeader : ', uploadHeader)
   return (
     <>
       <div className=" text-gray-900 text-sm dark:text-gray-100">
