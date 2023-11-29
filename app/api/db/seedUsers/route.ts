@@ -1,6 +1,6 @@
-import UserModel from 'models/User'
-import db from 'utils/db'
-import metricsStatic from '@/data/metricsStatic'
+// import UserModel from 'models/User'
+// import db from 'utils/db'
+// import metricsStatic from '@/data/metricsStatic'
 
 export async function GET(request: Request) {
   // await db.connect()
