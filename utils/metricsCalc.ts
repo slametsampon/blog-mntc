@@ -58,6 +58,11 @@ export function hourCalc(reliabilityData, toDay) {
       ytdDay += reliabilityData.monthDay[i]
       ytdTargetDay += reliabilityData.monthTargetDay[i]
       ytdActualHour += reliabilityData.monthActualHrs[i]
+
+      //calculate percentage
+      reliabilityData.percentageHour[i] = Math.floor(
+        (reliabilityData.monthActualHrs[i] * 100) / reliabilityData.monthTargetHrs[i]
+      )
     }
     ytdDay += currentDate
     ytdTargetDay += currentDate

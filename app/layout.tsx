@@ -10,6 +10,7 @@ import { SearchConfig, SearchProvider } from 'pliny/search'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
+import { Providers } from '@/lib/provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -35,7 +36,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="flex h-screen flex-col justify-between font-sans">
               <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
                 <Header />
-                <main className="mb-auto">{children}</main>
+                <main className="mb-auto">
+                  {' '}
+                  <Providers>{children}</Providers>
+                </main>
               </SearchProvider>
               <Footer />
             </div>

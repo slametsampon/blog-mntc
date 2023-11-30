@@ -42,7 +42,9 @@
     ".contentlayer/generated",
     ".contentlayer/generated/**/*.json",
     ".next/types/**/*.ts",
-    "app/metrics-inconstruct/upload/*.jsx"
+    "app/metrics-inconstruct/upload/*.jsx",
+    "app/ui/login-form.jsx",
+    "layouts/LayoutSideNavbar.jsx"
   ],
   "exclude": ["node_modules"]
 }

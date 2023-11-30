@@ -1,4 +1,4 @@
-import { getMonthFull } from '@/utils/getDateString'
+import { getMonthFull, getMonthIndexShort } from '@/utils/getDateString'
 
 export default function CardReliability({ title, reliabilityData }) {
   const toDay = new Date()
@@ -6,10 +6,10 @@ export default function CardReliability({ title, reliabilityData }) {
 
   return (
     <>
-      <div className="mt-3 mb-3 rounded-xl bg-green-100  px-5 py-3 shadow-md dark:bg-gray-900">
+      <div className="mt-3 mb-3 rounded-xl bg-green-50  px-5 py-3 shadow-md dark:bg-gray-900">
         <div className="text-xl mb-3 text-blue-600 dark:text-gray-100 font-semibold">{title}</div>
         {/* Current year data */}
-        <div className="bg-slate-50 p-3 rounded-2xl mb-3">
+        <div className="bg-blue-50 p-3 rounded-2xl mb-3">
           <table className="table-auto ml-3 mb-3 border-2 mt-3 bg-blue-50 rounded-2xl shadow-2xl dark:bg-gray-900 dark:text-gray-50">
             <caption className="pb-2 text-left text-xl">{`Target - ${toDay.getFullYear()}`}</caption>
             <tbody>
@@ -39,7 +39,7 @@ export default function CardReliability({ title, reliabilityData }) {
         {/* Current month */}
         <div className="bg-yellow-50 p-3 rounded-2xl">
           <table className="table-auto ml-3 mb-4 border-2 mt-3 dark:bg-gray-900 dark:text-gray-50 bg-green-50 rounded-2xl shadow-2xl">
-            <caption className="pb-2 text-left text-xl">{`Current Month : ${getMonthFull(
+            <caption className="pb-2 text-left text-xl">{`Running Hour : ${getMonthFull(
               toDay
             )}`}</caption>
             <thead>
@@ -63,6 +63,20 @@ export default function CardReliability({ title, reliabilityData }) {
                   {reliabilityData.percentage.currentMonthDay}
                 </td>
               </tr>
+              {reliabilityData.monthTargetHrs.map((hrs, index) => {
+                if (index > toDay.getMonth()) return
+                return (
+                  <tr
+                    key={index}
+                    className="border-2 odd:bg-green-50 odd:text-blue-700 even:bg-blue-50"
+                  >
+                    <td className="px-3 py-1 font-semibold">{getMonthIndexShort(index)}</td>
+                    <td className="px-3 text-right">{reliabilityData.monthTargetHrs[index]}</td>
+                    <td className="px-3 text-right">{reliabilityData.monthActualHrs[index]}</td>
+                    <td className="px-3 text-right">{reliabilityData.percentageHour[index]}</td>
+                  </tr>
+                )
+              })}
               <tr className="border-2 odd:bg-slate-50 odd:text-blue-700 even:bg-blue-50">
                 <td className="px-3 py-1">Month Hour</td>
                 <td className="text-right px-3 font-semibold">

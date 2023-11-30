@@ -5,8 +5,14 @@ import { useState } from 'react'
 import Papa from 'papaparse'
 import CardUploadData from '@/components/CardUploadData'
 import csvToObjectMetric from '@/utils/csvToObjectMetric'
+import { useSession } from 'next-auth/react'
+import CustomLink from '@/components/Link'
 
 export default function Page() {
+  const { data: session, status } = useSession()
+  console.log('status', status)
+  console.log('session', session)
+
   // State to store parsed data
   const [parsedData, setParsedData] = useState([])
 
@@ -44,15 +50,25 @@ export default function Page() {
   return (
     <div>
       {/* File Uploader */}
-      <input
-        className="py-5 px-3 bg-green-100 rounded-2xl shadow-2xl"
-        type="file"
-        name="file"
-        onChange={changeHandler}
-        accept=".csv"
-        style={{ display: 'block', margin: '10px auto' }}
-      />
-      <CardUploadData title={'Upload Data'} uploadHeader={tableRows} uploadData={values} />
+      {session ? (
+        <>
+          <input
+            className="py-5 px-3 bg-green-100 rounded-2xl shadow-2xl"
+            type="file"
+            name="file"
+            onChange={changeHandler}
+            accept=".csv"
+            style={{ display: 'block', margin: '10px auto' }}
+          />
+          <CardUploadData title={'Upload Data'} uploadHeader={tableRows} uploadData={values} />
+        </>
+      ) : (
+        <>
+          <h1 className="text-xl">Access Denied</h1>
+          <p className="text-lg font-semibold mt-5 text-green-600">Please login </p>
+        </>
+      )}
     </div>
   )
 }
+Page.auth = true

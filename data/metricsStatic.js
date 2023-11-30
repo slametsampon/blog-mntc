@@ -20,6 +20,7 @@ const metricsStatic = {
       30 * 24,
       31 * 24,
     ],
+    percentageHour: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     currentMonthTarget: { day: 0, operationDay: 0, operationHour: 0 },
     currentMonthActual: { day: 0, operationDay: 0, operationHour: 0 },
     ytdTarget: { day: 0, operationDay: 0, operationHour: 0 },
