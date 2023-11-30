@@ -4,7 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import User from 'models/User'
 import db from 'utils/db'
 
-export const authOptions = {
+const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
