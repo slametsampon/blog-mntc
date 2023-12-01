@@ -88,6 +88,7 @@ export default function CardReliability({ title, reliabilityData }) {
             </tbody>
           </table>
         </div>
+        <div>Chart</div>
       </div>
     </>
   )
