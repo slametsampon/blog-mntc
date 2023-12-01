@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const capexSchema = new mongoose.Schema({
-  month: [{ type: String, require: true }],
+  yearMonth: [{ type: String, require: true }], //format YYYY-MM
   monthBudget: [{ type: Number, require: true }],
   monthActual: [{ type: Number, require: true }],
 })

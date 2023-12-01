@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const reliabilitySchema = new mongoose.Schema({
-  month: [{ type: String, require: true }],
+  yearMonth: [{ type: String, require: true }], //format YYYY-MM
   monthDay: [{ type: Number, require: true }],
   monthTargetDay: [{ type: Number, require: true }],
   monthTargetHrs: [{ type: Number, require: true }],
