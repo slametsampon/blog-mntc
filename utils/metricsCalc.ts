@@ -1,17 +1,18 @@
-import { Disturbance } from './definition'
+import { TCapex, TDisturbance, TOpex, TReliability, TReliabilityYear } from './definition'
 
 export function yearTargetCalc(yearData) {
-  const currentDay = yearData.day
-  const totalSD = yearData.schSdDay + yearData.uschSdDay
-  yearData.operationDay = currentDay - totalSD
-  yearData.operationHour = yearData.operationDay * 24
+  const yearTarget: TReliabilityYear = yearData
+  const currentDay = yearTarget.day
+  const totalSD = yearTarget.schSdDay + yearTarget.uschSdDay
+  yearTarget.operationDay = currentDay - totalSD
+  yearTarget.operationTargetHour = yearTarget.operationDay * 24
 
-  return yearData
+  return yearTarget
 }
 
 export function disturbanceCalc(reliabilityData, disturbanceData) {
-  const disturbanceInternal: Disturbance[] = disturbanceData.internal
-  const disturbanceExternal: Disturbance[] = disturbanceData.external
+  const disturbanceInternal: TDisturbance[] = disturbanceData.internal
+  const disturbanceExternal: TDisturbance[] = disturbanceData.external
   const MonthTargetDay: number[] = reliabilityData.monthTargetDay
 
   MonthTargetDay.forEach((element, index) => {
@@ -33,7 +34,7 @@ export function disturbanceCalc(reliabilityData, disturbanceData) {
     const date = new Date(disturbance.date)
     const month = date.getMonth()
     reliabilityData.monthActualHrs[month] =
-      reliabilityData.monthTargetHrs[month] - disturbance.duration
+      reliabilityData.monthActualHrs[month] - disturbance.duration
     distExternal += disturbance.duration
   })
   const totalDisturbance = distInternal + distExternal
@@ -47,157 +48,161 @@ export function disturbanceCalc(reliabilityData, disturbanceData) {
 
 export function hourCalc(reliabilityData, toDay) {
   const currentMonth = toDay.getMonth()
+  const ytdMonth = currentMonth + 1
+  const prognoseMonth = currentMonth + 2
+
   const currentDate = toDay.getDate()
+  const reliabilityCalcData: TReliability = reliabilityData
+  const reliabilityYaer: TReliabilityYear = reliabilityData.currentYear
+
   let ytdDay = 0
   let ytdTargetDay = 0
   let ytdActualHour = 0
 
   //Calculate day & hour
   if (currentMonth > 0) {
-    for (let i = 0; i <= currentMonth; i++) {
-      ytdDay += reliabilityData.monthDay[i]
-      ytdTargetDay += reliabilityData.monthTargetDay[i]
-      ytdActualHour += reliabilityData.monthActualHrs[i]
+    for (let i = 0; i < currentMonth; i++) {
+      ytdDay += reliabilityCalcData.monthDay[i]
+      ytdTargetDay += reliabilityCalcData.monthTargetDay[i]
+      ytdActualHour += reliabilityCalcData.monthActualHrs[i]
 
       //calculate percentage
-      reliabilityData.percentageHour[i] = Math.floor(
-        (reliabilityData.monthActualHrs[i] * 100) / reliabilityData.monthTargetHrs[i]
+      reliabilityCalcData.percentageHour[i] = Math.floor(
+        (reliabilityCalcData.monthActualHrs[i] * 100) / reliabilityCalcData.monthTargetHrs[i]
       )
     }
     ytdDay += currentDate
     ytdTargetDay += currentDate
     const ytdTargetHour = ytdTargetDay * 24
 
-    reliabilityData.ytdTarget.day = ytdDay
-    reliabilityData.ytdTarget.operationDay = ytdTargetDay
-    reliabilityData.ytdTarget.operationHour = ytdTargetHour
-
-    reliabilityData.ytdActual.operationHour = ytdActualHour
+    reliabilityCalcData.monthTargetHrs[ytdMonth] = ytdTargetHour //YTD target hour
+    reliabilityCalcData.monthActualHrs[ytdMonth] = ytdActualHour + currentDate * 24 //YTD target hour
   }
 
-  reliabilityData.currentMonthTarget.day = reliabilityData.monthDay[currentMonth]
-  reliabilityData.currentMonthTarget.operationDay = reliabilityData.monthTargetDay[currentMonth]
-  reliabilityData.currentMonthTarget.operationHour =
-    reliabilityData.currentMonthTarget.operationDay * 24
-
-  reliabilityData.currentMonthActual.day = reliabilityData.monthDay[currentMonth]
-  reliabilityData.currentMonthActual.operationDay = currentDate
-  reliabilityData.currentMonthActual.operationHour =
-    reliabilityData.currentMonthActual.operationDay * 24
-  reliabilityData.percentage.currentMonthDay = Math.floor(
-    (reliabilityData.currentMonthActual.operationDay * 100) /
-      reliabilityData.currentMonthTarget.operationDay
+  reliabilityCalcData.monthActualHrs[currentMonth] = currentDate * 24
+  reliabilityCalcData.percentageHour[currentMonth] = Math.floor(
+    (reliabilityCalcData.monthActualHrs[currentMonth] * 100) /
+      reliabilityCalcData.monthTargetHrs[currentMonth]
   )
 
-  reliabilityData.percentage.currentMonthHour = Math.floor(
-    (reliabilityData.currentMonthActual.operationHour * 100) /
-      reliabilityData.currentMonthTarget.operationHour
+  reliabilityCalcData.percentageHour[ytdMonth] = Math.floor(
+    (reliabilityCalcData.monthActualHrs[ytdMonth] * 100) /
+      reliabilityCalcData.monthTargetHrs[ytdMonth]
   )
 
-  reliabilityData.percentage.ytdHour = Math.floor(
-    (reliabilityData.ytdActual.operationHour * 100) / reliabilityData.ytdTarget.operationHour
-  )
-
-  reliabilityData.percentage.ytdDay = Math.floor(
-    (reliabilityData.ytdActual.operationDay * 100) / reliabilityData.ytdTarget.operationDay
-  )
-  //progone target calc
-  reliabilityData.prognoseTarget.day = reliabilityData.currentYear.day
-  reliabilityData.prognoseTarget.operationDay = reliabilityData.currentYear.operationDay
-  reliabilityData.prognoseTarget.operationHour = reliabilityData.prognoseTarget.operationDay * 24
+  reliabilityCalcData.monthTargetHrs[prognoseMonth] = reliabilityYaer.operationDay * 24
 
   //progone actual calc
   let remainingTargetDay = 0
   for (let i = currentMonth + 1; i <= 11; i++) {
-    ytdDay += reliabilityData.monthDay[i]
-    remainingTargetDay +=
-      reliabilityData.monthTargetDay[i] + (reliabilityData.monthTargetDay[i - 1] - currentDate)
+    ytdDay += reliabilityCalcData.monthDay[i]
+    remainingTargetDay += reliabilityCalcData.monthTargetDay[i]
   }
+  remainingTargetDay += reliabilityCalcData.monthTargetDay[currentMonth] - currentDate
   const remainingTargetHour = remainingTargetDay * 24
 
-  reliabilityData.prognoseActual.day = reliabilityData.currentYear.day
-  reliabilityData.prognoseActual.operationHour =
-    reliabilityData.ytdActual.operationHour + remainingTargetHour
+  reliabilityCalcData.monthActualHrs[prognoseMonth] =
+    reliabilityCalcData.monthActualHrs[ytdMonth] + remainingTargetHour
 
-  reliabilityData.percentage.prognoseHour = Math.floor(
-    (reliabilityData.prognoseActual.operationHour * 100) /
-      reliabilityData.prognoseTarget.operationHour
+  reliabilityCalcData.percentageHour[prognoseMonth] = Math.floor(
+    (reliabilityCalcData.monthActualHrs[prognoseMonth] * 100) /
+      reliabilityCalcData.monthTargetHrs[prognoseMonth]
   )
+
   // console.log('hourCalc - data : ', reliabilityData)
-  return reliabilityData
+  return reliabilityCalcData
 }
 
 export function opexCalc(opexData, toDay) {
   const currentMonth = toDay.getMonth()
-  const currentDate = toDay.getDate()
+  const ytdMonth = currentMonth + 1
+  const prognoseMonth = currentMonth + 2
+
+  const opexCalcData: TOpex = opexData
   let ytdOpexBudget = 0
   let ytdOpexActual = 0
-  let ytdOpexPrognoseBudget = 0
-  let ytdOpexPrognoseActual = 0
+  let opexPrognoseBudget = 0
+  let opexPrognoseActual = 0
 
   //Calculate ytd
   if (currentMonth >= 0) {
     for (let i = 0; i <= currentMonth; i++) {
-      ytdOpexBudget += opexData.monthBudget[i]
-      ytdOpexActual += opexData.monthActual[i]
-      opexData.percentage[i] = Math.floor((opexData.monthActual[i] * 100) / opexData.monthBudget[i])
+      ytdOpexBudget += opexCalcData.monthBudget[i]
+      ytdOpexActual += opexCalcData.monthActual[i]
+      opexCalcData.percentage[i] = Math.floor(
+        (opexCalcData.monthActual[i] * 100) / opexCalcData.monthBudget[i]
+      )
     }
-    opexData.ytd.actual = ytdOpexActual
-    opexData.ytd.budget = ytdOpexBudget
-    opexData.ytd.percentage = Math.floor((ytdOpexActual * 100) / ytdOpexBudget)
+
+    opexCalcData.monthBudget[ytdMonth] = ytdOpexBudget
+    opexCalcData.monthActual[ytdMonth] = ytdOpexActual
+    opexCalcData.percentage[ytdMonth] = Math.floor(
+      (opexCalcData.monthActual[ytdMonth] * 100) / opexCalcData.monthBudget[ytdMonth]
+    )
 
     //init prognose
-    ytdOpexPrognoseActual = ytdOpexActual
-    ytdOpexPrognoseBudget = ytdOpexBudget
+    opexPrognoseActual = ytdOpexActual
+    opexPrognoseBudget = ytdOpexBudget
   }
 
   //Calculate prognose
-  for (let i = currentMonth + 1; i <= 11; i++) {
-    ytdOpexPrognoseActual += opexData.monthBudget[i]
-    ytdOpexPrognoseBudget += opexData.monthBudget[i]
+  for (let i = ytdMonth; i <= 11; i++) {
+    opexPrognoseActual += opexCalcData.monthBudget[i]
+    opexPrognoseBudget += opexCalcData.monthBudget[i]
   }
-  opexData.prognose.actual = ytdOpexPrognoseActual
-  opexData.prognose.budget = ytdOpexPrognoseBudget
-  opexData.prognose.percentage = Math.floor((ytdOpexPrognoseActual * 100) / ytdOpexPrognoseBudget)
 
-  return opexData
+  opexCalcData.monthBudget[prognoseMonth] = opexPrognoseBudget
+  opexCalcData.monthActual[prognoseMonth] = opexPrognoseActual
+  opexCalcData.percentage[prognoseMonth] = Math.floor(
+    (opexCalcData.monthActual[prognoseMonth] * 100) / opexCalcData.monthBudget[prognoseMonth]
+  )
+
+  return opexCalcData
 }
 
 export function capexCalc(capexData, toDay) {
   const currentMonth = toDay.getMonth()
+  const ytdMonth = currentMonth + 1
+  const prognoseMonth = currentMonth + 2
+
+  const capexCalcData: TCapex = capexData
   let ytdCapexBudget = 0
   let ytdCapexActual = 0
-  let ytdCapexPrognoseBudget = 0
-  let ytdCapexPrognoseActual = 0
+  let capexPrognoseBudget = 0
+  let capexPrognoseActual = 0
 
   //Calculate ytd
   if (currentMonth >= 0) {
     for (let i = 0; i <= currentMonth; i++) {
-      ytdCapexBudget += capexData.monthBudget[i]
-      ytdCapexActual += capexData.monthActual[i]
-      capexData.percentage[i] = Math.floor(
-        (capexData.monthActual[i] * 100) / capexData.monthBudget[i]
+      ytdCapexBudget += capexCalcData.monthBudget[i]
+      ytdCapexActual += capexCalcData.monthActual[i]
+      capexCalcData.percentage[i] = Math.floor(
+        (capexCalcData.monthActual[i] * 100) / capexCalcData.monthBudget[i]
       )
     }
-    capexData.ytd.actual = ytdCapexActual
-    capexData.ytd.budget = ytdCapexBudget
-    capexData.ytd.percentage = Math.floor((ytdCapexActual * 100) / ytdCapexBudget)
+
+    capexCalcData.monthBudget[ytdMonth] = ytdCapexBudget
+    capexCalcData.monthActual[ytdMonth] = ytdCapexActual
+    capexCalcData.percentage[ytdMonth] = Math.floor(
+      (capexCalcData.monthActual[ytdMonth] * 100) / capexCalcData.monthBudget[ytdMonth]
+    )
 
     //init prognose
-    ytdCapexPrognoseActual = ytdCapexActual
-    ytdCapexPrognoseBudget = ytdCapexBudget
+    capexPrognoseActual = ytdCapexActual
+    capexPrognoseBudget = ytdCapexBudget
   }
 
   //Calculate prognose
-  for (let i = currentMonth + 1; i <= 11; i++) {
-    ytdCapexPrognoseActual += capexData.monthBudget[i]
-    ytdCapexPrognoseBudget += capexData.monthBudget[i]
+  for (let i = ytdMonth; i <= 11; i++) {
+    capexPrognoseActual += capexCalcData.monthBudget[i]
+    capexPrognoseBudget += capexCalcData.monthBudget[i]
   }
-  capexData.prognose.actual = ytdCapexPrognoseActual
-  capexData.prognose.budget = ytdCapexPrognoseBudget
-  capexData.prognose.percentage = Math.floor(
-    (ytdCapexPrognoseActual * 100) / ytdCapexPrognoseBudget
+
+  capexCalcData.monthBudget[prognoseMonth] = capexPrognoseBudget
+  capexCalcData.monthActual[prognoseMonth] = capexPrognoseActual
+  capexCalcData.percentage[prognoseMonth] = Math.floor(
+    (capexCalcData.monthActual[prognoseMonth] * 100) / capexCalcData.monthBudget[prognoseMonth]
   )
 
-  return capexData
+  return capexCalcData
 }

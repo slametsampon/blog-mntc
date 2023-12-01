@@ -1,7 +1,15 @@
+import { TOpex } from '@/utils/definition'
 import { getMonthIndexShort } from '@/utils/getDateString'
 
 export default function CardBudget({ title, opexData, capexData }) {
+  const opexDisplayData: TOpex = opexData
+  const capexDisplayData: TOpex = capexData
+
   const toDay = new Date()
+  const currentMonth = toDay.getMonth()
+  const ytdMonth = currentMonth + 1
+  const prognoseMonth = currentMonth + 2
+
   return (
     <>
       <div className=" text-gray-900 text-sm dark:text-gray-100">
@@ -22,40 +30,28 @@ export default function CardBudget({ title, opexData, capexData }) {
             </thead>
             <tbody>
               {opexData.month.map((mth) => {
-                if (mth - 1 > toDay.getMonth()) return
+                if (mth - 1 > prognoseMonth) return
                 return (
                   <tr
                     key={mth}
                     className="border-2 odd:bg-green-50 odd:text-blue-700 even:bg-blue-50"
                   >
-                    <td className="px-3 py-1 font-semibold">{getMonthIndexShort(mth - 1)}</td>
-                    <td className="text-center">{opexData.monthBudget[mth - 1]}</td>
-                    <td className="text-center">{opexData.monthActual[mth - 1]}</td>
-                    <td className="text-center">{opexData.percentage[mth - 1]}</td>
-                    <td className="text-center">{capexData.monthBudget[mth - 1]}</td>
-                    <td className="text-center">{capexData.monthActual[mth - 1]}</td>
-                    <td className="text-center">{capexData.percentage[mth - 1]}</td>
+                    {mth - 1 === ytdMonth ? (
+                      <td className="px-3 py-1 font-semibold">YTD</td>
+                    ) : mth - 1 === prognoseMonth ? (
+                      <td className="px-3 py-1 font-semibold">Prognose</td>
+                    ) : (
+                      <td className="px-3 py-1 font-semibold">{getMonthIndexShort(mth - 1)}</td>
+                    )}
+                    <td className="text-center">{opexDisplayData.monthBudget[mth - 1]}</td>
+                    <td className="text-center">{opexDisplayData.monthActual[mth - 1]}</td>
+                    <td className="text-center">{opexDisplayData.percentage[mth - 1]}</td>
+                    <td className="text-center">{capexDisplayData.monthBudget[mth - 1]}</td>
+                    <td className="text-center">{capexDisplayData.monthActual[mth - 1]}</td>
+                    <td className="text-center">{capexDisplayData.percentage[mth - 1]}</td>
                   </tr>
                 )
               })}
-              <tr className="border-2 odd:bg-green-50 odd:text-blue-700 even:bg-blue-50">
-                <td className="px-3 py-1 font-semibold">YTD</td>
-                <td className="text-center font-semibold">{opexData.ytd.budget}</td>
-                <td className="text-center font-semibold">{opexData.ytd.actual}</td>
-                <td className="text-center font-semibold">{opexData.ytd.percentage}</td>
-                <td className="text-center font-semibold">{capexData.ytd.budget}</td>
-                <td className="text-center font-semibold">{capexData.ytd.actual}</td>
-                <td className="text-center font-semibold">{capexData.ytd.percentage}</td>
-              </tr>
-              <tr className="border-2 odd:bg-green-50 odd:text-blue-700 even:bg-blue-50">
-                <td className="px-3 py-1 font-semibold">Prognose</td>
-                <td className="text-center font-semibold">{opexData.prognose.budget}</td>
-                <td className="text-center font-semibold">{opexData.prognose.actual}</td>
-                <td className="text-center font-semibold">{opexData.prognose.percentage}</td>
-                <td className="text-center font-semibold">{capexData.prognose.budget}</td>
-                <td className="text-center font-semibold">{capexData.prognose.actual}</td>
-                <td className="text-center font-semibold">{capexData.prognose.percentage}</td>
-              </tr>
             </tbody>
           </table>
         </div>

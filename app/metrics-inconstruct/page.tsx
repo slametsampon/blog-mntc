@@ -20,10 +20,10 @@ export default function Page() {
   opexCalc(opexData, toDay)
   capexCalc(capexData, toDay)
 
-  console.log('after Calc reliabilityData : ', reliabilityData)
-  console.log('after Calc disturbanceData : ', disturbanceData)
-  console.log('after Calc opexData : ', opexData)
-  console.log('after Calc capexData : ', capexData)
+  // console.log('after Calc reliabilityData : ', reliabilityData)
+  // console.log('after Calc disturbanceData : ', disturbanceData)
+  // console.log('after Calc opexData : ', opexData)
+  // console.log('after Calc capexData : ', capexData)
 
   return (
     <>

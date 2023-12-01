@@ -1,8 +1,14 @@
+import { TReliability, TReliabilityYear } from '@/utils/definition'
 import { getMonthFull, getMonthIndexShort } from '@/utils/getDateString'
 
 export default function CardReliability({ title, reliabilityData }) {
   const toDay = new Date()
-  const currentYearData = reliabilityData.currentYear
+  const currentMonth = toDay.getMonth()
+  const ytdMonth = currentMonth + 1
+  const prognoseMonth = currentMonth + 2
+
+  const currentYearData: TReliabilityYear = reliabilityData.currentYear
+  const reliabilityDisplayData: TReliability = reliabilityData
 
   return (
     <>
@@ -31,7 +37,9 @@ export default function CardReliability({ title, reliabilityData }) {
               </tr>
               <tr className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-blue-50">
                 <td className="px-3 py-1">Operation Hour</td>
-                <td className="text-right px-3 font-semibold">{currentYearData.operationHour}</td>
+                <td className="text-right px-3 font-semibold">
+                  {currentYearData.operationTargetHour}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -51,68 +59,32 @@ export default function CardReliability({ title, reliabilityData }) {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-2 odd:bg-slate-50 odd:text-blue-700 even:bg-blue-50">
-                <td className="px-3 py-1">Month Day</td>
-                <td className="text-right px-3 font-semibold">
-                  {reliabilityData.currentMonthTarget.day}
-                </td>
-                <td className="text-right px-3 font-semibold">
-                  {reliabilityData.currentMonthActual.operationDay}
-                </td>
-                <td className="text-right px-3 font-semibold">
-                  {reliabilityData.percentage.currentMonthDay}
-                </td>
-              </tr>
-              {reliabilityData.monthTargetHrs.map((hrs, index) => {
-                if (index > toDay.getMonth()) return
+              {reliabilityDisplayData.monthTargetHrs.map((hrs, index) => {
+                if (index > prognoseMonth) return
                 return (
                   <tr
                     key={index}
                     className="border-2 odd:bg-green-50 odd:text-blue-700 even:bg-blue-50"
                   >
-                    <td className="px-3 py-1 font-semibold">{getMonthIndexShort(index)}</td>
-                    <td className="px-3 text-right">{reliabilityData.monthTargetHrs[index]}</td>
-                    <td className="px-3 text-right">{reliabilityData.monthActualHrs[index]}</td>
-                    <td className="px-3 text-right">{reliabilityData.percentageHour[index]}</td>
+                    {index === ytdMonth ? (
+                      <td className="px-3 py-1 font-semibold">YTD Hour</td>
+                    ) : index === prognoseMonth ? (
+                      <td className="px-3 py-1 font-semibold">Prognose Hour</td>
+                    ) : (
+                      <td className="px-3 py-1 font-semibold">{getMonthIndexShort(index)}</td>
+                    )}
+                    <td className="px-3 text-right">
+                      {reliabilityDisplayData.monthTargetHrs[index]}
+                    </td>
+                    <td className="px-3 text-right">
+                      {reliabilityDisplayData.monthActualHrs[index]}
+                    </td>
+                    <td className="px-3 text-right">
+                      {reliabilityDisplayData.percentageHour[index]}
+                    </td>
                   </tr>
                 )
               })}
-              <tr className="border-2 odd:bg-slate-50 odd:text-blue-700 even:bg-blue-50">
-                <td className="px-3 py-1">Month Hour</td>
-                <td className="text-right px-3 font-semibold">
-                  {reliabilityData.currentMonthTarget.operationHour}
-                </td>
-                <td className="text-right px-3 font-semibold">
-                  {reliabilityData.currentMonthActual.operationHour}
-                </td>
-                <td className="text-right px-3 font-semibold">
-                  {reliabilityData.percentage.currentMonthHour}
-                </td>
-              </tr>
-              <tr className="border-2 odd:bg-slate-50 odd:text-blue-700 even:bg-blue-50">
-                <td className="px-3 py-1">YTD Hour</td>
-                <td className="text-right px-3 font-semibold">
-                  {reliabilityData.ytdTarget.operationHour}
-                </td>
-                <td className="text-right px-3 font-semibold">
-                  {reliabilityData.ytdActual.operationHour}
-                </td>
-                <td className="text-right px-3 font-semibold">
-                  {reliabilityData.percentage.ytdHour}
-                </td>
-              </tr>
-              <tr className="border-2 odd:bg-slate-50 odd:text-blue-700 even:bg-blue-50">
-                <td className="px-3 py-1">Prognose Hour</td>
-                <td className="text-right px-3 font-semibold">
-                  {reliabilityData.prognoseTarget.operationHour}
-                </td>
-                <td className="text-right px-3 font-semibold">
-                  {reliabilityData.prognoseActual.operationHour}
-                </td>
-                <td className="text-right px-3 font-semibold">
-                  {reliabilityData.percentage.prognoseHour}
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
