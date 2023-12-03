@@ -64,7 +64,7 @@ const metricsStatic = {
       id: 20300000,
       name: 'expUser',
       email: 'expUser@example.com',
-      password: bcrypt.hash('start123', 10),
+      password: bcrypt.hashSync('start123'),
       isActive: 1,
       isAdmin: 0,
       levelId: 1,
