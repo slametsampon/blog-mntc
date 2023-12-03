@@ -41,6 +41,11 @@ const metricsStatic = {
     ytd: { budget: 11, actual: 12, percentage: 13 },
     prognose: { budget: 14, actual: 15, percentage: 16 },
   },
+  unschSD: [
+    { date: '2023-02-15', description: 'disturbance external-1', duration: 1.5 },
+    { date: '2023-03-15', description: 'disturbance external-2', duration: 1.4 },
+    { date: '2023-05-15', description: 'disturbance external-3', duration: 0.25 },
+  ],
   disturbance: {
     internal: [
       { date: '2023-01-15', description: 'disturbance internal-1', duration: 5 },

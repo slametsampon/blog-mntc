@@ -1,14 +1,28 @@
 import { TReliability, TReliabilityYear } from '@/utils/definition'
 import { getMonthFull, getMonthIndexShort } from '@/utils/getDateString'
+import BarChart from './Barchart'
+import Linechart from './Linechart'
 
 export default function CardReliability({ title, reliabilityData }) {
   const toDay = new Date()
   const currentMonth = toDay.getMonth()
-  const ytdMonth = currentMonth + 1
-  const prognoseMonth = currentMonth + 2
+  const ytdMonth = currentMonth
+  const prognoseMonth = currentMonth + 1
 
   const currentYearData: TReliabilityYear = reliabilityData.currentYear
   const reliabilityDisplayData: TReliability = reliabilityData
+
+  const labels = reliabilityDisplayData.percentageHour.map((mt, index) => {
+    if (index > prognoseMonth) return
+    if (index === ytdMonth) return 'Ytd'
+    if (index === prognoseMonth) return 'Prg'
+    return getMonthIndexShort(index)
+  })
+
+  const datasets = reliabilityDisplayData.percentageHour.map((hrs, index) => {
+    if (index > prognoseMonth) return
+    return hrs
+  })
 
   return (
     <>
@@ -88,7 +102,9 @@ export default function CardReliability({ title, reliabilityData }) {
             </tbody>
           </table>
         </div>
-        <div>Chart</div>
+        <div>
+          <Linechart title="Running Hour (%)" labels={labels} datasets={datasets} />{' '}
+        </div>
       </div>
     </>
   )

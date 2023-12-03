@@ -35,3 +35,8 @@ input:-webkit-autofill:focus {
 .wo-table {
   @apply gap-6 rounded-2xl bg-slate-100 leading-5 text-gray-900 shadow-md dark:bg-gray-900 dark:text-gray-100;
 }
+.chart-wrapper {
+  border: 1px solid blue;
+  height: 300px;
+  width: 600px;
+}

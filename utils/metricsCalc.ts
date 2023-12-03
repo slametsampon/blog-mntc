@@ -48,8 +48,8 @@ export function disturbanceCalc(reliabilityData, disturbanceData) {
 
 export function hourCalc(reliabilityData, toDay) {
   const currentMonth = toDay.getMonth()
-  const ytdMonth = currentMonth + 1
-  const prognoseMonth = currentMonth + 2
+  const ytdMonth = currentMonth
+  const prognoseMonth = currentMonth + 1
 
   const currentDate = toDay.getDate()
   const reliabilityCalcData: TReliability = reliabilityData
@@ -71,19 +71,19 @@ export function hourCalc(reliabilityData, toDay) {
         (reliabilityCalcData.monthActualHrs[i] * 100) / reliabilityCalcData.monthTargetHrs[i]
       )
     }
-    ytdDay += currentDate
-    ytdTargetDay += currentDate
+    // ytdDay += currentDate
+    // ytdTargetDay += currentDate
     const ytdTargetHour = ytdTargetDay * 24
 
     reliabilityCalcData.monthTargetHrs[ytdMonth] = ytdTargetHour //YTD target hour
-    reliabilityCalcData.monthActualHrs[ytdMonth] = ytdActualHour + currentDate * 24 //YTD target hour
+    reliabilityCalcData.monthActualHrs[ytdMonth] = ytdActualHour
   }
 
-  reliabilityCalcData.monthActualHrs[currentMonth] = currentDate * 24
-  reliabilityCalcData.percentageHour[currentMonth] = Math.floor(
-    (reliabilityCalcData.monthActualHrs[currentMonth] * 100) /
-      reliabilityCalcData.monthTargetHrs[currentMonth]
-  )
+  // reliabilityCalcData.monthActualHrs[currentMonth] = currentDate * 24
+  // reliabilityCalcData.percentageHour[currentMonth] = Math.floor(
+  //   (reliabilityCalcData.monthActualHrs[currentMonth] * 100) /
+  //     reliabilityCalcData.monthTargetHrs[currentMonth]
+  // )
 
   reliabilityCalcData.percentageHour[ytdMonth] = Math.floor(
     (reliabilityCalcData.monthActualHrs[ytdMonth] * 100) /
