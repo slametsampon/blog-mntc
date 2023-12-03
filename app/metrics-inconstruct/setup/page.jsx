@@ -94,7 +94,6 @@ export default function Page() {
                   className="input w-full rounded-2xl bg-blue-50 dark:bg-gray-900"
                   defaultValue={formattedDate}
                   id="schMonth"
-                  autoFocus
                 ></input>
               </div>
               {errors.schMonth && <div className="text-red-500">{errors.schMonth.message}</div>}
@@ -113,7 +112,6 @@ export default function Page() {
                 })}
                 className="rounded-2xl bg-blue-50 dark:bg-gray-900"
                 id="durationDay"
-                autoFocus
               ></input>
               {errors.durationDay && (
                 <div className="text-red-500 ">{errors.durationDay.message}</div>
@@ -131,7 +129,6 @@ export default function Page() {
                 })}
                 className="w-full rounded-2xl bg-blue-50 dark:bg-gray-900"
                 id="detailRemark"
-                autoFocus
               ></input>
               {errors.detailRemark && (
                 <div className="text-red-500 ">{errors.detailRemark.message}</div>
