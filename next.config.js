@@ -70,7 +70,6 @@ module.exports = () => {
       domains: ['picsum.photos'],
     },
     experimental: {
-      appDir: true,
       serverActions: true,
     },
     async headers() {
