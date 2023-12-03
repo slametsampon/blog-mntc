@@ -43,7 +43,7 @@ export default function CardReliability({ title, reliabilityData }) {
               </tr>
               <tr className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-blue-50">
                 <td className="px-3 py-1">Un-Schedule S/D</td>
-                <td className="text-right px-3 font-semibold">{currentYearData.uschSdDay}</td>
+                <td className="text-right px-3 font-semibold">{currentYearData.unschSdDay}</td>
               </tr>
               <tr className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-blue-50">
                 <td className="px-3 py-1">Operation Day</td>

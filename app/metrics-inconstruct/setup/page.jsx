@@ -1,7 +1,7 @@
 'use client'
 import CardScheduleSD from '@/components/CardScheduleSD'
 import metricsStatic from '@/data/metricsStatic'
-import getDefaultFormatedDate from '@/getDefaultFormatedDate'
+import { getDefaultFormatedMonth } from '@/utils/getDefaultFormatedDate'
 import { useSession } from 'next-auth/react'
 import { useReducer, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -32,8 +32,9 @@ export default function Page() {
     formState: { errors },
   } = useForm()
 
-  const [{ loading, error }, dispatch] = useReducer(reducer, {
+  const [{ loading, error, sdListing }, dispatch] = useReducer(reducer, {
     loading: true,
+    sdListing: [],
     error: '',
   })
 
@@ -42,38 +43,20 @@ export default function Page() {
 
   const submitHandler = async (data) => {
     console.log('submitHandler-data : ', data)
-
-    // update JobTicket
-    // try {
-    //   dispatch({ type: 'CREATE_JOBTICKET_REQUEST' })
-    //   const response = await fetch('/api/cmms/jobTicket/', {
-    //     method: 'POST', // or 'PUT'
-    //     headers: {
-    //       'Content-Type': 'application/json;charset=UTF-8',
-    //     },
-    //     body: JSON.stringify(data),
-    //   })
-    //   console.log('CreateJobticket - submitHandler - response : ', response)
-    //   dispatch({ type: 'CREATE_JOBTICKET_SUCCESS' })
-    //   toast.success('Jobticket created successfully')
-    //   router.push('/dashboard')
-    // } catch (error) {
-    //   dispatch({ type: 'CREATE_JOBTICKET_FAIL', payload: getError(error) })
-    //   toast.error(getError(error))
-    // }
   }
 
   const handleOnclickAddButton = async ({ target }) => {
-    // const buttonValue = target.value
+    const buttonValue = target.value
     const schMonth = getValues('schMonth')
     const durationDay = getValues('durationDay')
     const detailRemark = getValues('detailRemark')
 
+    console.log('handleOnclickAddButton-buttonValue : ', buttonValue)
     console.log('handleOnclickAddButton-schMonth : ', schMonth)
     console.log('handleOnclickAddButton-durationDay : ', durationDay)
     console.log('handleOnclickAddButton-detailRemark : ', detailRemark)
   }
-  const formattedDate = getDefaultFormatedDate()
+  const formattedDate = getDefaultFormatedMonth()
   return (
     <>
       <div className="mt-5 rounded-2xl bg-blue-50 pb-3 pt-3 shadow-md dark:bg-gray-900">
@@ -108,15 +91,51 @@ export default function Page() {
                 max="31"
                 {...register('durationDay', {
                   required: 'Please enter durationDay',
-                  minLength: { value: 1, message: 'durationDay is more than 9 chars' },
+                  minLength: { value: 1, message: 'durationDay is more than 1 chars' },
                 })}
                 className="rounded-2xl bg-blue-50 dark:bg-gray-900"
                 id="durationDay"
+                defaultValue="1"
               ></input>
               {errors.durationDay && (
                 <div className="text-red-500 ">{errors.durationDay.message}</div>
               )}
             </div>
+            <fieldset className="mt-3 mb-4">
+              <legend className="font-semibold mb-1">Shutdown type:</legend>
+
+              <div className="mb-1 px-3">
+                <input
+                  type="radio"
+                  {...register('scheduledType', {
+                    required: 'Please enter scheduledType',
+                  })}
+                  id="scheduledType"
+                  name="sdType"
+                  value="scheduled"
+                  checked
+                />
+                <label htmlFor="scheduledType" className="px-2">
+                  Scheduled
+                </label>
+              </div>
+
+              <div className="px-3">
+                <input
+                  type="radio"
+                  {...register('unscheduledType', {
+                    required: 'Please enter unscheduledType',
+                  })}
+                  id="unscheduledType"
+                  name="sdType"
+                  value="unscheduled"
+                  checked
+                />
+                <label htmlFor="unscheduledType" className="px-2">
+                  Un-Scheduled
+                </label>
+              </div>
+            </fieldset>
             <div className="mb-4 font-medium">
               <label htmlFor="detailRemark" className="font-semibold">
                 Remark
@@ -129,6 +148,7 @@ export default function Page() {
                 })}
                 className="w-full rounded-2xl bg-blue-50 dark:bg-gray-900"
                 id="detailRemark"
+                defaultValue="PLN power dip"
               ></input>
               {errors.detailRemark && (
                 <div className="text-red-500 ">{errors.detailRemark.message}</div>

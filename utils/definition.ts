@@ -36,7 +36,7 @@ export type TReliabilityYear = {
   year: number
   day: number
   schSdDay: number
-  uschSdDay: number
+  unschSdDay: number
   operationDay: number
   operationTargetHour: number
   operationActualHour: number

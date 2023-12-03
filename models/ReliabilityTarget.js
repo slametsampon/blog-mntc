@@ -4,7 +4,7 @@ const reliabilityYaerSchema = new mongoose.Schema({
   year: Number,
   day: Number,
   schSdDay: Number,
-  uschSdDay: Number,
+  unschSdDay: Number,
   operationDay: Number,
   operationTargetHour: Number,
   operationActualHour: Number,

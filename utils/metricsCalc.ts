@@ -3,7 +3,7 @@ import { TCapex, TDisturbance, TOpex, TReliability, TReliabilityYear } from './d
 export function yearTargetCalc(yearData) {
   const yearTarget: TReliabilityYear = yearData
   const currentDay = yearTarget.day
-  const totalSD = yearTarget.schSdDay + yearTarget.uschSdDay
+  const totalSD = yearTarget.schSdDay + yearTarget.unschSdDay
   yearTarget.operationDay = currentDay - totalSD
   yearTarget.operationTargetHour = yearTarget.operationDay * 24
 
@@ -71,19 +71,11 @@ export function hourCalc(reliabilityData, toDay) {
         (reliabilityCalcData.monthActualHrs[i] * 100) / reliabilityCalcData.monthTargetHrs[i]
       )
     }
-    // ytdDay += currentDate
-    // ytdTargetDay += currentDate
     const ytdTargetHour = ytdTargetDay * 24
 
     reliabilityCalcData.monthTargetHrs[ytdMonth] = ytdTargetHour //YTD target hour
     reliabilityCalcData.monthActualHrs[ytdMonth] = ytdActualHour
   }
-
-  // reliabilityCalcData.monthActualHrs[currentMonth] = currentDate * 24
-  // reliabilityCalcData.percentageHour[currentMonth] = Math.floor(
-  //   (reliabilityCalcData.monthActualHrs[currentMonth] * 100) /
-  //     reliabilityCalcData.monthTargetHrs[currentMonth]
-  // )
 
   reliabilityCalcData.percentageHour[ytdMonth] = Math.floor(
     (reliabilityCalcData.monthActualHrs[ytdMonth] * 100) /

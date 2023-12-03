@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 
 const metricsStatic = {
   reliability: {
-    currentYear: { day: 365, schSdDay: 13, uschSdDay: 5, operationDay: 0, operationHour: 0 },
+    currentYear: { day: 365, schSdDay: 13, unschSdDay: 5, operationDay: 0, operationHour: 0 },
     monthDay: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 31],
     monthTargetDay: [24, 11, 30, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 31],
     percentageDay: [24, 11, 30, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 31],
