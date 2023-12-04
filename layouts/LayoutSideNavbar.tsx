@@ -14,7 +14,7 @@ const LayoutSideNavbar = () => {
       <div className="mb-3 flex flex-col rounded-2xl bg-slate-50 p-2 shadow-sm dark:bg-gray-900">
         {session ? (
           <>
-            <div className="p-1">{session.user?.name}</div>
+            <div className="p-1 font-semibold text-green-700">{session.user?.name}</div>
             <div>
               <Button onClick={logoutClickHandler} className="mt-4 w-full">
                 Logout <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />

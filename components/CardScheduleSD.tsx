@@ -1,9 +1,18 @@
+import { getDefaultFormatedMonth } from '@/utils/getDefaultFormatedDate'
 import { CiEdit } from 'react-icons/ci'
 import { CiTrash } from 'react-icons/ci'
 
-export default function CardScheduleSD({ title, unscheduleSD }) {
+export default function CardScheduleSD({ action, title, unscheduleSD }) {
   let totalDuration = 0
   unscheduleSD.map((item) => (totalDuration += item.duration))
+
+  const onClickEditHandler = (item) => {
+    action('EDIT', item)
+  }
+
+  const onClickDeleteHandler = (item) => {
+    action('DELETE', item)
+  }
   return (
     <>
       <table className="table-auto ml-3 mb-3 border-2 mt-3 bg-blue-50 rounded-2xl shadow-2xl dark:bg-gray-900 dark:text-gray-50">
@@ -18,21 +27,24 @@ export default function CardScheduleSD({ title, unscheduleSD }) {
           </tr>
         </thead>
         <tbody>
-          {unscheduleSD.map((item) => (
+          {unscheduleSD.map((item, index) => (
             <tr
-              key={item.date}
+              key={index}
               className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-green-50"
             >
-              <td className="px-3 py-1">{item.date}</td>
+              <td className="px-3 py-1">{getDefaultFormatedMonth(item.date)}</td>
               <td className="text-right px-3">{item.description}</td>
               <td className="text-right px-3 font-semibold">{item.duration}</td>
               <td className="text-right px-3">
-                <button className="px-3 py-1 link-active">
+                <button onClick={(e) => onClickEditHandler(item)} className="px-3 py-1 link-active">
                   <CiEdit />
                 </button>
               </td>
               <td className="text-right px-3">
-                <button className="px-3 py-1 link-active">
+                <button
+                  onClick={(e) => onClickDeleteHandler(item)}
+                  className="px-3 py-1 link-active"
+                >
                   <CiTrash />
                 </button>
               </td>
