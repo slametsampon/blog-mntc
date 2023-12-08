@@ -1,8 +1,23 @@
 import bcrypt from 'bcryptjs'
 
 const metricsStatic = {
+  buttondCommand: {
+    AddToList: 'Add to list',
+    NewData: 'New',
+    SaveEdit: 'Save',
+    Cancel: 'Cancel',
+    Submit: 'Submit',
+  },
+  shutdownType: { unschedule: 'unscheduled', schedule: 'scheduled' },
   reliability: {
-    currentYear: { day: 365, schSdDay: 13, unschSdDay: 5, operationDay: 0, operationHour: 0 },
+    currentYear: {
+      year: 2023,
+      day: 365,
+      schSdDay: 13,
+      unschSdDay: 5,
+      operationDay: 0,
+      operationHour: 0,
+    },
     monthDay: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 31],
     monthTargetDay: [24, 11, 30, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 31],
     percentageDay: [24, 11, 30, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 31],
@@ -41,10 +56,14 @@ const metricsStatic = {
     ytd: { budget: 11, actual: 12, percentage: 13 },
     prognose: { budget: 14, actual: 15, percentage: 16 },
   },
-  unschSD: [
-    { date: '2023-02-15', description: 'disturbance external-1', duration: 1.5 },
-    { date: '2023-03-15', description: 'disturbance external-2', duration: 1.4 },
-    { date: '2023-05-15', description: 'disturbance external-3', duration: 0.25 },
+  planSdList: [
+    { dateStr: '2023-01', description: 'SCH-Plant turn-around', duration: 6 },
+    { dateStr: '2023-02', description: 'SCH-Plant turn-around', duration: 7 },
+    { dateStr: '2023-04', description: 'UNSCH-External factor', duration: 1 },
+    { dateStr: '2023-06', description: 'UNSCH-External factor', duration: 1 },
+    { dateStr: '2023-08', description: 'UNSCH-External factor', duration: 1 },
+    { dateStr: '2023-10', description: 'UNSCH-External factor', duration: 1 },
+    { dateStr: '2023-12', description: 'UNSCH-External factor', duration: 1 },
   ],
   disturbance: {
     internal: [

@@ -45,7 +45,7 @@
     "app/metrics-inconstruct/upload/*.jsx",
     "app/ui/login-form.jsx",
     "layouts/LayoutSideNavbar.jsx",
-    "components/Barchart.jsx",
+    "components/*.jsx",
     "app/metrics-inconstruct/setup/page.jsx",
     "app/metrics-inconstruct/setup/page.jsx"
   ],

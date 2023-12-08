@@ -1,3 +1,4 @@
+import getDayOfYear from '@/data/getDayOfYear'
 import { TCapex, TDisturbance, TOpex, TReliability, TReliabilityYear } from './definition'
 
 export function yearTargetCalc(yearData) {
@@ -8,6 +9,34 @@ export function yearTargetCalc(yearData) {
   yearTarget.operationTargetHour = yearTarget.operationDay * 24
 
   return yearTarget
+}
+
+export function targetYearCalc(year, planSDList) {
+  let totalDuration = 0
+  let totalSchedule = 0
+  let totalUnschedule = 0
+  planSDList.map((item) => {
+    totalDuration += parseFloat(item.duration)
+    if (item.description.includes('UNSCH-')) {
+      totalUnschedule += parseFloat(item.duration)
+    } else totalSchedule += parseFloat(item.duration)
+  })
+
+  const yearDay = getDayOfYear(year)
+  const operationDay = yearDay - totalDuration
+  const operationHour = operationDay * 24
+  const targetYear: TReliabilityYear = {
+    year: year,
+    day: yearDay,
+    unschSdDay: totalUnschedule,
+    schSdDay: totalSchedule,
+    sdDay: totalDuration,
+    operationDay: operationDay,
+    operationActualHour: 0,
+    operationPercentageHour: 0,
+    operationTargetHour: operationHour,
+  }
+  return targetYear
 }
 
 export function disturbanceCalc(reliabilityData, disturbanceData) {

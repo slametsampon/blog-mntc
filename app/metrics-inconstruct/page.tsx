@@ -20,11 +20,6 @@ export default function Page() {
   opexCalc(opexData, toDay)
   capexCalc(capexData, toDay)
 
-  // console.log('after Calc reliabilityData : ', reliabilityData)
-  // console.log('after Calc disturbanceData : ', disturbanceData)
-  // console.log('after Calc opexData : ', opexData)
-  // console.log('after Calc capexData : ', capexData)
-
   return (
     <>
       <div className="text-2xl mt-3 mb-3 font-semibold rounded-xl bg-cyan-100 px-2 py-3 shadow-md dark:bg-gray-900">

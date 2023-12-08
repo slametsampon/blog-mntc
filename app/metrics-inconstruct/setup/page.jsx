@@ -1,8 +1,10 @@
 'use client'
-import CardScheduleSD from '@/components/CardScheduleSD'
+import CardListSD from '@/components/CardListSD'
 import metricsStatic from '@/data/metricsStatic'
+import { getPlanSdList, savePlanSdList } from '@/lib/actions'
 import { getError } from '@/utils/error'
-import { getDefaultFormatedMonth } from '@/utils/getDefaultFormatedDate'
+import { getMonthFull } from '@/utils/getDateString'
+import clsx from 'clsx'
 import { useSession } from 'next-auth/react'
 import { useReducer, useRef, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -38,65 +40,51 @@ export default function Page() {
     error: '',
   })
 
+  const buttonCmd = metricsStatic.buttondCommand
+  const shutdownType = metricsStatic.shutdownType
   const [sdType, setSdType] = useState('unscheduled')
-  const [buttonVal, setButtonVal] = useState('Add to list')
+  const [buttonVal, setButtonVal] = useState(buttonCmd.AddToList)
   const [tempList, setTempList] = useState([])
   const [editItem, setEditItem] = useState({})
   const [isButtonDisable, setIsButtonDisable] = useState(false)
-
-  const onOptionChange = (e) => {
-    setSdType(e.target.value)
-  }
-
-  const user = session?.user
-  const defaultDetailRemark = 'PLN power dip'
-  const defaultFormattedMonth = getDefaultFormatedMonth()
+  const [isSubmitable, setIsSubmitable] = useState(false)
+  const [targetYearMonth, setTargetYearMonth] = useState('')
+  const defaultDescription = 'External factor'
+  const defaultTargetYear = new Date().getFullYear()
+  const defaultTargetMonth = getMonthFull(new Date())
   const defaultDuration = '1'
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
 
-  const submitHandler = async (data) => {
-    console.log('submitHandler-data : ', data)
-  }
+  const setDefaultEntryData = () => {
+    setValue('targetYear', defaultTargetYear)
+    setValue('targetMonth', defaultTargetMonth)
+    setValue('description', defaultDescription)
+    setValue('durationDay', defaultDuration)
+    setSdType(shutdownType.unschedule)
 
-  const editList = (item) => {
-    // console.log('editList-item : ', item)
-    // console.log('editList-tempList : ', tempList)
-    const newList = tempList.map((itemList) => {
-      if (itemList.date === item.date) {
-        return {
-          ...itemList,
-          date: getValues('schMonth'),
-          description: getValues('detailRemark'),
-          duration: getValues('durationDay'),
-        }
-      } else return itemList
-    })
-    // console.log('editList-newList : ', newList)
-    setTempList(newList)
-  }
-
-  const handleOnclickAddButton = async ({ target }) => {
-    const buttonValue = target.value
-    const schMonth = getValues('schMonth') || defaultFormattedMonth
-    const durationDay = getValues('durationDay') || defaultDuration
-    let detailRemark = getValues('detailRemark') || defaultDetailRemark
-    console.log('handleOnclickAddButton-buttonValue : ', buttonValue)
-
-    let prefix = 'UNSCH-'
-    if (sdType === 'scheduled') prefix = 'SCH-'
-    detailRemark = prefix + detailRemark
-
-    // console.log('handleOnclickAddButton-typeof : ', typeof buttonValue)
-    if (buttonValue === 'Save') {
-      // console.log('handleOnclickAddButton-prior-editList : ')
-      editList(editItem)
-    }
+    //button set default
+    setButtonVal(buttonCmd.AddToList)
+    setIsButtonDisable(false)
   }
 
   useEffect(() => {
     const feetchSdList = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
-        const data = metricsStatic.unschSD
+        const data = await getPlanSdList(2023)
         setTempList(data)
         dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
       } catch (err) {
@@ -105,27 +93,122 @@ export default function Page() {
     }
 
     feetchSdList()
+    setDefaultEntryData()
   }, [])
 
+  const onOptionChange = (e) => {
+    setSdType(e.target.value)
+  }
+
+  const submitHandler = async (data) => {
+    console.log('submitHandler-data : ', data)
+  }
+
+  const editListItem = (item) => {
+    const newList = tempList.map((itemList) => {
+      if (itemList.date === item.date) {
+        return {
+          ...itemList,
+          dateStr: targetYearMonth,
+          description: getValues('description'),
+          duration: getValues('durationDay'),
+        }
+      } else return itemList
+    })
+    setTempList(newList)
+  }
+
+  const handleOnchangeYearMonth = async ({ target }) => {
+    const yearStr = getValues('targetYear').toString() || defaultTargetYear
+    let MonthStr = getValues('targetMonth')
+    if (target.id === 'targetMonth') {
+      MonthStr = target.value || defaultTargetMonth
+      setValue('targetMonth', MonthStr)
+    }
+    const monthIndex = months.indexOf(MonthStr) + 1
+    let monthIndexStr = monthIndex.toString()
+    if (monthIndex < 10) monthIndexStr = `0${monthIndexStr}`
+    setTargetYearMonth(`${yearStr}-${monthIndexStr}`)
+  }
+
+  const handleOnclickButton = async ({ target }) => {
+    let prefix = 'UNSCH-'
+    let description = getValues('description') || defaultDescription
+
+    const buttondCommand = target.value
+    // console.log('handleOnclickButton-buttondCommand : ', buttondCommand)
+    switch (buttondCommand) {
+      case buttonCmd.SaveEdit:
+        editListItem(editItem)
+        //set default entry data
+        setDefaultEntryData()
+        setIsSubmitable('true')
+        return
+
+      case buttonCmd.Cancel:
+        //set default entry data
+        setDefaultEntryData()
+        return
+
+      case buttonCmd.AddToList:
+        if (sdType === 'scheduled') prefix = 'SCH-'
+        description = prefix + description
+        setTempList([
+          ...tempList,
+          {
+            dateStr: targetYearMonth,
+            description: description,
+            duration: parseFloat(getValues('durationDay')),
+          },
+        ])
+        return
+
+      case buttonCmd.Submit:
+        // console.log('handleOnclickButton-buttondCommand : ', buttondCommand)
+        // console.log('handleOnclickButton-tempList : ', tempList)
+        savePlanSdList(2023, tempList)
+        //get list after saving
+        try {
+          dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
+          const data = await getPlanSdList(2023)
+          setTempList(data)
+          dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
+        } catch (err) {
+          dispatch({ type: 'FETCH_FAIL_SD_LIST', payload: getError(err) })
+        }
+        setIsSubmitable(false)
+        window.alert('Data telah tersimpan')
+        return
+
+      default:
+        console.log('handleOnclickButton-no-action : ', buttondCommand)
+    }
+  }
+
   const actionEditDeleteItem = (action, item) => {
+    let description = item.description
     switch (action) {
       case 'EDIT':
-        // console.log('actionEditDeleteItem-action : ', action)
-        // console.log('actionEditDeleteItem-item : ', item)
-        setValue('detailRemark', item.description)
         setValue('durationDay', item.duration.toString())
-        setValue('schMonth', getDefaultFormatedMonth(item.date))
-        setButtonVal('Save')
-        setIsButtonDisable(true)
-        if (item.description.includes('SCH-')) {
-          setSdType('scheduled')
-        } else setSdType('unscheduled')
+        setValue('targetYear', new Date(item.dateStr).getFullYear())
+        setValue('targetMonth', getMonthFull(new Date(item.dateStr)))
+
+        setSdType('scheduled')
+        if (description.includes('UNSCH-')) {
+          setSdType('unscheduled')
+        }
+
+        description = description.replace('UNSCH-', '')
+        description = description.replace('SCH-', '')
+        setValue('description', description)
+
+        setButtonVal(buttonCmd.SaveEdit)
+        setIsButtonDisable(false)
         setEditItem(item)
         return
       case 'DELETE':
-        console.log('actionEditDeleteItem-action : ', action)
-        console.log('actionEditDeleteItem-item : ', item)
-        setTempList(tempList.filter((a) => a.date !== item.date))
+        setTempList(tempList.filter((a) => a._id !== item._id))
+        setIsSubmitable(true)
         return
 
       default:
@@ -141,23 +224,72 @@ export default function Page() {
             <form className="mx-auto max-w-screen-md px-3" onSubmit={handleSubmit(submitHandler)}>
               <h1 className="pb-6 pt-3 text-xl font-bold">Operation Setup Target</h1>
               <div className="mb-3 rounded-xl bg-slate-50  px-5 py-3 shadow-md dark:bg-gray-900">
-                <div className="mb-4 font-medium">
-                  <label htmlFor="schMonth" className="font-semibold">
+                {/* <div className="mb-4 font-medium">
+                  <label htmlFor="targetYear" className="font-semibold">
                     Month Year
                   </label>
                   <div className="grid grid-cols-2">
                     <input
                       type="month"
-                      {...register('schMonth', {
-                        required: 'Please enter schMonth',
-                        minLength: { value: 6, message: 'schMonth is more than 5 chars' },
+                      {...register('targetYear', {
+                        required: 'Please enter targetYear',
+                        minLength: { value: 6, message: 'targetYear is more than 5 chars' },
                       })}
                       className="input w-full rounded-2xl bg-blue-50 dark:bg-gray-900"
-                      defaultValue={defaultFormattedMonth}
-                      id="schMonth"
+                      defaultValue={defaultTargetYear}
+                      id="targetYear"
                     ></input>
                   </div>
-                  {errors.schMonth && <div className="text-red-500">{errors.schMonth.message}</div>}
+                  {errors.targetYear && <div className="text-red-500">{errors.targetYear.message}</div>}
+                </div> */}
+                <div className="mb-4 font-medium">
+                  <label htmlFor="targetYear" className="font-semibold">
+                    Year
+                  </label>
+                  <div className="grid grid-cols-2">
+                    <input
+                      type="number"
+                      {...register('targetYear', {
+                        required: 'Please enter targetYear',
+                        minLength: { value: 4, message: 'targetYear is more than 5 chars' },
+                      })}
+                      className="input w-full rounded-2xl bg-blue-50 dark:bg-gray-900"
+                      defaultValue={defaultTargetYear}
+                      onChange={handleOnchangeYearMonth}
+                      min={1990}
+                      max={2050}
+                      id="targetYear"
+                    ></input>
+                  </div>
+                  {errors.targetYear && (
+                    <div className="text-red-500">{errors.targetYear.message}</div>
+                  )}
+                </div>
+                <div className="mb-4 font-medium">
+                  <label htmlFor="targetMonth" className="font-semibold">
+                    Month
+                  </label>
+                  <div className="grid grid-cols-2">
+                    <select
+                      {...register('targetMonth', {
+                        required: 'Please enter targetMonth',
+                        minLength: { value: 3, message: 'targetMonth is more than 2 chars' },
+                      })}
+                      className="input w-full rounded-2xl bg-blue-50 dark:bg-gray-900"
+                      onChange={handleOnchangeYearMonth}
+                      id="targetMonth"
+                    >
+                      {' '}
+                      {months.map((mth, index) => (
+                        <option key={index} value={mth}>
+                          {mth}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  {errors.targetMonth && (
+                    <div className="text-red-500">{errors.targetMonth.message}</div>
+                  )}
                 </div>
                 <div className="mb-4 font-medium">
                   <label htmlFor="durationDay" className="font-semibold mr-3">
@@ -177,83 +309,102 @@ export default function Page() {
                     <div className="text-red-500 ">{errors.durationDay.message}</div>
                   )}
                 </div>
-                <fieldset className="mt-3 mb-4">
-                  <legend className="font-semibold mb-1">Shutdown type:</legend>
-
-                  <div className="mb-1 px-3">
-                    <input
-                      type="radio"
-                      {...register('unscheduledType', {
-                        required: 'Please enter unscheduledType',
-                      })}
-                      id="unscheduledType"
-                      name="sdType"
-                      value="unscheduled"
-                      checked={sdType === 'unscheduled'}
-                      onChange={onOptionChange}
-                    />
-                    <label htmlFor="unscheduledType" className="px-2">
-                      Un-Scheduled
-                    </label>
-                  </div>
-
-                  <div className="mb-1 px-3">
-                    <input
-                      type="radio"
-                      {...register('scheduledType', {
-                        required: 'Please enter scheduledType',
-                      })}
-                      id="scheduledType"
-                      name="sdType"
-                      value="scheduled"
-                      checked={sdType === 'scheduled'}
-                      onChange={onOptionChange}
-                    />
-                    <label htmlFor="scheduledType" className="px-2">
-                      Scheduled
-                    </label>
-                  </div>
-                </fieldset>
-                <div className="mb-4 font-medium">
-                  <label htmlFor="detailRemark" className="font-semibold">
-                    Remark
+                <div className="mb-3 mt-3">
+                  <div className="font-semibold mb-1">Shutdown type:</div>
+                  <input
+                    type="radio"
+                    {...register('unscheduledType', {
+                      required: 'Please enter unscheduledType',
+                    })}
+                    id="unscheduledType"
+                    name="sdType"
+                    value={shutdownType.unschedule}
+                    checked={sdType === shutdownType.unschedule}
+                    onChange={onOptionChange}
+                  />
+                  <label htmlFor="unscheduledType" className="px-2">
+                    Un-Scheduled
                   </label>
                   <input
+                    type="radio"
+                    {...register('scheduledType', {
+                      required: 'Please enter scheduledType',
+                    })}
+                    id="scheduledType"
+                    name="sdType"
+                    value={shutdownType.schedule}
+                    checked={sdType === shutdownType.schedule}
+                    onChange={onOptionChange}
+                  />
+                  <label htmlFor="scheduledType" className="px-2">
+                    Scheduled
+                  </label>
+                </div>
+                <div className="mb-4 font-medium">
+                  <label htmlFor="description" className="font-semibold">
+                    Description
+                  </label>
+                  <textarea
                     type="text"
-                    {...register('detailRemark', {
-                      required: 'Please enter detailRemark',
-                      minLength: { value: 10, message: 'detailRemark is more than 9 chars' },
+                    {...register('description', {
+                      required: 'Please enter description',
+                      minLength: { value: 10, message: 'description is more than 9 chars' },
                     })}
                     className="w-full rounded-2xl bg-blue-50 dark:bg-gray-900"
-                    id="detailRemark"
-                    defaultValue={defaultDetailRemark}
-                  ></input>
-                  {errors.detailRemark && (
-                    <div className="text-red-500 ">{errors.detailRemark.message}</div>
+                    rows="3"
+                    id="description"
+                    defaultValue={defaultDescription}
+                  ></textarea>
+                  {errors.description && (
+                    <div className="text-red-500 ">{errors.description.message}</div>
                   )}
                 </div>
                 <input
-                  className="mb-3 primary-button rounded-2xl bg-blue-500 px-6 py-2 font-bold text-white hover:bg-blue-700 dark:bg-gray-900"
+                  className="mb-3 mt-5 primary-button rounded-2xl bg-blue-500 px-6 py-2 font-bold text-white hover:bg-blue-700 dark:bg-gray-900"
                   type="button"
                   {...register('idButton', {
                     required: 'Please enter idButton',
                   })}
                   value={buttonVal}
-                  onClick={handleOnclickAddButton}
+                  onClick={handleOnclickButton}
                   id="idButton"
                   disabled={isButtonDisable}
                 />
+                {buttonVal === buttonCmd.SaveEdit ? (
+                  <input
+                    className="mb-3 ml-3 primary-button rounded-2xl text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300  text-center me-2  dark:hover:bg-red-700 dark:focus:ring-red-900 px-6 py-2 font-bold  dark:bg-gray-900"
+                    type="button"
+                    {...register('idButtonCancel', {
+                      required: 'Please enter idButtonCancel',
+                    })}
+                    value={buttonCmd.Cancel}
+                    onClick={handleOnclickButton}
+                    id="idButtonCancel"
+                  />
+                ) : null}
               </div>
               <div className="mt-3 mb-3 rounded-xl bg-slate-50  px-5 py-3 shadow-md dark:bg-gray-900">
-                <CardScheduleSD
+                <CardListSD
                   action={actionEditDeleteItem}
-                  title="UnSchedule Summary"
-                  unscheduleSD={tempList}
+                  title="S/D Plan Summary"
+                  planSDList={tempList}
                 />
                 <div className="mb-4 mt-7">
-                  <button className="primary-button rounded-2xl bg-blue-500 px-6 py-2 font-bold text-white hover:bg-blue-700 dark:bg-gray-900">
-                    Submit
-                  </button>
+                  {tempList.length > 0 ? (
+                    <input
+                      className={clsx(
+                        'mb-3 ml-3 primary-button rounded-2xl text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300  text-center me-2  dark:hover:bg-green-700 dark:focus:ring-green-900 px-6 py-2 font-bold  dark:bg-gray-900',
+                        { disabled: !isSubmitable }
+                      )}
+                      type="button"
+                      {...register('idButtonSubmit', {
+                        required: 'Please enter idButtonSubmit',
+                      })}
+                      value={buttonCmd.Submit}
+                      onClick={handleOnclickButton}
+                      id="idButtonSubmit"
+                    />
+                  ) : null}
                 </div>
               </div>
             </form>
