@@ -1,5 +1,4 @@
 import getDayOfYear from '@/data/getDayOfYear'
-import { getDefaultFormatedMonth } from '@/utils/getDefaultFormatedDate'
 import { CiEdit } from 'react-icons/ci'
 import { CiTrash } from 'react-icons/ci'
 

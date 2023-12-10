@@ -67,7 +67,10 @@ export default function Page() {
     const feetchSdList = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
-        const data = await getPlanSdList(defaultTargetYear)
+        // const data = await getPlanSdList(defaultTargetYear)
+        // const results = await fetch(`/api/cmms/jobTicket/dashboardUser?queryFilter=${userString}`)
+        const results = await fetch(`/api/metrics/setup?yearStr=${defaultTargetYear}`)
+        const data = await results.json()
         dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL_SD_LIST', payload: getError(err) })
