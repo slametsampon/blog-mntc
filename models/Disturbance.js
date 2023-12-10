@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const disturbanceSchema = new mongoose.Schema({
-  date: Date,
+  dateStr: String,
   description: String,
   duration: Number,
 })

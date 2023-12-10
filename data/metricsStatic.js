@@ -8,7 +8,12 @@ const metricsStatic = {
     Cancel: 'Cancel',
     Submit: 'Submit',
   },
-  shutdownType: { unschedule: 'unscheduled', schedule: 'scheduled' },
+  shutdownType: {
+    unschedule: 'unscheduled',
+    schedule: 'scheduled',
+    internal: 'internal',
+    external: 'external',
+  },
   reliability: {
     currentYear: {
       year: 2023,
@@ -65,16 +70,25 @@ const metricsStatic = {
     { dateStr: '2023-10', description: 'UNSCH-External factor', duration: 1 },
     { dateStr: '2023-12', description: 'UNSCH-External factor', duration: 1 },
   ],
+  disturbanceList: [
+    { dateStr: '2023-01-25', description: 'INT-Plant turn-around', duration: 6 },
+    { dateStr: '2023-02-21', description: 'INT-Plant turn-around', duration: 7 },
+    { dateStr: '2023-04-30', description: 'EXT-PLN interrupt', duration: 1 },
+    { dateStr: '2023-06-29', description: 'EXT-PLN interrupt', duration: 1 },
+    { dateStr: '2023-08-13', description: 'EXT-PGN interrupt', duration: 1 },
+    { dateStr: '2023-10-01', description: 'EXT-PGN interrupt', duration: 1 },
+    { dateStr: '2023-12-09', description: 'EXT-PGN interrupt', duration: 1 },
+  ],
   disturbance: {
     internal: [
-      { date: '2023-01-15', description: 'disturbance internal-1', duration: 5 },
-      { date: '2023-02-15', description: 'disturbance internal-2', duration: 1.4 },
-      { date: '2023-03-15', description: 'disturbance internal-3', duration: 2 },
+      { dateStr: '2023-01-15', description: 'disturbance internal-1', duration: 5 },
+      { dateStr: '2023-02-15', description: 'disturbance internal-2', duration: 1.4 },
+      { dateStr: '2023-03-15', description: 'disturbance internal-3', duration: 2 },
     ],
     external: [
-      { date: '2023-02-15', description: 'disturbance external-1', duration: 1.5 },
-      { date: '2023-03-15', description: 'disturbance external-2', duration: 1.4 },
-      { date: '2023-05-15', description: 'disturbance external-3', duration: 0.25 },
+      { dateStr: '2023-02-15', description: 'disturbance external-1', duration: 1.5 },
+      { dateStr: '2023-03-15', description: 'disturbance external-2', duration: 1.4 },
+      { dateStr: '2023-05-15', description: 'disturbance external-3', duration: 0.25 },
     ],
     summary: { internal: 0, external: 0, total: 0 },
   },

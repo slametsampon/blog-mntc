@@ -1,0 +1,7 @@
+.submitable {
+  background-color: green;
+}
+.submidistable {
+  background-color: red;
+  disabled: true;
+}

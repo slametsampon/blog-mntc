@@ -1,12 +1,11 @@
 'use client'
 import CardListSD from '@/components/CardListSD'
 import metricsStatic from '@/data/metricsStatic'
-import { getPlanSdList, savePlanSdList } from '@/lib/actions'
+import { addPlanSdItem, deletePlanSdItem, getPlanSdList, saveEditPlanSdItem } from '@/lib/actions'
 import { getError } from '@/utils/error'
-import { getMonthFull } from '@/utils/getDateString'
-import clsx from 'clsx'
+import { getMonthFull, monthsFull } from '@/utils/getDateString'
 import { useSession } from 'next-auth/react'
-import { useReducer, useRef, useState, useEffect } from 'react'
+import { useReducer, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 function reducer(state, action) {
@@ -25,7 +24,6 @@ function reducer(state, action) {
 
 export default function Page() {
   const { status, data: session } = useSession()
-  const Once = useRef(false)
   const {
     handleSubmit,
     register,
@@ -44,29 +42,14 @@ export default function Page() {
   const shutdownType = metricsStatic.shutdownType
   const [sdType, setSdType] = useState('unscheduled')
   const [buttonVal, setButtonVal] = useState(buttonCmd.AddToList)
-  const [tempList, setTempList] = useState([])
   const [editItem, setEditItem] = useState({})
   const [isButtonDisable, setIsButtonDisable] = useState(false)
-  const [isSubmitable, setIsSubmitable] = useState(false)
-  const [targetYearMonth, setTargetYearMonth] = useState('')
   const defaultDescription = 'External factor'
   const defaultTargetYear = new Date().getFullYear()
   const defaultTargetMonth = getMonthFull(new Date())
+  const [targetYearMonth, setTargetYearMonth] = useState('')
   const defaultDuration = '1'
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ]
+  const mthFull = monthsFull
 
   const setDefaultEntryData = () => {
     setValue('targetYear', defaultTargetYear)
@@ -84,8 +67,7 @@ export default function Page() {
     const feetchSdList = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
-        const data = await getPlanSdList(2023)
-        setTempList(data)
+        const data = await getPlanSdList(defaultTargetYear)
         dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL_SD_LIST', payload: getError(err) })
@@ -96,6 +78,16 @@ export default function Page() {
     setDefaultEntryData()
   }, [])
 
+  const feetchSdListYear = async (year) => {
+    try {
+      dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
+      const data = await getPlanSdList(year)
+      dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
+    } catch (err) {
+      dispatch({ type: 'FETCH_FAIL_SD_LIST', payload: getError(err) })
+    }
+  }
+
   const onOptionChange = (e) => {
     setSdType(e.target.value)
   }
@@ -105,44 +97,46 @@ export default function Page() {
   }
 
   const editListItem = (item) => {
-    const newList = tempList.map((itemList) => {
-      if (itemList.date === item.date) {
-        return {
-          ...itemList,
-          dateStr: targetYearMonth,
-          description: getValues('description'),
-          duration: getValues('durationDay'),
-        }
-      } else return itemList
-    })
-    setTempList(newList)
+    let prefix = 'UNSCH-'
+    let description = getValues('description') || defaultDescription
+    if (sdType === 'scheduled') prefix = 'SCH-'
+    description = prefix + description
+    const newItem = {
+      dateStr: targetYearMonth,
+      description: description,
+      duration: getValues('durationDay'),
+    }
+    saveEditPlanSdItem(newItem, item._id)
   }
 
   const handleOnchangeYearMonth = async ({ target }) => {
     const yearStr = getValues('targetYear').toString() || defaultTargetYear
-    let MonthStr = getValues('targetMonth')
+    let MonthStr = getValues('targetMonth') || defaultTargetMonth
     if (target.id === 'targetMonth') {
-      MonthStr = target.value || defaultTargetMonth
+      MonthStr = target.value
       setValue('targetMonth', MonthStr)
     }
-    const monthIndex = months.indexOf(MonthStr) + 1
+    const monthIndex = mthFull.indexOf(MonthStr) + 1
     let monthIndexStr = monthIndex.toString()
     if (monthIndex < 10) monthIndexStr = `0${monthIndexStr}`
     setTargetYearMonth(`${yearStr}-${monthIndexStr}`)
+    console.log('handleOnchangeYearMonth-targetYearMonth', `${yearStr}-${monthIndexStr}`)
   }
 
   const handleOnclickButton = async ({ target }) => {
+    let addItem = {}
     let prefix = 'UNSCH-'
     let description = getValues('description') || defaultDescription
 
+    const targetYear = new Date(targetYearMonth).getFullYear()
     const buttondCommand = target.value
     // console.log('handleOnclickButton-buttondCommand : ', buttondCommand)
     switch (buttondCommand) {
       case buttonCmd.SaveEdit:
         editListItem(editItem)
         //set default entry data
+        feetchSdListYear(targetYear)
         setDefaultEntryData()
-        setIsSubmitable('true')
         return
 
       case buttonCmd.Cancel:
@@ -153,31 +147,18 @@ export default function Page() {
       case buttonCmd.AddToList:
         if (sdType === 'scheduled') prefix = 'SCH-'
         description = prefix + description
-        setTempList([
-          ...tempList,
-          {
-            dateStr: targetYearMonth,
-            description: description,
-            duration: parseFloat(getValues('durationDay')),
-          },
-        ])
-        return
 
-      case buttonCmd.Submit:
-        // console.log('handleOnclickButton-buttondCommand : ', buttondCommand)
-        // console.log('handleOnclickButton-tempList : ', tempList)
-        savePlanSdList(2023, tempList)
-        //get list after saving
-        try {
-          dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
-          const data = await getPlanSdList(2023)
-          setTempList(data)
-          dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
-        } catch (err) {
-          dispatch({ type: 'FETCH_FAIL_SD_LIST', payload: getError(err) })
+        addItem = {
+          dateStr: targetYearMonth,
+          description: description,
+          duration: parseFloat(getValues('durationDay')),
         }
-        setIsSubmitable(false)
-        window.alert('Data telah tersimpan')
+
+        addPlanSdItem(addItem)
+
+        //set default entry data
+        feetchSdListYear(targetYear)
+        setDefaultEntryData()
         return
 
       default:
@@ -187,11 +168,13 @@ export default function Page() {
 
   const actionEditDeleteItem = (action, item) => {
     let description = item.description
+    const targetYear = new Date(targetYearMonth).getFullYear()
     switch (action) {
       case 'EDIT':
         setValue('durationDay', item.duration.toString())
         setValue('targetYear', new Date(item.dateStr).getFullYear())
         setValue('targetMonth', getMonthFull(new Date(item.dateStr)))
+        setTargetYearMonth(item.dateStr)
 
         setSdType('scheduled')
         if (description.includes('UNSCH-')) {
@@ -207,8 +190,10 @@ export default function Page() {
         setEditItem(item)
         return
       case 'DELETE':
-        setTempList(tempList.filter((a) => a._id !== item._id))
-        setIsSubmitable(true)
+        deletePlanSdItem(item._id)
+        //set default entry data
+        feetchSdListYear(targetYear)
+        setDefaultEntryData()
         return
 
       default:
@@ -224,24 +209,6 @@ export default function Page() {
             <form className="mx-auto max-w-screen-md px-3" onSubmit={handleSubmit(submitHandler)}>
               <h1 className="pb-6 pt-3 text-xl font-bold">Operation Setup Target</h1>
               <div className="mb-3 rounded-xl bg-slate-50  px-5 py-3 shadow-md dark:bg-gray-900">
-                {/* <div className="mb-4 font-medium">
-                  <label htmlFor="targetYear" className="font-semibold">
-                    Month Year
-                  </label>
-                  <div className="grid grid-cols-2">
-                    <input
-                      type="month"
-                      {...register('targetYear', {
-                        required: 'Please enter targetYear',
-                        minLength: { value: 6, message: 'targetYear is more than 5 chars' },
-                      })}
-                      className="input w-full rounded-2xl bg-blue-50 dark:bg-gray-900"
-                      defaultValue={defaultTargetYear}
-                      id="targetYear"
-                    ></input>
-                  </div>
-                  {errors.targetYear && <div className="text-red-500">{errors.targetYear.message}</div>}
-                </div> */}
                 <div className="mb-4 font-medium">
                   <label htmlFor="targetYear" className="font-semibold">
                     Year
@@ -280,7 +247,7 @@ export default function Page() {
                       id="targetMonth"
                     >
                       {' '}
-                      {months.map((mth, index) => (
+                      {mthFull.map((mth, index) => (
                         <option key={index} value={mth}>
                           {mth}
                         </option>
@@ -387,25 +354,8 @@ export default function Page() {
                 <CardListSD
                   action={actionEditDeleteItem}
                   title="S/D Plan Summary"
-                  planSDList={tempList}
+                  planSDList={sdList}
                 />
-                <div className="mb-4 mt-7">
-                  {tempList.length > 0 ? (
-                    <input
-                      className={clsx(
-                        'mb-3 ml-3 primary-button rounded-2xl text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300  text-center me-2  dark:hover:bg-green-700 dark:focus:ring-green-900 px-6 py-2 font-bold  dark:bg-gray-900',
-                        { disabled: !isSubmitable }
-                      )}
-                      type="button"
-                      {...register('idButtonSubmit', {
-                        required: 'Please enter idButtonSubmit',
-                      })}
-                      value={buttonCmd.Submit}
-                      onClick={handleOnclickButton}
-                      id="idButtonSubmit"
-                    />
-                  ) : null}
-                </div>
               </div>
             </form>
           </div>

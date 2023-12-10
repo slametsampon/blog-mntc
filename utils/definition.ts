@@ -27,7 +27,7 @@ export type AuthResponse = {
   success?: boolean
 }
 export type TDisturbance = {
-  date: string
+  dateStr: string
   description: string
   duration: number
 }

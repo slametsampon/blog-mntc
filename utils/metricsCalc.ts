@@ -51,7 +51,7 @@ export function disturbanceCalc(reliabilityData, disturbanceData) {
   //disturbance Internal
   let distInternal = 0
   disturbanceInternal.forEach((disturbance) => {
-    const date = new Date(disturbance.date)
+    const date = new Date(disturbance.dateStr)
     const month = date.getMonth()
     reliabilityData.monthActualHrs[month] =
       reliabilityData.monthTargetHrs[month] - disturbance.duration
@@ -60,7 +60,7 @@ export function disturbanceCalc(reliabilityData, disturbanceData) {
   //disturbance External
   let distExternal = 0
   disturbanceExternal.forEach((disturbance) => {
-    const date = new Date(disturbance.date)
+    const date = new Date(disturbance.dateStr)
     const month = date.getMonth()
     reliabilityData.monthActualHrs[month] =
       reliabilityData.monthActualHrs[month] - disturbance.duration

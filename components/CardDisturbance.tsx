@@ -21,10 +21,10 @@ export default function CardDisturbance({ title, disturbanceData }) {
               <tbody>
                 {distInternal.map((disturbance) => (
                   <tr
-                    key={disturbance.date}
+                    key={disturbance.dateStr}
                     className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-green-50"
                   >
-                    <td className="px-3 py-1">{disturbance.date}</td>
+                    <td className="px-3 py-1">{disturbance.dateStr}</td>
                     <td className="text-right px-3 font-semibold">{disturbance.description}</td>
                     <td className="text-right px-3 font-semibold">{disturbance.duration}</td>
                   </tr>
@@ -49,10 +49,10 @@ export default function CardDisturbance({ title, disturbanceData }) {
               <tbody>
                 {distExternal.map((disturbance) => (
                   <tr
-                    key={disturbance.date}
+                    key={disturbance.dateStr}
                     className="border-2 odd:bg-yellow-50 odd:text-blue-700 even:bg-green-50"
                   >
-                    <td className="px-3 py-1">{disturbance.date}</td>
+                    <td className="px-3 py-1">{disturbance.dateStr}</td>
                     <td className="text-right px-3 font-semibold">{disturbance.description}</td>
                     <td className="text-right px-3 font-semibold">{disturbance.duration}</td>
                   </tr>

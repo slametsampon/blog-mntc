@@ -1,38 +1,57 @@
+export const monthsFull = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+]
+
+export const monthsShort = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+]
+export const daysShort = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+export const daysFull = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday',
+]
+
 export function getMonthFull(date: Date) {
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ]
-
-  return months[date.getMonth()]
+  return monthsFull[date.getMonth()]
 }
-export function getMonthShort(date: Date) {
-  const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ]
 
-  return months[date.getMonth()]
+export function getMonthShort(date: Date) {
+  return monthsShort[date.getMonth()]
+}
+
+export function getDayFull(date: Date) {
+  return daysFull[date.getDay()]
+}
+
+export function getDayShort(date: Date) {
+  return daysShort[date.getDay()]
 }
 
 export function getMonthIndexShort(i: number) {
@@ -52,15 +71,4 @@ export function getMonthIndexShort(i: number) {
   ]
 
   return months[i]
-}
-
-export function getDayFull(date: Date) {
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-
-  return days[date.getDay()]
-}
-export function getDayShort(date: Date) {
-  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-
-  return days[date.getDay()]
 }
