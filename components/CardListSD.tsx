@@ -5,6 +5,7 @@ import { CiTrash } from 'react-icons/ci'
 
 export default function CardListSD({ action, title, planSDList }) {
   console.log('CardListSD-planSDList', planSDList)
+  if (planSDList === undefined) return
   const toDay = new Date()
   let totalDuration = 0
   planSDList.map((item) => (totalDuration += parseFloat(item.duration)))
