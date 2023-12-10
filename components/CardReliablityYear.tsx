@@ -1,8 +1,8 @@
 'use client'
 export default function CardReliablityYear({ currentYearData, isPlanned }) {
-  console.log('currentYearData : ', currentYearData)
-  const properties = Object.keys(currentYearData)
-  console.log('properties : ', properties)
+  // console.log('currentYearData : ', currentYearData)
+  // const properties = Object.keys(currentYearData)
+  // console.log('properties : ', properties)
 
   return (
     <>
