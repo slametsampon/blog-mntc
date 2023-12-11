@@ -67,8 +67,6 @@ export default function Page() {
     const feetchSdList = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
-        // const data = await getPlanSdList(defaultTargetYear)
-        // const results = await fetch(`/api/cmms/jobTicket/dashboardUser?queryFilter=${userString}`)
         const results = await fetch(`/api/metrics/setup?yearStr=${defaultTargetYear}`)
         const data = await results.json()
         dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
@@ -84,7 +82,8 @@ export default function Page() {
   const feetchSdListYear = async (year) => {
     try {
       dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
-      const data = await getPlanSdList(year)
+      const results = await fetch(`/api/metrics/setup?yearStr=${year.toString()}`)
+      const data = await results.json()
       dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
     } catch (err) {
       dispatch({ type: 'FETCH_FAIL_SD_LIST', payload: getError(err) })
@@ -99,17 +98,25 @@ export default function Page() {
     console.log('submitHandler-data : ', data)
   }
 
-  const editListItem = (item) => {
+  const editListItem = async (item) => {
     let prefix = 'UNSCH-'
     let description = getValues('description') || defaultDescription
     if (sdType === 'scheduled') prefix = 'SCH-'
     description = prefix + description
     const newItem = {
+      id: item._id,
       dateStr: targetYearMonth,
       description: description,
       duration: getValues('durationDay'),
     }
-    saveEditPlanSdItem(newItem, item._id)
+
+    const response = await fetch('/api/metrics/setup', {
+      method: 'PUT', // or 'POST'
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify(newItem),
+    })
   }
 
   const handleOnchangeYearMonth = async ({ target }) => {
@@ -133,7 +140,6 @@ export default function Page() {
 
     const targetYear = new Date(targetYearMonth).getFullYear()
     const buttondCommand = target.value
-    // console.log('handleOnclickButton-buttondCommand : ', buttondCommand)
     switch (buttondCommand) {
       case buttonCmd.SaveEdit:
         editListItem(editItem)
@@ -157,7 +163,14 @@ export default function Page() {
           duration: parseFloat(getValues('durationDay')),
         }
 
-        addPlanSdItem(addItem)
+        // addPlanSdItem(addItem)
+        await fetch('/api/metrics/setup', {
+          method: 'POST', // or 'POST'
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+          },
+          body: JSON.stringify(addItem),
+        })
 
         //set default entry data
         feetchSdListYear(targetYear)
@@ -169,9 +182,12 @@ export default function Page() {
     }
   }
 
-  const actionEditDeleteItem = (action, item) => {
+  const actionEditDeleteItem = async (action, item) => {
     let description = item.description
     const targetYear = new Date(targetYearMonth).getFullYear()
+    const deleteItem = {
+      id: item._id,
+    }
     switch (action) {
       case 'EDIT':
         setValue('durationDay', item.duration.toString())
@@ -193,7 +209,16 @@ export default function Page() {
         setEditItem(item)
         return
       case 'DELETE':
-        deletePlanSdItem(item._id)
+        // deletePlanSdItem(item._id)
+
+        await fetch('/api/metrics/setup', {
+          method: 'DELETE', // or 'POST'
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+          },
+          body: JSON.stringify(deleteItem),
+        })
+
         //set default entry data
         feetchSdListYear(targetYear)
         setDefaultEntryData()
