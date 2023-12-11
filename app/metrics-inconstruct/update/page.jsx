@@ -1,12 +1,6 @@
 'use client'
 import CardListSD from '@/components/CardListSD'
 import metricsStatic from '@/data/metricsStatic'
-import {
-  addDisturbanceItem,
-  deleteDisturbanceItem,
-  getDisturbanceList,
-  saveEditDisturbanceItem,
-} from '@/lib/actions'
 import { getError } from '@/utils/error'
 import { getDefaultFormatedDate } from '@/utils/getDefaultFormatedDate'
 import { useSession } from 'next-auth/react'
@@ -70,7 +64,9 @@ export default function Page() {
     const feetchSdList = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
-        const data = await getDisturbanceList(defaultTargetYear)
+        // const data = await getDisturbanceList(defaultTargetYear)
+        const results = await fetch(`/api/metrics/update?yearStr=${defaultTargetYear}`)
+        const data = await results.json()
         dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL_SD_LIST', payload: getError(err) })
@@ -84,7 +80,9 @@ export default function Page() {
   const feetchSdListYear = async (year) => {
     try {
       dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
-      const data = await getDisturbanceList(year)
+      // const data = await getDisturbanceList(year)
+      const results = await fetch(`/api/metrics/update?yearStr=${year.toString()}`)
+      const data = await results.json()
       dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
     } catch (err) {
       dispatch({ type: 'FETCH_FAIL_SD_LIST', payload: getError(err) })
@@ -99,17 +97,25 @@ export default function Page() {
     console.log('submitHandler-data : ', data)
   }
 
-  const editListItem = (item) => {
+  const editListItem = async (item) => {
     let prefix = 'EXT-'
     let description = getValues('description') || defaultDescription
     if (sdType === 'internal') prefix = 'INT-'
     description = prefix + description
     const newItem = {
+      id: item._id,
       dateStr: getValues('inputDate'),
       description: description,
       duration: getValues('durationDay'),
     }
-    saveEditDisturbanceItem(newItem, item._id)
+    // saveEditDisturbanceItem(newItem, item._id)
+    const response = await fetch('/api/metrics/update', {
+      method: 'PUT', // or 'POST'
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify(newItem),
+    })
   }
 
   const handleOnchangeDate = async ({ target }) => {
@@ -145,7 +151,14 @@ export default function Page() {
           duration: parseFloat(getValues('durationDay')),
         }
 
-        addDisturbanceItem(addItem)
+        // addDisturbanceItem(addItem)
+        await fetch('/api/metrics/update', {
+          method: 'POST', // or 'POST'
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+          },
+          body: JSON.stringify(addItem),
+        })
 
         //set default entry data
         feetchSdListYear(targetYear)
@@ -157,8 +170,11 @@ export default function Page() {
     }
   }
 
-  const actionEditDeleteItem = (action, item) => {
+  const actionEditDeleteItem = async (action, item) => {
     let description = item.description
+    const deleteItem = {
+      id: item._id,
+    }
     switch (action) {
       case 'EDIT':
         setValue('durationDay', item.duration.toString())
@@ -179,8 +195,16 @@ export default function Page() {
         setEditItem(item)
         return
       case 'DELETE':
-        deleteDisturbanceItem(item._id)
+        // deleteDisturbanceItem(item._id)
         //set default entry data
+        await fetch('/api/metrics/update', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+          },
+          body: JSON.stringify(deleteItem),
+        })
+
         feetchSdListYear(targetYear)
         setDefaultEntryData()
         return

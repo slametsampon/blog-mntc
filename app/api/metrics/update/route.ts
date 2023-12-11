@@ -1,4 +1,4 @@
-import PlanSD from '@/models/PlanSdList'
+import Disturbance from '@/models/Disturbance'
 import db from '@/utils/db'
 import { getError } from '@/utils/error'
 
@@ -6,10 +6,11 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const yearStr = searchParams.get('yearStr')
   await db.connect()
-  const existingData = await PlanSD.find({
+  const existingData = await Disturbance.find({
     dateStr: { $regex: yearStr },
   }).exec()
   const dataJson = JSON.parse(JSON.stringify(existingData))
+  console.log('Update-GET-dataJson : ', dataJson)
   await db.disconnect()
   return new Response(JSON.stringify(dataJson))
 }
@@ -21,10 +22,10 @@ export async function POST(request: Request) {
   const item = { dateStr: req.dateStr, description: req.description, duration: req.duration }
   try {
     await db.connect()
-    await PlanSD.insertMany(item)
+    await Disturbance.insertMany(item)
     await db.disconnect()
   } catch (error) {
-    console.log('addPlanSdItem-error : ', getError(error))
+    console.log('addDisturbanceItem-error : ', getError(error))
   }
   return new Response(JSON.stringify({ message: 'POST' }))
 }
@@ -37,13 +38,13 @@ export async function PUT(request: Request) {
   const update = { dateStr: req.dateStr, description: req.description, duration: req.duration }
   try {
     await db.connect()
-    await PlanSD.findByIdAndUpdate(filter, update, {
+    await Disturbance.findByIdAndUpdate(filter, update, {
       new: true,
     })
     await db.disconnect()
-    console.log('saveEditPlanSdItem-successful-update : ', update)
+    console.log('saveEditDisturbanceItem-successful-update : ', update)
   } catch (error) {
-    console.log('saveEditPlanSdItem-error : ', getError(error))
+    console.log('saveEditDisturbanceItem-error : ', getError(error))
   }
   return new Response(JSON.stringify({ message: 'PUT' }))
 }
@@ -55,10 +56,10 @@ export async function DELETE(request: Request) {
   const filter = { _id: req.id }
   try {
     await db.connect()
-    await PlanSD.deleteOne(filter)
+    await Disturbance.deleteOne(filter)
     await db.disconnect()
   } catch (error) {
-    console.log('saveEditPlanSdItem-error : ', getError(error))
+    console.log('saveEditDisturbanceItem-error : ', getError(error))
   }
   return new Response(JSON.stringify({ message: 'DELETE' }))
 }

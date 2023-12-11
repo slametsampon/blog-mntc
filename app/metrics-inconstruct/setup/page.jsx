@@ -1,7 +1,6 @@
 'use client'
 import CardListSD from '@/components/CardListSD'
 import metricsStatic from '@/data/metricsStatic'
-import { addPlanSdItem, deletePlanSdItem, getPlanSdList, saveEditPlanSdItem } from '@/lib/actions'
 import { getError } from '@/utils/error'
 import { getMonthFull, monthsFull } from '@/utils/getDateString'
 import { useSession } from 'next-auth/react'
@@ -212,7 +211,7 @@ export default function Page() {
         // deletePlanSdItem(item._id)
 
         await fetch('/api/metrics/setup', {
-          method: 'DELETE', // or 'POST'
+          method: 'DELETE',
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
           },
