@@ -7,7 +7,7 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       console.log('auth?.user : ', auth?.user)
       const isLoggedIn = !!auth?.user
-      const isOnDashboard = nextUrl.pathname.startsWith('/metrics-inconstruct')
+      const isOnDashboard = nextUrl.pathname.startsWith('/metrics')
       if (isOnDashboard) {
         if (isLoggedIn) return true
         return false // Redirect unauthenticated users to login page

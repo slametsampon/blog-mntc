@@ -17,7 +17,7 @@ export default function LoginForm() {
       const result = await signIn('credentials', {
         email: email,
         password: password,
-        callbackUrl: '/metrics-inconstruct/upload',
+        callbackUrl: '/metrics/upload',
       })
       if (result.error) {
         window.alert('Your user name or password invalid')
