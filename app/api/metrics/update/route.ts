@@ -10,7 +10,6 @@ export async function GET(request: Request) {
     dateStr: { $regex: yearStr },
   }).exec()
   const dataJson = JSON.parse(JSON.stringify(existingData))
-  console.log('Update-GET-dataJson : ', dataJson)
   await db.disconnect()
   return new Response(JSON.stringify(dataJson))
 }

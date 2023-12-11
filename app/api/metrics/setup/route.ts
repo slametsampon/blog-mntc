@@ -23,8 +23,9 @@ export async function POST(request: Request) {
     await db.connect()
     await PlanSD.insertMany(item)
     await db.disconnect()
+    console.log('POST-successful-update : ', item)
   } catch (error) {
-    console.log('addPlanSdItem-error : ', getError(error))
+    console.log('POST-error : ', getError(error))
   }
   return new Response(JSON.stringify({ message: 'POST' }))
 }
@@ -41,9 +42,9 @@ export async function PUT(request: Request) {
       new: true,
     })
     await db.disconnect()
-    console.log('saveEditPlanSdItem-successful-update : ', update)
+    console.log('PUT-successful-update : ', update)
   } catch (error) {
-    console.log('saveEditPlanSdItem-error : ', getError(error))
+    console.log('PUT-error : ', getError(error))
   }
   return new Response(JSON.stringify({ message: 'PUT' }))
 }
@@ -57,8 +58,9 @@ export async function DELETE(request: Request) {
     await db.connect()
     await PlanSD.deleteOne(filter)
     await db.disconnect()
+    console.log('DELETE-successful-filter : ', filter)
   } catch (error) {
-    console.log('saveEditPlanSdItem-error : ', getError(error))
+    console.log('DELETE-error : ', getError(error))
   }
   return new Response(JSON.stringify({ message: 'DELETE' }))
 }

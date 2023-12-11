@@ -1,10 +1,11 @@
 'use client'
 import CardListSD from '@/components/CardListSD'
+import { ModalConfirm } from '@/components/modalConfirm'
 import metricsStatic from '@/data/metricsStatic'
 import { getError } from '@/utils/error'
 import { getMonthFull, monthsFull } from '@/utils/getDateString'
 import { useSession } from 'next-auth/react'
-import { useReducer, useState, useEffect } from 'react'
+import { useReducer, useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
 function reducer(state, action) {
@@ -43,12 +44,16 @@ export default function Page() {
   const [buttonVal, setButtonVal] = useState(buttonCmd.AddToList)
   const [editItem, setEditItem] = useState({})
   const [isButtonDisable, setIsButtonDisable] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const defaultDescription = 'External factor'
   const defaultTargetYear = new Date().getFullYear()
   const defaultTargetMonth = getMonthFull(new Date())
   const [targetYearMonth, setTargetYearMonth] = useState('')
   const defaultDuration = '1'
   const mthFull = monthsFull
+  const targetYear = useRef('')
+  const idSelected = useRef('')
 
   const setDefaultEntryData = () => {
     setValue('targetYear', defaultTargetYear)
@@ -137,13 +142,13 @@ export default function Page() {
     let prefix = 'UNSCH-'
     let description = getValues('description') || defaultDescription
 
-    const targetYear = new Date(targetYearMonth).getFullYear()
+    targetYear.current = new Date(targetYearMonth).getFullYear()
     const buttondCommand = target.value
     switch (buttondCommand) {
       case buttonCmd.SaveEdit:
         editListItem(editItem)
         //set default entry data
-        feetchSdListYear(targetYear)
+        feetchSdListYear(targetYear.current)
         setDefaultEntryData()
         return
 
@@ -172,7 +177,7 @@ export default function Page() {
         })
 
         //set default entry data
-        feetchSdListYear(targetYear)
+        feetchSdListYear(targetYear.current)
         setDefaultEntryData()
         return
 
@@ -183,10 +188,7 @@ export default function Page() {
 
   const actionEditDeleteItem = async (action, item) => {
     let description = item.description
-    const targetYear = new Date(targetYearMonth).getFullYear()
-    const deleteItem = {
-      id: item._id,
-    }
+    targetYear.current = new Date(targetYearMonth).getFullYear()
     switch (action) {
       case 'EDIT':
         setValue('durationDay', item.duration.toString())
@@ -208,24 +210,34 @@ export default function Page() {
         setEditItem(item)
         return
       case 'DELETE':
-        // deletePlanSdItem(item._id)
-
-        await fetch('/api/metrics/setup', {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-          },
-          body: JSON.stringify(deleteItem),
-        })
-
-        //set default entry data
-        feetchSdListYear(targetYear)
-        setDefaultEntryData()
+        idSelected.current = item._id
+        setIsModalOpen(true)
         return
 
       default:
         console.log('actionEditDeleteItem-no-action : ', item)
     }
+  }
+
+  const handleOnCloseModalInfo = (e) => {
+    setIsModalOpen(false)
+  }
+
+  const handleOnConfirmModalConfirm = async (e) => {
+    setIsModalOpen(false)
+    await fetch('/api/metrics/setup', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({
+        id: idSelected.current,
+      }),
+    })
+
+    //set default entry data
+    feetchSdListYear(targetYear.current)
+    setDefaultEntryData()
   }
 
   return (
@@ -384,6 +396,14 @@ export default function Page() {
                   planSDList={sdList}
                 />
               </div>
+              <ModalConfirm
+                isModalConfirmOpen={isModalOpen}
+                onCancel={handleOnCloseModalInfo}
+                onConfirm={handleOnConfirmModalConfirm}
+                title="Delete S/D Item Confirmation"
+                description="This will permanently DELETE this item"
+                content="Are you sure, you want to delete this item?"
+              />
             </form>
           </div>
         </>

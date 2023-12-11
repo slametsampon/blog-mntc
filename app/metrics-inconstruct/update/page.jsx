@@ -1,10 +1,11 @@
 'use client'
 import CardListSD from '@/components/CardListSD'
+import { ModalConfirm } from '@/components/modalConfirm'
 import metricsStatic from '@/data/metricsStatic'
 import { getError } from '@/utils/error'
 import { getDefaultFormatedDate } from '@/utils/getDefaultFormatedDate'
 import { useSession } from 'next-auth/react'
-import { useReducer, useState, useEffect } from 'react'
+import { useReducer, useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
 function reducer(state, action) {
@@ -43,11 +44,14 @@ export default function Page() {
   const [buttonVal, setButtonVal] = useState(buttonCmd.AddToList)
   const [editItem, setEditItem] = useState({})
   const [isButtonDisable, setIsButtonDisable] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const defaultDescription = 'External factor'
   const defaultTargetYear = new Date().getFullYear()
-  const [targetYear, settargetYear] = useState(defaultTargetYear)
   const defaultDuration = '1'
   const formatedDate = getDefaultFormatedDate(new Date())
+  const targetYear = useRef(defaultTargetYear)
+  const idSelected = useRef('')
 
   const setDefaultEntryData = () => {
     setValue('inputDate', formatedDate)
@@ -119,7 +123,8 @@ export default function Page() {
   }
 
   const handleOnchangeDate = async ({ target }) => {
-    settargetYear(new Date(target.value).getFullYear())
+    targetYear.current = new Date(target.value).getFullYear()
+    // settargetYear(new Date(target.value).getFullYear())
   }
 
   const handleOnclickButton = async ({ target }) => {
@@ -161,7 +166,7 @@ export default function Page() {
         })
 
         //set default entry data
-        feetchSdListYear(targetYear)
+        feetchSdListYear(targetYear.current)
         setDefaultEntryData()
         return
 
@@ -195,23 +200,32 @@ export default function Page() {
         setEditItem(item)
         return
       case 'DELETE':
-        // deleteDisturbanceItem(item._id)
-        //set default entry data
-        await fetch('/api/metrics/update', {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-          },
-          body: JSON.stringify(deleteItem),
-        })
-
-        feetchSdListYear(targetYear)
-        setDefaultEntryData()
+        idSelected.current = item._id
+        setIsModalOpen(true)
         return
 
       default:
         console.log('actionEditDeleteItem-no-action : ', item)
     }
+  }
+  const handleOnCloseModalInfo = (e) => {
+    setIsModalOpen(false)
+  }
+
+  const handleOnConfirmModalConfirm = async (e) => {
+    setIsModalOpen(false)
+    await fetch('/api/metrics/update', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({
+        id: idSelected.current,
+      }),
+    })
+
+    feetchSdListYear(targetYear.current)
+    setDefaultEntryData()
   }
 
   return (
@@ -342,6 +356,14 @@ export default function Page() {
                   planSDList={disturbancesList}
                 />
               </div>
+              <ModalConfirm
+                isModalConfirmOpen={isModalOpen}
+                onCancel={handleOnCloseModalInfo}
+                onConfirm={handleOnConfirmModalConfirm}
+                title="Delete Disturbance Item Confirmation"
+                description="This will permanently DELETE this item"
+                content="Are you sure, you want to delete this item?"
+              />
             </form>
           </div>
         </>
