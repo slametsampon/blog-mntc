@@ -6,7 +6,7 @@ import Papa from 'papaparse'
 import CardUploadData from '@/components/CardUploadData'
 import csvToObjectMetric from '@/utils/csvToObjectMetric'
 import { useSession } from 'next-auth/react'
-import CustomLink from '@/components/Link'
+import csvToJson from '@/lib/csvToJson'
 
 export default function Page() {
   const { data: session, status } = useSession()
@@ -21,6 +21,8 @@ export default function Page() {
 
   //State to store the values
   const [values, setValues] = useState([])
+
+  const [jsonData, setJsonData] = useState([])
 
   const changeHandler = (event) => {
     // Passing file data (event.target.files[0]) to parse using Papa.parse
@@ -43,10 +45,11 @@ export default function Page() {
         setValues(valuesArray)
         //convert and storing to metricsData
         csvToObjectMetric(rowsArray[0], valuesArray)
+        setJsonData(csvToJson(rowsArray[0], valuesArray))
       },
     })
   }
-
+  console.log('jsonData : ', jsonData)
   return (
     <div>
       {/* File Uploader */}

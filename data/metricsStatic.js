@@ -14,6 +14,13 @@ const metricsStatic = {
     internal: 'internal',
     external: 'external',
   },
+  mocStatus: {
+    approval: ['open', 'approve', 'close', 'cancel', 'evaluation', 'register-iso'],
+    engineering: ['FS', 'hazops', 'detail-drawing', 'bom'],
+    procurement: ['mris', 'PR', 'vendor-searching', 'PO', 'delivery'],
+    construction: ['jsa', 'mechanical-completion', 'punch-list'],
+    commissioning: ['pre-comm', 'commissioning', 'performance-test'],
+  },
   reliability: {
     currentYear: {
       year: 2023,
