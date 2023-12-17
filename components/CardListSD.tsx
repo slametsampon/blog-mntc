@@ -6,13 +6,13 @@ export default function CardListSD({ action, title, planSDList }) {
   console.log('CardListSD-planSDList', planSDList)
   if (planSDList === undefined) return
   const toDay = new Date()
-  let totalDuration = 0
-  planSDList.map((item) => (totalDuration += parseFloat(item.duration)))
-
   const year = toDay.getFullYear()
-  const yearDay = getDayOfYear(year)
-  const operationDay = yearDay - totalDuration
-  const operationHour = Math.floor(operationDay * 24)
+  // let totalDuration = 0
+  // planSDList.map((item) => (totalDuration += parseFloat(item.duration)))
+
+  // const yearDay = getDayOfYear(year)
+  // const operationDay = yearDay - totalDuration
+  // const operationHour = Math.floor(operationDay * 24)
   const captionText = `${title} : ${year}`
 
   const onClickEditHandler = (item) => {
@@ -63,7 +63,7 @@ export default function CardListSD({ action, title, planSDList }) {
                 </td>
               </tr>
             ))}
-            <tr className="border-2 odd:bg-blue-50 odd:text-blue-700 even:bg-slate-50">
+            {/* <tr className="border-2 odd:bg-blue-50 odd:text-blue-700 even:bg-slate-50">
               <td className="text-right px-3 font-semibold"></td>
               <td className="px-3 py-1 font-semibold">Total</td>
               <td className="text-right px-3 font-semibold">{totalDuration}</td>
@@ -90,7 +90,7 @@ export default function CardListSD({ action, title, planSDList }) {
               <td className="text-right px-3 font-semibold"></td>
               <td className="text-right px-3 font-semibold">{operationHour}</td>
               <td className="text-right px-3 font-semibold"></td>
-            </tr>
+            </tr> */}
           </tbody>
         </table>
       ) : (

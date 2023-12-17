@@ -1,5 +1,6 @@
 import getDayOfYear from '@/data/getDayOfYear'
 import { TCapex, TDisturbance, TOpex, TReliability, TReliabilityYear } from './definition'
+import metricsStatic from '@/data/metricsStatic'
 
 export function yearTargetCalc(yearData) {
   const yearTarget: TReliabilityYear = yearData
@@ -11,26 +12,31 @@ export function yearTargetCalc(yearData) {
   return yearTarget
 }
 
+export function targetMonthCalc(planSDList) {
+  const result: TReliability = metricsStatic.reliability
+  return result
+}
+
 export function targetYearCalc(year, planSDList) {
-  let totalDuration = 0
+  let totalPlanSdDay = 0
   let totalSchedule = 0
   let totalUnschedule = 0
   planSDList.map((item) => {
-    totalDuration += parseFloat(item.duration)
+    totalPlanSdDay += parseFloat(item.duration)
     if (item.description.includes('UNSCH-')) {
       totalUnschedule += parseFloat(item.duration)
     } else totalSchedule += parseFloat(item.duration)
   })
 
   const yearDay = getDayOfYear(year)
-  const operationDay = yearDay - totalDuration
+  const operationDay = yearDay - totalPlanSdDay
   const operationHour = operationDay * 24
   const targetYear: TReliabilityYear = {
     year: year,
     day: yearDay,
     unschSdDay: totalUnschedule,
     schSdDay: totalSchedule,
-    sdDay: totalDuration,
+    totalPlanSdDay: totalPlanSdDay,
     operationDay: operationDay,
     operationActualHour: 0,
     operationPercentageHour: 0,

@@ -37,7 +37,7 @@ export type TReliabilityYear = {
   day: number
   schSdDay: number
   unschSdDay: number
-  sdDay: number
+  totalPlanSdDay: number
   operationDay: number
   operationTargetHour: number
   operationActualHour: number
@@ -45,7 +45,6 @@ export type TReliabilityYear = {
 }
 
 export type TReliability = {
-  month: number[]
   monthDay: number[]
   monthTargetDay: number[]
   monthTargetHrs: number[]

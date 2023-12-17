@@ -1,9 +1,11 @@
 'use client'
 import CardListSD from '@/components/CardListSD'
+import CardSummaryTargetYear from '@/components/CardSummaryTargetYear'
 import { ModalConfirm } from '@/components/modalConfirm'
 import metricsStatic from '@/data/metricsStatic'
 import { getError } from '@/utils/error'
 import { getMonthFull, monthsFull } from '@/utils/getDateString'
+import { targetYearCalc, yearTargetCalc } from '@/utils/metricsCalc'
 import { useSession } from 'next-auth/react'
 import { useReducer, useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
@@ -50,10 +52,12 @@ export default function Page() {
   const defaultTargetYear = new Date().getFullYear()
   const defaultTargetMonth = getMonthFull(new Date())
   const [targetYearMonth, setTargetYearMonth] = useState('')
+  const [summaryTargetYear, setSummaryTargetYear] = useState({})
   const defaultDuration = '1'
   const mthFull = monthsFull
   const targetYear = useRef('')
   const idSelected = useRef('')
+  const isDataReady = useRef(false)
 
   const setDefaultEntryData = () => {
     setValue('targetYear', defaultTargetYear)
@@ -68,25 +72,29 @@ export default function Page() {
   }
 
   useEffect(() => {
-    const feetchSdList = async () => {
+    const feetchSdList = async (year) => {
       try {
         dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
-        const results = await fetch(`/api/metrics/setup?yearStr=${defaultTargetYear}`)
+        const results = await fetch(`/api/metrics/reliability/setup?yearStr=${year.toString()}`)
         const data = await results.json()
         dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
+        isDataReady.current = true
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL_SD_LIST', payload: getError(err) })
       }
     }
 
-    feetchSdList()
+    if (!isDataReady.current) feetchSdList(defaultTargetYear)
+    if (sdList.length > 0) {
+      setSummaryTargetYear(targetYearCalc(defaultTargetYear, sdList))
+    }
     setDefaultEntryData()
-  }, [])
+  }, [sdList])
 
   const feetchSdListYear = async (year) => {
     try {
       dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
-      const results = await fetch(`/api/metrics/setup?yearStr=${year.toString()}`)
+      const results = await fetch(`/api/metrics/reliability/setup?yearStr=${year.toString()}`)
       const data = await results.json()
       dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
     } catch (err) {
@@ -114,7 +122,7 @@ export default function Page() {
       duration: getValues('durationDay'),
     }
 
-    const response = await fetch('/api/metrics/setup', {
+    const response = await fetch('/api/metrics/reliability/setup', {
       method: 'PUT', // or 'POST'
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -168,7 +176,7 @@ export default function Page() {
         }
 
         // addPlanSdItem(addItem)
-        await fetch('/api/metrics/setup', {
+        await fetch('/api/metrics/reliability/setup', {
           method: 'POST', // or 'POST'
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
@@ -225,7 +233,7 @@ export default function Page() {
 
   const handleOnConfirmModalConfirm = async (e) => {
     setIsModalOpen(false)
-    await fetch('/api/metrics/setup', {
+    await fetch('/api/metrics/reliability/setup', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -395,6 +403,7 @@ export default function Page() {
                   title="S/D Plan Summary"
                   planSDList={sdList}
                 />
+                <CardSummaryTargetYear data={summaryTargetYear} />
               </div>
               <ModalConfirm
                 isModalConfirmOpen={isModalOpen}

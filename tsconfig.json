@@ -47,7 +47,8 @@
     "components/*.jsx",
     "app/metrics/upload/*.jsx",
     "app/metrics/setup/*.jsx",
-    "app/metrics/update/*.jsx"
+    "app/metrics/update/*.jsx",
+    "app/metrics/page.jsx"
   ],
   "exclude": ["node_modules"]
 }

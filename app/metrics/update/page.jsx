@@ -69,7 +69,7 @@ export default function Page() {
       try {
         dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
         // const data = await getDisturbanceList(defaultTargetYear)
-        const results = await fetch(`/api/metrics/update?yearStr=${defaultTargetYear}`)
+        const results = await fetch(`/api/metrics/reliability/update?yearStr=${defaultTargetYear}`)
         const data = await results.json()
         dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
       } catch (err) {
@@ -85,7 +85,7 @@ export default function Page() {
     try {
       dispatch({ type: 'FETCH_REQUEST_SD_LIST' })
       // const data = await getDisturbanceList(year)
-      const results = await fetch(`/api/metrics/update?yearStr=${year.toString()}`)
+      const results = await fetch(`/api/metrics/reliability/update?yearStr=${year.toString()}`)
       const data = await results.json()
       dispatch({ type: 'FETCH_SUCCESS_SD_LIST', payload: data })
     } catch (err) {
@@ -113,7 +113,7 @@ export default function Page() {
       duration: getValues('durationDay'),
     }
     // saveEditDisturbanceItem(newItem, item._id)
-    const response = await fetch('/api/metrics/update', {
+    const response = await fetch('/api/metrics/reliability/update', {
       method: 'PUT', // or 'POST'
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -157,7 +157,7 @@ export default function Page() {
         }
 
         // addDisturbanceItem(addItem)
-        await fetch('/api/metrics/update', {
+        await fetch('/api/metrics/reliability/update', {
           method: 'POST', // or 'POST'
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
@@ -214,7 +214,7 @@ export default function Page() {
 
   const handleOnConfirmModalConfirm = async (e) => {
     setIsModalOpen(false)
-    await fetch('/api/metrics/update', {
+    await fetch('/api/metrics/reliability/update', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
