@@ -1,4 +1,3 @@
-import getDayOfYear from '@/data/getDayOfYear'
 import { CiEdit } from 'react-icons/ci'
 import { CiTrash } from 'react-icons/ci'
 
@@ -7,12 +6,6 @@ export default function CardListSD({ action, title, planSDList }) {
   if (planSDList === undefined) return
   const toDay = new Date()
   const year = toDay.getFullYear()
-  // let totalDuration = 0
-  // planSDList.map((item) => (totalDuration += parseFloat(item.duration)))
-
-  // const yearDay = getDayOfYear(year)
-  // const operationDay = yearDay - totalDuration
-  // const operationHour = Math.floor(operationDay * 24)
   const captionText = `${title} : ${year}`
 
   const onClickEditHandler = (item) => {

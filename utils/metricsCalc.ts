@@ -1,6 +1,5 @@
-import getDayOfYear from '@/data/getDayOfYear'
 import { TCapex, TDisturbance, TOpex, TReliability, TReliabilityYear } from './definition'
-import metricsStatic from '@/data/metricsStatic'
+import { getDayOfYear, getMonth, getMonthDays } from './getFormatedDate'
 
 export function yearTargetCalc(yearData) {
   const yearTarget: TReliabilityYear = yearData
@@ -12,9 +11,30 @@ export function yearTargetCalc(yearData) {
   return yearTarget
 }
 
-export function targetMonthCalc(planSDList) {
-  const result: TReliability = metricsStatic.reliability
-  return result
+export function targetMonthCalc(year, planSDList) {
+  const targetMonth: TReliability = {
+    monthDay: [],
+    monthTargetDay: [],
+    percentageDay: [],
+    monthTargetHrs: [],
+    monthActualHrs: [],
+    percentageHour: [],
+  }
+  const maxMonth = 12
+  for (let i = 1; i <= maxMonth; i++) {
+    targetMonth.monthDay.push(getMonthDays(year, i))
+    targetMonth.monthTargetDay.push(getMonthDays(year, i))
+    targetMonth.monthTargetHrs.push(getMonthDays(year, i) * 24)
+  }
+
+  //calculate target months
+  planSDList.map((item) => {
+    const month = parseFloat(getMonth(item.dateStr)) - 1
+    targetMonth.monthTargetDay[month] = targetMonth.monthDay[month] - parseFloat(item.duration)
+    targetMonth.monthTargetHrs[month] =
+      targetMonth.monthTargetHrs[month] - parseFloat(item.duration) * 24
+  })
+  return targetMonth
 }
 
 export function targetYearCalc(year, planSDList) {

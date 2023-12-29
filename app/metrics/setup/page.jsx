@@ -1,11 +1,13 @@
 'use client'
 import CardListSD from '@/components/CardListSD'
+import CardReliablityTargetMonth from '@/components/CardReliablityTargetMonth'
 import CardSummaryTargetYear from '@/components/CardSummaryTargetYear'
 import { ModalConfirm } from '@/components/modalConfirm'
 import metricsStatic from '@/data/metricsStatic'
 import { getError } from '@/utils/error'
 import { getMonthFull, monthsFull } from '@/utils/getDateString'
-import { targetYearCalc, yearTargetCalc } from '@/utils/metricsCalc'
+import isObjectEmpty from '@/utils/isObjectEmpty'
+import { targetMonthCalc, targetYearCalc, yearTargetCalc } from '@/utils/metricsCalc'
 import { useSession } from 'next-auth/react'
 import { useReducer, useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
@@ -47,6 +49,8 @@ export default function Page() {
   const [editItem, setEditItem] = useState({})
   const [isButtonDisable, setIsButtonDisable] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [targetMonth, setTargetMonth] = useState({})
+  const [isDataTargetReady, setIsDataTargetReady] = useState(false)
 
   const defaultDescription = 'External factor'
   const defaultTargetYear = new Date().getFullYear()
@@ -87,6 +91,10 @@ export default function Page() {
     if (!isDataReady.current) feetchSdList(defaultTargetYear)
     if (sdList.length > 0) {
       setSummaryTargetYear(targetYearCalc(defaultTargetYear, sdList))
+      const result = targetMonthCalc(defaultTargetYear, sdList)
+      setTargetMonth(result)
+      setIsDataTargetReady(true)
+      console.log('targetMonthCalc - result : ', result)
     }
     setDefaultEntryData()
   }, [sdList])
@@ -403,7 +411,13 @@ export default function Page() {
                   title="S/D Plan Summary"
                   planSDList={sdList}
                 />
-                <CardSummaryTargetYear data={summaryTargetYear} />
+                {/* <CardSummaryTargetYear data={summaryTargetYear} /> */}
+                {isDataTargetReady ? (
+                  <CardReliablityTargetMonth
+                    targetData={targetMonth}
+                    summaryData={summaryTargetYear}
+                  />
+                ) : null}
               </div>
               <ModalConfirm
                 isModalConfirmOpen={isModalOpen}

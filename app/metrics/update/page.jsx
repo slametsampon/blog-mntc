@@ -3,7 +3,7 @@ import CardListSD from '@/components/CardListSD'
 import { ModalConfirm } from '@/components/modalConfirm'
 import metricsStatic from '@/data/metricsStatic'
 import { getError } from '@/utils/error'
-import { getDefaultFormatedDate } from '@/utils/getDefaultFormatedDate'
+import { getYearMonthDate } from '@/utils/getYearMonthDate'
 import { useSession } from 'next-auth/react'
 import { useReducer, useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
@@ -49,7 +49,7 @@ export default function Page() {
   const defaultDescription = 'External factor'
   const defaultTargetYear = new Date().getFullYear()
   const defaultDuration = '1'
-  const formatedDate = getDefaultFormatedDate(new Date())
+  const formatedDate = getYearMonthDate(new Date())
   const targetYear = useRef(defaultTargetYear)
   const idSelected = useRef('')
 
@@ -183,7 +183,7 @@ export default function Page() {
     switch (action) {
       case 'EDIT':
         setValue('durationDay', item.duration.toString())
-        setValue('inputDate', getDefaultFormatedDate(new Date(item.dateStr)))
+        setValue('inputDate', getYearMonthDate(new Date(item.dateStr)))
         console.log('actionEditDeleteItem : inputDate', getValues('inputDate'))
 
         setSdType('internal')

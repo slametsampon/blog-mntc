@@ -1,5 +1,4 @@
 'use client'
-// import { genPageMetadata } from '@/app/seo'
 
 import { useState } from 'react'
 import Papa from 'papaparse'

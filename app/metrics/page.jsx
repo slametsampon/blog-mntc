@@ -1,7 +1,6 @@
 'use client'
 
 import CardDisturbance from '@/components/CardDisturbance'
-import CardReliability from '@/components/CardReliability'
 import CardBudget from '@/components/CardBudget'
 import metricsStatic from '@/data/metricsStatic'
 import {
@@ -102,7 +101,8 @@ export default function Page() {
       setValue('targetMonth', defaultTargetMonth)
     }
     if (sdPlanList.length > 0) {
-      setSummaryTargetYear(targetYearCalc(defaultTargetYear, sdPlanList))
+      const resultTargetYearCalc = targetYearCalc(defaultTargetYear, sdPlanList)
+      setSummaryTargetYear(resultTargetYearCalc)
     }
   }, [sdPlanList, disturbances])
 
