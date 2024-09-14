@@ -1,10 +1,10 @@
 import PageTitle from '@/components/PageTitle'
-import MetricBot from '@/components/metricBot/MetricBot'
+import MetricSmart from '@/components/metricSmart/MetricSmart'
 
 export default function Page() {
   return (
     <div className="mt-4 text-center">
-      <MetricBot />
+      <MetricSmart />
       <PageTitle>
         Under Construction{' '}
         <span role="img" aria-label="roadwork sign">
