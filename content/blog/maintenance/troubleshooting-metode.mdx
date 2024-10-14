@@ -29,12 +29,11 @@ Troubleshooting di pabrik petrokimia adalah tantangan yang kompleks, mengingat b
 - [**2. Pendekatan Troubleshooting yang Efektif di Pabrik Petrokimia**](#2-pendekatan-troubleshooting-yang-efektif-di-pabrik-petrokimia)
   - [**Identifikasi Masalah dan Pengumpulan Data**](#identifikasi-masalah-dan-pengumpulan-data)
   - [**Root Cause Analysis (RCA) sebagai Teknik Utama Troubleshooting**](#root-cause-analysis-rca-sebagai-teknik-utama-troubleshooting)
-- [**3. Metode Analisis Akar Penyebab (RCA)**](#3-metode-analisis-akar-penyebab-rca)
-- [Metodologi yang Umum Digunakan dalam RCA](#metodologi-yang-umum-digunakan-dalam-rca)
+- [**3. Metodologi yang Umum Digunakan dalam RCA**](#3-metodologi-yang-umum-digunakan-dalam-rca)
   - [1. **Metode 5 Whys**](#1-metode-5-whys)
   - [2. **Fault Tree Analysis (FTA)**](#2-fault-tree-analysis-fta)
-- [Implementasi di Lapangan](#implementasi-di-lapangan)
-- [Keuntungan Menggunakan RCA](#keuntungan-menggunakan-rca)
+  - [**Implementasi di Lapangan**](#implementasi-di-lapangan)
+  - [**Keuntungan Menggunakan RCA**](#keuntungan-menggunakan-rca)
 - [**4. Lebih lanjut FTA dan Fishbone Diagram (FBD)**](#4-lebih-lanjut-fta-dan-fishbone-diagram-fbd)
   - [1. **Fault Tree Analysis (FTA)**](#1-fault-tree-analysis-fta)
   - [2. **Fishbone Diagram (FBD) / Ishikawa Diagram**](#2-fishbone-diagram-fbd--ishikawa-diagram)
@@ -42,11 +41,10 @@ Troubleshooting di pabrik petrokimia adalah tantangan yang kompleks, mengingat b
   - [**Kapan Memilih FTA atau FBD dalam Troubleshooting di Pabrik Petrokimia**](#kapan-memilih-fta-atau-fbd-dalam-troubleshooting-di-pabrik-petrokimia)
   - [**Implementasi di Lapangan**](#implementasi-di-lapangan-1)
 - [**5. Mengapa Fishbone Diagram Cocok untuk RCA?**](#5-mengapa-fishbone-diagram-cocok-untuk-rca)
-  - [Proses Menggunakan Fishbone Diagram dalam RCA](#proses-menggunakan-fishbone-diagram-dalam-rca)
-  - [Kapan Fishbone Diagram Lebih Efektif dalam RCA](#kapan-fishbone-diagram-lebih-efektif-dalam-rca)
-  - [Kelebihan Fishbone Diagram dalam RCA](#kelebihan-fishbone-diagram-dalam-rca)
-  - [Kombinasi FBD dengan Metode RCA Lain](#kombinasi-fbd-dengan-metode-rca-lain)
-  - [](#)
+  - [**Proses Menggunakan Fishbone Diagram dalam RCA**](#proses-menggunakan-fishbone-diagram-dalam-rca)
+  - [**Kapan Fishbone Diagram Lebih Efektif dalam RCA**](#kapan-fishbone-diagram-lebih-efektif-dalam-rca)
+  - [**Kelebihan Fishbone Diagram dalam RCA**](#kelebihan-fishbone-diagram-dalam-rca)
+  - [**Kombinasi FBD dengan Metode RCA Lain**](#kombinasi-fbd-dengan-metode-rca-lain)
 - [**6. Metode Lanjutan untuk RCA**](#6-metode-lanjutan-untuk-rca)
   - [1. **Root Cause Failure Analysis (RCFA):**](#1-root-cause-failure-analysis-rcfa)
   - [2. **Failure Mode and Effects Analysis (FMEA)**](#2-failure-mode-and-effects-analysis-fmea)
@@ -55,21 +53,21 @@ Troubleshooting di pabrik petrokimia adalah tantangan yang kompleks, mengingat b
   - [5. **Bowtie Analysis**](#5-bowtie-analysis)
   - [6. **Kaizen (Continuous Improvement) RCA**](#6-kaizen-continuous-improvement-rca)
   - [7. **Scatter Diagram (Diagram Sebar)**](#7-scatter-diagram-diagram-sebar)
-  - [Rangkuman dan Pilihan Metode RCA yang Tepat](#rangkuman-dan-pilihan-metode-rca-yang-tepat)
+  - [**Rangkuman dan Pilihan Metode RCA yang Tepat**](#rangkuman-dan-pilihan-metode-rca-yang-tepat)
 - [**7. Lebih lanjut dengan 8D Problem-Solving**](#7-lebih-lanjut-dengan-8d-problem-solving)
-  - [Asal Usul 8D Problem-Solving](#asal-usul-8d-problem-solving)
-  - [Prinsip Dasar 8D Problem-Solving](#prinsip-dasar-8d-problem-solving)
-  - [Langkah-Langkah dalam 8D Problem-Solving](#langkah-langkah-dalam-8d-problem-solving)
-  - [Contoh Aplikasi 8D Problem-Solving di Pabrik Petrokimia](#contoh-aplikasi-8d-problem-solving-di-pabrik-petrokimia)
-  - [Manfaat 8D Problem-Solving](#manfaat-8d-problem-solving)
-  - [Implementasi dalam Lingkungan Petrokimia](#implementasi-dalam-lingkungan-petrokimia)
-  - [**8. Lebih lanjut dengan Bowtie Analysis**](#8-lebih-lanjut-dengan-bowtie-analysis)
-  - [Asal Usul dan Tujuan Bowtie Analysis](#asal-usul-dan-tujuan-bowtie-analysis)
-  - [Struktur dan Prinsip Dasar Bowtie Analysis](#struktur-dan-prinsip-dasar-bowtie-analysis)
-  - [Langkah-Langkah dalam Melakukan Bowtie Analysis](#langkah-langkah-dalam-melakukan-bowtie-analysis)
-  - [Contoh Aplikasi Bowtie Analysis di Pabrik Petrokimia](#contoh-aplikasi-bowtie-analysis-di-pabrik-petrokimia)
-  - [Keuntungan Menggunakan Bowtie Analysis](#keuntungan-menggunakan-bowtie-analysis)
-  - [Implementasi di Pabrik Petrokimia](#implementasi-di-pabrik-petrokimia)
+  - [**Asal Usul 8D Problem-Solving**](#asal-usul-8d-problem-solving)
+  - [**Prinsip Dasar 8D Problem-Solving**](#prinsip-dasar-8d-problem-solving)
+  - [**Langkah-Langkah dalam 8D Problem-Solving**](#langkah-langkah-dalam-8d-problem-solving)
+  - [**Contoh Aplikasi 8D Problem-Solving di Pabrik Petrokimia**](#contoh-aplikasi-8d-problem-solving-di-pabrik-petrokimia)
+  - [**Manfaat 8D Problem-Solving**](#manfaat-8d-problem-solving)
+  - [**Implementasi dalam Lingkungan Petrokimia**](#implementasi-dalam-lingkungan-petrokimia)
+- [**8. Lebih lanjut dengan Bowtie Analysis**](#8-lebih-lanjut-dengan-bowtie-analysis)
+  - [**Asal Usul dan Tujuan Bowtie Analysis**](#asal-usul-dan-tujuan-bowtie-analysis)
+  - [**Struktur dan Prinsip Dasar Bowtie Analysis**](#struktur-dan-prinsip-dasar-bowtie-analysis)
+  - [**Langkah-Langkah dalam Melakukan Bowtie Analysis**](#langkah-langkah-dalam-melakukan-bowtie-analysis)
+  - [**Contoh Aplikasi Bowtie Analysis di Pabrik Petrokimia**](#contoh-aplikasi-bowtie-analysis-di-pabrik-petrokimia)
+  - [**Keuntungan Menggunakan Bowtie Analysis**](#keuntungan-menggunakan-bowtie-analysis)
+  - [**Implementasi di Pabrik Petrokimia**](#implementasi-di-pabrik-petrokimia)
 - [Hak cipta^1. Artikel ini berdasar ChatGpt \& penulis tidak menjamin seluruh akurasi isinya](#hak-cipta1-artikel-ini-berdasar-chatgpt--penulis-tidak-menjamin-seluruh-akurasi-isinya)
 
 ---
@@ -129,28 +127,9 @@ Pendekatan troubleshooting yang efektif di pabrik petrokimia membutuhkan **ident
 
 ---
 
-### **3. Metode Analisis Akar Penyebab (RCA)**
-
-- **5 Whys Analysis:**
-  - Penjelasan tentang metode 5 Whys, langkah-langkah, dan contoh penerapan dalam analisis kegagalan.
-- **Fault Tree Analysis (FTA):**
-  - Struktur dan penggunaannya dalam menganalisis jalur kegagalan sistem yang kompleks.
-- **Fishbone Diagram (FBD) / Ishikawa Diagram:**
-  - Cara penggunaan Fishbone Diagram untuk mengidentifikasi penyebab potensial masalah.
-- **8D Problem-Solving (Delapan Disiplin):**
-  - Rincian langkah-langkah 8D dan penerapannya dalam kasus pemecahan masalah.
-- **Failure Mode and Effects Analysis (FMEA):**
-  - Analisis mode kegagalan dan dampaknya untuk mengurangi risiko operasional.
-- **Pareto Analysis:**
-  - Prinsip Pareto 80/20 dan aplikasinya untuk memprioritaskan penyebab masalah.
-- **Bowtie Analysis:**
-  - Penjelasan konsep Bowtie Analysis untuk memvisualisasikan hubungan antara ancaman, kontrol pencegahan, konsekuensi, dan kontrol mitigasi.
-
----
+### **3. Metodologi yang Umum Digunakan dalam RCA**
 
 Pendekatan **Root Cause Analysis (RCA)** sangat penting untuk memastikan bahwa masalah diidentifikasi sampai ke akar penyebabnya, sehingga tindakan perbaikan yang diambil benar-benar efektif dan mencegah masalah serupa terulang kembali. Dalam lingkungan pabrik petrokimia yang kompleks, RCA bukan hanya tentang menemukan apa yang salah, tetapi juga **mengapa masalah itu terjadi** dan **bagaimana mencegahnya di masa depan**.
-
-### Metodologi yang Umum Digunakan dalam RCA
 
 Berikut adalah dua metode RCA yang paling umum dan efektif digunakan di pabrik petrokimia:
 
@@ -195,7 +174,7 @@ FTA adalah metode yang lebih terstruktur dibandingkan dengan 5 Whys, yang menggu
 
 Diagram FTA ini membantu mengidentifikasi apakah masalah disebabkan oleh satu penyebab spesifik atau kombinasi beberapa faktor, sehingga dapat dilakukan perbaikan yang lebih akurat.
 
-### Implementasi di Lapangan
+#### Implementasi di Lapangan
 
 Agar metode RCA ini dapat diimplementasikan oleh para praktisi di lapangan seperti operator, foreman, dan insinyur, berikut adalah beberapa tips:
 
@@ -208,7 +187,7 @@ Agar metode RCA ini dapat diimplementasikan oleh para praktisi di lapangan seper
 
 5. **Komitmen pada Perbaikan Berkelanjutan:** Setelah RCA dilakukan dan solusi diterapkan, pastikan ada pemantauan berkelanjutan untuk mengevaluasi efektivitas dari solusi yang diterapkan. Ini memastikan bahwa solusi tersebut memang mengatasi akar penyebab dengan benar.
 
-### Keuntungan Menggunakan RCA
+#### Keuntungan Menggunakan RCA
 
 - **Mengurangi Downtime:** Dengan menemukan akar penyebab yang sesungguhnya, masalah dapat diatasi dengan lebih cepat, mengurangi waktu henti operasional.
 - **Efisiensi Biaya:** Mengurangi kebutuhan untuk perbaikan berulang atau penggantian komponen karena masalah diatasi secara menyeluruh.
@@ -306,7 +285,7 @@ Fishbone Diagram sangat cocok untuk digunakan dalam RCA karena pendekatan visual
 4. **Fokus pada Penyebab Potensial:**
    - Dalam RCA, tujuan utamanya adalah menemukan akar penyebab dari masalah, bukan hanya gejala-gejalanya. Fishbone Diagram membantu memisahkan penyebab potensial dari gejala dengan mendorong tim untuk mengidentifikasi dan menilai setiap faktor yang mungkin terlibat.
 
-#### Proses Menggunakan Fishbone Diagram dalam RCA
+#### **Proses Menggunakan Fishbone Diagram dalam RCA**
 
 1. **Identifikasi Masalah Utama:**
 
@@ -329,25 +308,23 @@ Fishbone Diagram sangat cocok untuk digunakan dalam RCA karena pendekatan visual
 5. **Tindakan Korektif dan Pencegahan:**
    - Setelah akar penyebab diidentifikasi, tentukan tindakan korektif yang akan diambil untuk mengatasi masalah tersebut. Pastikan tindakan ini fokus pada penyebab yang sebenarnya, bukan hanya pada gejala.
 
-#### Kapan Fishbone Diagram Lebih Efektif dalam RCA
+#### **Kapan Fishbone Diagram Lebih Efektif dalam RCA**
 
 - **Tahap Awal RCA:** FBD sangat berguna pada tahap awal RCA ketika fokusnya adalah untuk menghasilkan sebanyak mungkin ide tentang penyebab masalah. Ini memberi kerangka kerja yang sederhana dan mudah dipahami untuk memulai analisis.
 - **Masalah Sederhana hingga Moderat:** FBD paling efektif digunakan untuk masalah yang relatif sederhana hingga moderat. Jika masalahnya sangat kompleks dan melibatkan banyak variabel atau sistem, metode seperti **Fault Tree Analysis (FTA)** mungkin lebih cocok.
 - **Kolaborasi Tim:** Ketika Anda ingin melibatkan banyak anggota tim dalam diskusi untuk mendapatkan perspektif yang lebih luas dan ide yang lebih kaya.
 
-#### Kelebihan Fishbone Diagram dalam RCA
+#### **Kelebihan Fishbone Diagram dalam RCA**
 
 - **Sederhana dan Mudah Dipahami:** Fishbone Diagram dapat digunakan oleh tim yang memiliki tingkat pengalaman berbeda, termasuk operator, teknisi, dan manajer.
 - **Fleksibel:** Dapat diterapkan dalam berbagai situasi, dari masalah operasional sederhana hingga pemeliharaan kompleks.
 - **Mendorong Partisipasi:** Diagram ini mendorong semua anggota tim untuk berkontribusi ide mereka, yang membantu menemukan akar penyebab dengan lebih komprehensif.
 
-#### Kombinasi FBD dengan Metode RCA Lain
+#### **Kombinasi FBD dengan Metode RCA Lain**
 
 Dalam praktiknya, Fishbone Diagram sering digunakan bersamaan dengan teknik RCA lainnya seperti **5 Whys** atau **Failure Mode and Effect Analysis (FMEA)**. Setelah penyebab potensial diidentifikasi menggunakan Fishbone Diagram, Anda bisa menggunakan 5 Whys untuk menggali lebih dalam penyebab utama atau menggunakan FMEA untuk menganalisis dampak dari kegagalan yang diidentifikasi.
 
-####
-
-Kesimpulan
+**Kesimpulan**
 
 Fishbone Diagram **memang cocok dan sering digunakan sebagai alat dalam Root Cause Analysis (RCA)**, terutama pada tahap awal ketika fokusnya adalah untuk mengidentifikasi dan mengkategorikan semua penyebab potensial dari masalah. Metode ini membantu tim troubleshooting mendapatkan pemahaman yang lebih menyeluruh tentang apa yang mungkin menjadi akar penyebab sebelum melakukan analisis yang lebih mendalam.
 
@@ -468,7 +445,7 @@ RCFA menekankan pada kegagalan kronis dan mengidentifikasi modus kegagalan yang 
 - Memberikan pandangan visual tentang hubungan antara dua variabel.
 - Mudah digunakan dalam analisis data sederhana.
 
-#### Rangkuman dan Pilihan Metode RCA yang Tepat
+#### **Rangkuman dan Pilihan Metode RCA yang Tepat**
 
 | **Metode**                                   | **Kelebihan Utama**                                                                                                                                           | **Kapan Digunakan**                                                                                                                                                                                 |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -502,16 +479,16 @@ RCFA menekankan pada kegagalan kronis dan mengidentifikasi modus kegagalan yang 
 
 Metode ini adalah pendekatan sistematis yang dirancang untuk menyelesaikan masalah kompleks dengan melibatkan tim lintas fungsi, menemukan akar penyebab, dan menerapkan solusi yang efektif serta memastikan bahwa masalah tidak terulang kembali. Metode ini telah banyak digunakan dalam industri otomotif dan manufaktur, dan juga sangat relevan untuk diterapkan di industri petrokimia.
 
-#### Asal Usul 8D Problem-Solving
+#### **Asal Usul 8D Problem-Solving**
 
 - **8D Problem-Solving** pertama kali dikembangkan oleh **Ford Motor Company** pada tahun 1987 sebagai bagian dari upaya mereka untuk meningkatkan kualitas dan proses pemecahan masalah. Seiring waktu, metode ini diadopsi oleh berbagai industri termasuk petrokimia, karena pendekatannya yang terstruktur dan berorientasi tim.
 - Metode ini dikenal dengan nama "8D" karena terdiri dari **delapan disiplin** atau langkah yang harus diikuti secara sistematis untuk menyelesaikan masalah dengan benar.
 
-#### Prinsip Dasar 8D Problem-Solving
+#### **Prinsip Dasar 8D Problem-Solving**
 
 Prinsip utama dari 8D adalah **kolaborasi tim, analisis berbasis data, dan tindakan korektif yang efektif**. Setiap langkah dari 8D memiliki tujuan spesifik untuk memastikan bahwa masalah diidentifikasi secara akurat dan solusi yang diterapkan tidak hanya sementara tetapi juga mencegah masalah terulang kembali.
 
-#### Langkah-Langkah dalam 8D Problem-Solving
+#### **Langkah-Langkah dalam 8D Problem-Solving**
 
 Berikut adalah delapan disiplin (D1 hingga D8) dalam 8D Problem-Solving, termasuk satu langkah tambahan (D0) yang kadang-kadang digunakan sebagai langkah awal.
 
@@ -559,7 +536,7 @@ Berikut adalah delapan disiplin (D1 hingga D8) dalam 8D Problem-Solving, termasu
    - Akui kontribusi dan upaya dari tim yang berhasil menyelesaikan masalah. Penghargaan ini penting untuk memotivasi tim dalam menghadapi tantangan di masa depan.
    - Berbagi pelajaran yang dipetik dari proses tersebut agar dapat digunakan oleh tim lain atau dalam situasi serupa di masa mendatang.
 
-#### Contoh Aplikasi 8D Problem-Solving di Pabrik Petrokimia
+#### **Contoh Aplikasi 8D Problem-Solving di Pabrik Petrokimia**
 
 **Kasus: Kegagalan Berulang pada Pompa Sentrifugal**
 
@@ -575,13 +552,13 @@ Misalkan, ada masalah yang sering terjadi pada pompa sentrifugal di unit proses 
 8. **D7:** Modifikasi SOP pemeliharaan dan berikan pelatihan tambahan kepada operator tentang bagaimana mengidentifikasi tanda-tanda awal kavitasi.
 9. **D8:** Akui kontribusi tim atas keberhasilan penyelesaian masalah dan buat dokumentasi lengkap dari langkah-langkah yang telah diambil untuk digunakan sebagai referensi di masa depan.
 
-#### Manfaat 8D Problem-Solving
+#### **Manfaat 8D Problem-Solving**
 
 - **Pendekatan Terstruktur:** Memberikan kerangka kerja yang jelas dan sistematis dalam penyelesaian masalah.
 - **Kolaboratif:** Mendorong kolaborasi tim lintas fungsi, yang memastikan bahwa semua sudut pandang dan keahlian diintegrasikan.
 - **Pencegahan Berulang:** Memastikan bahwa solusi tidak hanya mengatasi masalah saat ini tetapi juga mencegah terulangnya masalah serupa.
 
-#### Implementasi dalam Lingkungan Petrokimia
+#### **Implementasi dalam Lingkungan Petrokimia**
 
 Untuk keberhasilan implementasi 8D di lingkungan pabrik petrokimia, penting untuk:
 
@@ -593,16 +570,16 @@ Dengan memahami dan menerapkan 8D Problem-Solving, seluruh tim dari operator hin
 
 ---
 
-#### **8. Lebih lanjut dengan Bowtie Analysis**
+### **8. Lebih lanjut dengan Bowtie Analysis**
 
 Tentu, mari kita bahas lebih detail tentang **Bowtie Analysis**. Metode ini adalah alat yang sangat efektif untuk mengidentifikasi, memvisualisasikan, dan mengelola risiko dengan fokus pada hubungan antara **penyebab, kontrol, dan dampak** dari suatu kejadian risiko. **Bowtie Analysis** mendapatkan namanya dari bentuk visual diagramnya yang menyerupai dasi kupu-kupu, dengan kejadian risiko utama berada di tengah dan penyebab serta konsekuensi menyebar di kedua sisinya.
 
-#### Asal Usul dan Tujuan Bowtie Analysis
+#### **Asal Usul dan Tujuan Bowtie Analysis**
 
 - **Bowtie Analysis** pertama kali digunakan dalam industri penerbangan dan sektor minyak & gas untuk manajemen risiko operasional. Saat ini, metode ini telah diadopsi secara luas di berbagai industri, termasuk petrokimia, karena kemampuannya dalam mengelola risiko yang kompleks dengan cara yang terstruktur dan visual.
 - Tujuan utama dari Bowtie Analysis adalah untuk **mengidentifikasi akar penyebab**, **menerapkan tindakan kontrol** yang tepat, dan **mengurangi dampak risiko** dari kejadian potensial. Ini membantu dalam memastikan bahwa semua tindakan pencegahan dan mitigasi telah diterapkan secara efektif untuk mengelola risiko.
 
-#### Struktur dan Prinsip Dasar Bowtie Analysis
+#### **Struktur dan Prinsip Dasar Bowtie Analysis**
 
 Diagram Bowtie terdiri dari tiga bagian utama:
 
@@ -617,7 +594,7 @@ Diagram Bowtie terdiri dari tiga bagian utama:
    - Konsekuensi adalah hasil atau dampak yang mungkin terjadi jika Top Event tidak dapat dicegah. Pada sisi ini, kita menggunakan **Mitigative Controls** (Kontrol Mitigasi) untuk meminimalkan dampak dari Top Event jika sudah terjadi.
    - Mitigative Controls adalah langkah-langkah yang diambil untuk mengurangi keparahan dampak dari kejadian yang tidak bisa dihindari.
 
-#### Langkah-Langkah dalam Melakukan Bowtie Analysis
+#### **Langkah-Langkah dalam Melakukan Bowtie Analysis**
 
 1. **Definisikan Top Event:**
    - Mulailah dengan mendefinisikan kejadian risiko utama yang menjadi fokus analisis. Misalnya, **kebocoran gas berbahaya di unit produksi**.
@@ -642,7 +619,7 @@ Diagram Bowtie terdiri dari tiga bagian utama:
 7. **Monitor dan Tinjau Ulang:**
    - Setelah Bowtie Analysis diselesaikan, lakukan pemantauan terus-menerus terhadap kontrol pencegahan dan mitigasi yang diterapkan. Tinjau kembali diagram bowtie jika ada perubahan dalam proses operasional, teknologi baru, atau insiden yang terjadi.
 
-#### Contoh Aplikasi Bowtie Analysis di Pabrik Petrokimia
+#### **Contoh Aplikasi Bowtie Analysis di Pabrik Petrokimia**
 
 **Kasus: Risiko Kebocoran Gas Beracun dari Sistem Pipa**
 
@@ -673,7 +650,7 @@ Diagram Bowtie terdiri dari tiga bagian utama:
    - **Alat Pelindung Diri (APD)**: Penyediaan dan pemakaian APD seperti masker gas dan pakaian pelindung untuk pekerja di area berisiko tinggi.
    - **Sistem Penyiraman Otomatis (Sprinkler System)**: Untuk mencegah terjadinya kebakaran yang dapat disebabkan oleh gas yang mudah terbakar.
 
-#### Keuntungan Menggunakan Bowtie Analysis
+#### **Keuntungan Menggunakan Bowtie Analysis**
 
 1. **Visualisasi yang Jelas:**
 
@@ -690,7 +667,7 @@ Diagram Bowtie terdiri dari tiga bagian utama:
 4. **Komunikasi yang Lebih Baik:**
    - Dengan visualisasi diagram yang sederhana dan langsung, Bowtie Analysis menjadi alat komunikasi yang sangat efektif antara tim operasional, manajemen, dan juga dalam laporan kepada pihak eksternal seperti auditor atau regulator.
 
-#### Implementasi di Pabrik Petrokimia
+#### **Implementasi di Pabrik Petrokimia**
 
 Untuk mengimplementasikan Bowtie Analysis di pabrik petrokimia:
 
