@@ -69,6 +69,19 @@ Dalam artikel ini, kita akan membahas berbagai aspek penting terkait **operasi b
   - [**Rekomendasi untuk Pengoperasian Optimal**](#rekomendasi-untuk-pengoperasian-optimal)
   - [**Pentingnya Kontrol yang Baik dan Perawatan Berkala**](#pentingnya-kontrol-yang-baik-dan-perawatan-berkala)
 - [9. **Referensi**](#9-referensi)
+- [**Lampiran 1 : Perhitungan Kapasitas Burner**](#lampiran-1--perhitungan-kapasitas-burner)
+  - [1. **Data yang Diperlukan**](#1-data-yang-diperlukan)
+  - [2. **Menghitung Kebutuhan Heat Duty (Konsumsi Energi Boiler)**](#2-menghitung-kebutuhan-heat-duty-konsumsi-energi-boiler)
+  - [3. **Mengonversi Kebutuhan Energi ke Daya Burner**](#3-mengonversi-kebutuhan-energi-ke-daya-burner)
+  - [4. **Menghitung Konsumsi Bahan Bakar dan Power Burner**](#4-menghitung-konsumsi-bahan-bakar-dan-power-burner)
+  - [5. **Faktor Tambahan**](#5-faktor-tambahan)
+  - [Kesimpulan](#kesimpulan)
+- [**Lampiran 2 : Perhitungan Kapasitas Burner suhu air umpan pada 130°C**](#lampiran-2--perhitungan-kapasitas-burner-suhu-air-umpan-pada-130c)
+  - [1. **Rekap Data yang Diperlukan:**](#1-rekap-data-yang-diperlukan)
+  - [2. **Menghitung Kebutuhan Heat Duty (Konsumsi Energi Boiler):**](#2-menghitung-kebutuhan-heat-duty-konsumsi-energi-boiler-1)
+  - [3. **Menghitung Heat Input ke Boiler:**](#3-menghitung-heat-input-ke-boiler)
+  - [4. **Menghitung Konsumsi Bahan Bakar dan Power Burner:**](#4-menghitung-konsumsi-bahan-bakar-dan-power-burner-1)
+  - [**Kesimpulan Akhir:**](#kesimpulan-akhir)
 - [Hak cipta^1. Artikel ini berdasar ChatGpt \& penulis tidak menjamin seluruh akurasi isinya](#hak-cipta1-artikel-ini-berdasar-chatgpt--penulis-tidak-menjamin-seluruh-akurasi-isinya)
 
 ---
@@ -559,6 +572,144 @@ Berikut adalah referensi yang relevan dan umum digunakan dalam industri terkait 
 9. **Flame Stability in Industrial Burners** oleh ASTM International: Sumber daya yang mencakup studi tentang stabilitas flame di berbagai kondisi operasi pembakaran, khususnya di beban rendah.
 
 Sumber-sumber ini memberikan panduan teknis dan praktis yang sangat diperlukan untuk mengelola operasi boiler dan burner secara efisien dan aman, terutama pada beban rendah, serta menerapkan sistem kontrol otomatis yang canggih.
+
+---
+
+### **Lampiran 1 : Perhitungan Kapasitas Burner**
+
+Untuk menghitung **power (daya) burner** pada boiler yang menggunakan bahan bakar gas alam, langkah-langkah berikut bisa diikuti:
+
+#### 1. **Data yang Diperlukan**
+
+- **Kapasitas boiler**: 35 ton/jam (steam).
+- **Tekanan steam**: 16 kg/cm² (sekitar 16 bar).
+- **Efisiensi boiler**: Umumnya diambil sekitar 85% - 90% tergantung kondisi operasional.
+- **Enthalpy steam (Hₛ)** pada 16 kg/cm².
+- **Enthalpy air umpan (Hₑ)**: Ini biasanya pada kondisi air pada temperatur tertentu (misalnya 100°C atau temperatur spesifik dari air umpan boiler).
+
+#### 2. **Menghitung Kebutuhan Heat Duty (Konsumsi Energi Boiler)**
+
+Kebutuhan energi untuk menghasilkan steam dihitung menggunakan rumus berikut:
+
+$$
+Q = m \times (Hₛ - Hₑ)
+$$
+
+Dimana:
+
+- **Q** = Heat Duty (kebutuhan energi boiler dalam kcal/jam atau kJ/jam).
+- **m** = Aliran massa steam = 35 ton/jam = 35.000 kg/jam.
+- **Hₛ** = Enthalpy steam jenuh pada 16 kg/cm² (sekitar 2.784,5 kJ/kg untuk saturated steam).
+- **Hₑ** = Enthalpy air umpan pada kondisi awal (misalnya pada 100°C sekitar 419 kJ/kg).
+
+Jadi:
+
+$$
+Q = 35.000 \times (2784.5 - 419) = 35.000 \times 2365.5 = 82.792.500 \, \text{kJ/jam}
+$$
+
+**Q** ini adalah kebutuhan energi yang harus disediakan burner untuk menghasilkan 35 ton/jam steam pada kondisi operasi tersebut.
+
+#### 3. **Mengonversi Kebutuhan Energi ke Daya Burner**
+
+Karena efisiensi boiler bukan 100%, kita perlu memperhitungkan efisiensi boiler dalam menghitung daya burner yang sebenarnya:
+
+$$
+\text{Heat input ke boiler} = \frac{Q}{\text{Efisiensi boiler}}
+$$
+
+Misalkan efisiensi boiler 85%:
+
+$$
+\text{Heat input} = \frac{82.792.500}{0.85} = 97.403.000 \, \text{kJ/jam}
+$$
+
+#### 4. **Menghitung Konsumsi Bahan Bakar dan Power Burner**
+
+- **Nilai kalor gas alam**: Natural gas memiliki nilai kalor (LHV, Lower Heating Value) sekitar **35.800 kJ/m³** (periksa spesifikasi gas untuk nilai pastinya).
+- Konsumsi bahan bakar per jam:
+
+  $$
+  \text{Konsumsi bahan bakar} = \frac{\text{Heat input}}{\text{LHV gas alam}} = \frac{97.403.000}{35.800} = 2.721 \, \text{m³/jam}
+  $$
+
+Sekarang, daya burner terkait dengan laju aliran gas yang dibakar. Power burner dalam kW dapat dihitung dari heat input per jam dikonversi ke kW:
+
+$$
+\text{Power burner} = \frac{97.403.000}{3600} = 27.056 \, \text{kW}
+$$
+
+Jadi, **daya burner** untuk boiler dengan kapasitas 35 ton/jam, tekanan steam 16 kg/cm², dengan efisiensi 85%, diperkirakan sekitar **27.056 kW**.
+
+#### 5. **Faktor Tambahan**
+
+Pastikan juga untuk mempertimbangkan faktor lain seperti kebutuhan udara pembakaran (air-fuel ratio), excess air, dan kualitas gas alam untuk perhitungan yang lebih akurat dalam praktik.
+
+#### Kesimpulan
+
+Daya burner dapat dihitung berdasarkan kapasitas steam, tekanan, entalpi steam, entalpi air umpan, dan efisiensi boiler. Berdasarkan perhitungan di atas, daya burner boiler Anda dengan kapasitas 35 ton/jam adalah sekitar **27.056 kW**.
+
+---
+
+### **Lampiran 2 : Perhitungan Kapasitas Burner suhu air umpan pada 130°C**
+
+#### 1. **Rekap Data yang Diperlukan:**
+
+- **Kapasitas boiler**: 35 ton/jam (35.000 kg/jam).
+- **Tekanan steam**: 16 kg/cm² (~16 bar).
+- **Efisiensi boiler**: 85%.
+- **Enthalpy steam (Hₛ)** pada 16 kg/cm² (sekitar 2.784,5 kJ/kg untuk saturated steam).
+- **Enthalpy air umpan (Hₑ)** pada 130°C.
+
+Dari tabel thermodinamika, entalpi air umpan (Hₑ) pada **130°C** sekitar **546 kJ/kg**.
+
+#### 2. **Menghitung Kebutuhan Heat Duty (Konsumsi Energi Boiler):**
+
+Rumus tetap sama:
+
+$$
+Q = m \times (Hₛ - Hₑ)
+$$
+
+Dimana:
+
+- **m** = 35.000 kg/jam.
+- **Hₛ** = 2.784,5 kJ/kg.
+- **Hₑ** = 546 kJ/kg.
+
+Maka:
+
+$$
+Q = 35.000 \times (2784.5 - 546) = 35.000 \times 2238.5 = 78.347.500 \, \text{kJ/jam}
+$$
+
+**Q** adalah kebutuhan energi yang diperlukan untuk menghasilkan 35 ton/jam steam pada kondisi operasi ini.
+
+#### 3. **Menghitung Heat Input ke Boiler:**
+
+Dengan efisiensi boiler **85%**, heat input yang diperlukan adalah:
+
+$$
+\text{Heat input} = \frac{Q}{\text{Efisiensi boiler}} = \frac{78.347.500}{0.85} = 92.173.529 \, \text{kJ/jam}
+$$
+
+#### 4. **Menghitung Konsumsi Bahan Bakar dan Power Burner:**
+
+Menggunakan nilai kalor gas alam (LHV) sekitar **35.800 kJ/m³**, kita bisa menghitung konsumsi gas:
+
+$$
+\text{Konsumsi bahan bakar} = \frac{92.173.529}{35.800} = 2.575 \, \text{m³/jam}
+$$
+
+Sekarang, daya burner (power burner) dalam kW dapat dihitung sebagai berikut:
+
+$$
+\text{Power burner} = \frac{92.173.529}{3600} = 25.604 \, \text{kW}
+$$
+
+#### **Kesimpulan Akhir:**
+
+Dengan suhu air umpan 130°C, daya burner untuk boiler Anda dengan kapasitas 35 ton/jam, tekanan steam 16 kg/cm², dan efisiensi 85%, diperkirakan **25.604 kW**.
 
 ---
 
