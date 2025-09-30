@@ -1,0 +1,299 @@
+---
+title: Memahami Tingkatan Schedule dalam Proyek EPC
+authors: ['sam']
+date: '2025-09-30'
+tags: ['epc', 'schedule-level', 'plannig']
+draft: false
+summary: EPC (Engineering, Procurement, and Construction) merupakan pendekatan manajemen proyek yang komprehensif dalam industri, termasuk industri petrokimia.
+---
+
+- [**1. Pendahuluan**](#1-pendahuluan)
+- [**2. Konsep Dasar Schedule Level**](#2-konsep-dasar-schedule-level)
+- [**3. Pembagian Schedule Level (0–5)**](#3-pembagian-schedule-level-05)
+- [**4. Studi Kasus: Penerapan pada Proyek Revamping 125%**](#4-studi-kasus-penerapan-pada-proyek-revamping-125)
+  - [Contoh struktur **schedule Level 0 hingga Level 5** secara sistematis untuk proyek **revamping kapasitas 125%** yang mencakup:](#contoh-struktur-schedule-level-0-hingga-level-5-secara-sistematis-untuk-proyek-revamping-kapasitas-125-yang-mencakup)
+- [**5. Pekerjaan Paralel vs Fast-Tracking**](#5-pekerjaan-paralel-vs-fast-tracking)
+- [**6. Tantangan dan Best Practice**](#6-tantangan-dan-best-practice)
+- [**7. Kesimpulan**](#7-kesimpulan)
+- [8. **Referensi**](#8-referensi)
+- [Hak cipta^1. Artikel ini berdasar ChatGpt \& penulis tidak menjamin seluruh akurasi isinya](#hak-cipta1-artikel-ini-berdasar-chatgpt--penulis-tidak-menjamin-seluruh-akurasi-isinya)
+
+---
+
+### **1. Pendahuluan**
+
+Proyek EPC (Engineering, Procurement, and Construction) pada industri minyak, gas, dan petrokimia memiliki tingkat kompleksitas yang tinggi. Lingkup pekerjaan yang luas, keterlibatan banyak disiplin, serta keterbatasan waktu membuat pengendalian jadwal menjadi salah satu faktor penentu keberhasilan.
+
+Di lapangan, banyak insinyur muda menghadapi kesulitan memahami bagaimana jadwal proyek disusun, dikelola, dan dikendalikan. Salah satu konsep penting adalah **tingkatan jadwal (schedule levels)**. Artikel ini bertujuan untuk memberikan pemahaman mengenai pembagian jadwal dari Level 0 hingga Level 5, rujukan standarnya, serta contoh penerapan nyata dalam proyek revamping.
+
+---
+
+### **2. Konsep Dasar Schedule Level**
+
+**Schedule level** adalah pembagian jadwal proyek berdasarkan **tingkat kedetailan** dan **tujuan penggunaannya**. Konsep ini digunakan agar seluruh pemangku kepentingan proyek, mulai dari manajemen puncak hingga supervisor lapangan, memiliki acuan jadwal yang sesuai dengan kebutuhan masing-masing.
+
+Dengan adanya hirarki jadwal, komunikasi menjadi lebih efektif, risiko keterlambatan dapat diantisipasi, dan eksekusi proyek bisa dikendalikan dengan baik.
+
+Dalam konteks pelaksanaan proyek **EPC (Engineering, Procurement, and Construction)**, istilah **"schedule level"** mengacu pada **tingkatan atau hirarki perencanaan jadwal proyek** yang disusun berdasarkan **tingkat kedetailan** dan **tujuan penggunaannya**. Schedule level digunakan untuk mengelola, memonitor, dan mengontrol pelaksanaan proyek secara efektif pada berbagai fase dan oleh berbagai pemangku kepentingan (owner, kontraktor EPC, subkontraktor, dsb.).
+
+Berikut adalah penjelasan umum mengenai **tingkatan schedule level** dalam proyek EPC (konvensi dapat sedikit berbeda tergantung kontrak, perusahaan, atau software yang digunakan, namun struktur berikut adalah praktik umum industri):
+
+---
+
+- 🔹 **Level 0 – Master Project Schedule**
+
+  - **Tujuan:** High-level milestone overview.
+  - **Isi:** Menampilkan fase besar proyek (Engineering, Procurement, Construction, Commissioning, Start-Up).
+  - **Pengguna:** Pihak manajemen puncak, pemilik proyek (owner), investor.
+  - **Durasi Aktivitas:** Biasanya dalam bulanan.
+  - **Contoh:** "Engineering Start", "Mechanical Completion", "Start-up".
+
+---
+
+- 🔹 **Level 1 – Summary or Major Milestone Schedule**
+
+  - **Tujuan:** Kontrol progres fase besar.
+  - **Isi:** Pembagian waktu dan milestone per area utama (engineering, procurement, dan construction).
+  - **Durasi Aktivitas:** Mingguan atau bulanan.
+  - **Pengguna:** Manajemen proyek, pemilik, dan kontraktor utama.
+  - **Contoh:** "Issue IFC drawing", "PO placement", "Mechanical erection start", dll.
+
+---
+
+- 🔹 **Level 2 – Project Coordination Schedule**
+
+  - **Tujuan:** Koordinasi antar disiplin dan subkontraktor.
+  - **Isi:** Kegiatan utama per disiplin, koordinasi antar EPC, logistik utama, pengiriman equipment besar.
+  - **Durasi Aktivitas:** Harian sampai mingguan.
+  - **Pengguna:** Manajer proyek, construction manager, discipline lead.
+  - **Contoh:** "Release piping isometric", "Delivery of compressor skid", "Foundation work".
+
+---
+
+- 🔹 **Level 3 – Control Level Schedule (Detail EPC Schedule)**
+
+  - **Tujuan:** **Kontrol utama proyek**, basis evaluasi performa, monitoring aktual vs. rencana.
+  - **Isi:** Aktivitas detil untuk setiap pekerjaan (engineering deliverables, pengadaan per item utama, konstruksi per sistem/unit).
+  - **Durasi Aktivitas:** Harian.
+  - **Tools:** Biasanya disusun dengan Primavera (P6) atau MS Project.
+  - **Pengguna:** Project Control Team, Site Manager, Field Engineers.
+  - **Contoh:** "Issue P&ID Rev B", "Cable tray installation Area A", "Hydrotest line A101".
+
+---
+
+- 🔹 **Level 4 – Detailed Installation Schedule / Look-ahead Schedule**
+
+  - **Tujuan:** Perencanaan jangka pendek (mingguan) untuk pelaksanaan lapangan.
+  - **Isi:** Breakdown pekerjaan harian dan mingguan, digunakan untuk pelaksanaan di lapangan.
+  - **Durasi Aktivitas:** Per jam atau harian.
+  - **Pengguna:** Supervisor lapangan, foreman, scheduler, planner.
+  - **Contoh:** "Welding spool 101", "Torque check pump base", "Pulling cable MCC-01 to PMCC".
+
+---
+
+- 🔹 **Level 5 – Daily Work Package / Task Schedule**
+
+  - **Tujuan:** Eksekusi detail dan pengendalian kerja harian.
+  - **Isi:** Task per person atau crew, berdasarkan WBS terkecil.
+  - **Pengguna:** Foreman, supervisor, planner.
+  - **Contoh:** "Install 4” pipe 10 meter section", "Terminate 10 cables to junction box JB-01".
+
+---
+
+### **3. Pembagian Schedule Level (0–5)**
+
+Tabel berikut menjelaskan tujuan, rentang waktu, dan pengguna utama setiap level:
+
+| **Level**   | **Tujuan**                                                                    | **Durasi Aktivitas**   | **Pengguna**                                                                    |
+| ----------- | ----------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------- |
+| **Level 0** | Memberikan overview strategis proyek secara keseluruhan                       | Bulanan / Tahunan      | Manajemen puncak, Pemilik proyek (Owner), Investor                              |
+| **Level 1** | Mengontrol milestone utama dan fase besar proyek                              | Mingguan / Bulanan     | Project Director, Project Manager, Owner Representative                         |
+| **Level 2** | Koordinasi antar disiplin dan antar fase EPC                                  | Harian / Mingguan      | Discipline Lead, Engineering Manager, Procurement Manager, Construction Manager |
+| **Level 3** | Kontrol utama proyek (monitoring, evaluasi performa, S-curve)                 | Harian                 | Project Control Team, Scheduler, Site Manager, Field Engineer                   |
+| **Level 4** | Perencanaan jangka pendek untuk pelaksanaan di lapangan (2–6 minggu ke depan) | Harian / Jam-jaman     | Supervisor, Construction Engineer, Planner, Subkontraktor                       |
+| **Level 5** | Pengendalian dan eksekusi pekerjaan harian secara detail                      | Harian (Per Task/Crew) | Foreman, Site Supervisor, Planner                                               |
+
+---
+
+### **4. Studi Kasus: Penerapan pada Proyek Revamping 125%**
+
+Sebuah proyek **revamping kapasitas 125%** pada industri petrokimia dapat menjadi ilustrasi nyata. Proyek ini mencakup:
+
+- **Unit Syngas**: Steam Methane Reforming, CO₂ Removal, Membrane & PSA, Compression System (EP + C).
+- **Unit Octanol**: Aldol, Hydrogenation Reactor, Purification (EP + C).
+- **Utility**: Incinerator, Chiller, Propylene Storage Tank (EPC).
+- Durasi proyek: **12 bulan**.
+- Constraint: **tie-in hanya dapat dilakukan saat plant turnaround (25 hari)**.
+- Metode: **parallel execution dan fast-tracking**.
+
+Penerapannya:
+
+- **Level 0**: milestone proyek 12 bulan (kick-off, engineering, procurement, construction, TA, commissioning, start-up).
+- **Level 1**: pembagian fase utama tiap unit (Syngas, Octanol, Utility).
+- **Level 2**: koordinasi antar disiplin (engineering deliverables, PO release, equipment delivery, erection, piping, instrument).
+- **Level 3**: baseline schedule sebagai alat kontrol (digunakan untuk S-curve dan EVM).
+- **Level 4–5**: look-ahead planning (mingguan) dan daily task schedule (eksekusi di lapangan selama TA).
+
+#### Contoh struktur **schedule Level 0 hingga Level 5** secara sistematis untuk proyek **revamping kapasitas 125%** yang mencakup:
+
+- **Unit Syngas** – Steam Methane Reforming, CO₂ Removal, Membrane & PSA, Compression (EP+C)
+- **Unit Octanol** – Aldol, Hydrogenation, Purification (EP+C)
+- **Utility** – Incinerator, Chiller, Propylene Storage (EPC)
+- Durasi total proyek: **12 bulan**
+- Constraint: **Tie-in hanya saat Turnaround (TA), 25 hari)**
+- Metodologi: **Parallel Execution & Fast-Tracking**
+
+---
+
+- ✅ **Schedule Level 0 – Master Project Schedule (High-Level Milestones)**
+
+| **No.** | **Fase**                       | **Durasi** | **Start (TBD)** | **Finish (TBD)** |
+| ------- | ------------------------------ | ---------- | --------------- | ---------------- |
+| 1       | Project Kick-off               | 1 minggu   | M1 W1           | M1 W1            |
+| 2       | Engineering Phase (EP/EPC)     | 4 bulan    | M1              | M4               |
+| 3       | Procurement & Manufacturing    | 6 bulan    | M2              | M7               |
+| 4       | Construction                   | 6 bulan    | M5              | M10              |
+| 5       | Plant Turnaround (TA) & Tie-In | 25 hari    | M10 W2          | M11 W1           |
+| 6       | Commissioning & Start-up       | 1.5 bulan  | M11             | M12.5            |
+| 7       | Performance Test & Handover    | 2 minggu   | M12.5           | M12.75           |
+
+---
+
+- ✅ **Schedule Level 1 – Summary Milestone per Unit & Fase**
+
+| **WBS** | **Area** | **Fase**                 | **Durasi** | **Keterangan**                               |
+| ------- | -------- | ------------------------ | ---------- | -------------------------------------------- |
+| 1.0     | Syngas   | Engineering              | 3 bulan    | Basic & Detail Engineering                   |
+| 1.1     | Syngas   | Procurement              | 5 bulan    | Long lead items: Reformer tubes, Compressors |
+| 1.2     | Syngas   | Construction             | 4 bulan    | Foundation, equipment, piping                |
+| 1.3     | Syngas   | Tie-in & Commissioning   | 1.5 bulan  | Dilakukan saat TA                            |
+| 2.0     | Octanol  | Engineering              | 3 bulan    | Fast-tracked dengan Syngas                   |
+| 2.1     | Octanol  | Procurement              | 4 bulan    | Reactor vessels, columns                     |
+| 2.2     | Octanol  | Construction             | 4 bulan    | Parallel dengan Utility                      |
+| 2.3     | Octanol  | Tie-in & Commissioning   | 1.5 bulan  | Dilakukan saat TA                            |
+| 3.0     | Utility  | EPC – Full Phase         | 6 bulan    | Design, Supply, Install                      |
+| 4.0     | Common   | Commissioning & Start-up | 1.5 bulan  | Simultaneous unit commissioning              |
+
+---
+
+- ✅ **Schedule Level 2 – Coordination Level (by Discipline & System)**
+
+| **WBS** | **Aktivitas**                      | **Durasi** | **Unit**  | **Keterangan**              |
+| ------- | ---------------------------------- | ---------- | --------- | --------------------------- |
+| 1.1.1   | P&ID Finalization                  | 4 minggu   | Syngas    | Engineering                 |
+| 1.1.2   | HAZOP                              | 2 minggu   | Syngas    | Bersama dengan Octanol      |
+| 1.2.1   | RFQ & PO Long Lead                 | 6 minggu   | Syngas    | Reformer tube, PSA Skid     |
+| 1.3.1   | Site Mobilization                  | 2 minggu   | Syngas    | Awal bulan ke-5             |
+| 1.3.2   | Equipment Installation             | 6 minggu   | Syngas    | Reformer, Compressor        |
+| 1.3.3   | Piping Pre-Fabrication             | 4 minggu   | Syngas    | Workshop                    |
+| 1.4.1   | Tie-in Work                        | 3 minggu   | Syngas    | Saat TA (25 hari)           |
+| 2.1.1   | 3D Modelling & Isometric Release   | 5 minggu   | Octanol   | Terintegrasi ke procurement |
+| 2.2.1   | Reactor Installation               | 4 minggu   | Octanol   | Parallel dengan piping      |
+| 3.1.1   | Chiller System Erection            | 3 minggu   | Utility   | Kontraktor berbeda          |
+| 3.2.1   | Propylene Tank Hydrotest & Coating | 2 minggu   | Utility   | Sesudah instalasi tank      |
+| 4.1.1   | Cold Commissioning                 | 3 minggu   | All Units | Functional test             |
+| 4.1.2   | Hot Commissioning                  | 3 minggu   | All Units | Setelah TA                  |
+| 4.2.1   | Performance Test                   | 2 minggu   | All Units | Final acceptance            |
+
+---
+
+- ✅ **Schedule Level 3 – Detail Control Schedule (Sample Breakdown)**
+
+> Format ini biasa digunakan dalam Primavera/MS Project. Berikut contoh bagian dari Level 3:
+
+| **WBS** | **Aktivitas**           | **Durasi** | **Predecessor** |
+| ------- | ----------------------- | ---------- | --------------- |
+| 1.1.1   | Issue PFD & P&ID Rev 1  | 2 minggu   | Kick-off        |
+| 1.1.2   | 3D Model Review 30%     | 2 minggu   | 1.1.1           |
+| 1.2.1   | Issue RFQ Reformer      | 1 minggu   | 1.1.2           |
+| 1.2.2   | PO Release Reformer     | 2 minggu   | 1.2.1           |
+| 1.3.1   | Excavation & Foundation | 3 minggu   | 1.2.2           |
+| 1.3.2   | Reformer Installation   | 4 minggu   | 1.3.1           |
+| 1.3.3   | Instrument Calibration  | 1 minggu   | 1.3.2           |
+| 1.4.1   | Tie-in Steam Header     | 1 minggu   | 1.3.2           |
+| 1.4.2   | Loop Check              | 1 minggu   | 1.3.3           |
+
+> Jumlah total aktivitas Level 3 biasanya mencapai **500–1500 aktivitas** tergantung detail dan WBS.
+
+---
+
+- ✅ **Schedule Level 4 – Look-ahead Schedule (2–6 Minggu)**
+
+> Biasanya disusun mingguan oleh scheduler dan construction manager.
+
+| **Minggu** | **Aktivitas**                        | **Lokasi**   | **Durasi** | **PIC**             |
+| ---------- | ------------------------------------ | ------------ | ---------- | ------------------- |
+| W17        | Pekerjaan civils pump foundation     | Octanol      | 5 hari     | Civil Supervisor    |
+| W18        | Delivery PSA Skid                    | Syngas       | 2 hari     | Logistics           |
+| W18-W19    | Erection Heat Exchanger HX-301       | Syngas       | 7 hari     | Mech Supervisor     |
+| W19        | Spool Fabrication 10” to reactor     | Octanol      | 3 hari     | Piping Workshop     |
+| W20        | Chiller cable glanding & termination | Utility Area | 4 hari     | Electrical Engineer |
+
+---
+
+- ✅ **Schedule Level 5 – Daily Work Plan (Execution Level)**
+
+> Disusun oleh foreman dan supervisor untuk alokasi kerja harian
+
+| **Tanggal** | **Tim**       | **Aktivitas**                       | **Jumlah Pekerja** | **Durasi (Jam)** |
+| ----------- | ------------- | ----------------------------------- | ------------------ | ---------------- |
+| 12 Nov      | Piping Crew A | Fit-up spool 10” untuk PSA          | 4 orang            | 6 jam            |
+| 12 Nov      | Mech Crew B   | Lifting & alignment Reformer Burner | 3 orang            | 4 jam            |
+| 12 Nov      | E&I Crew      | Loop test TT-123 & TT-124           | 2 orang            | 5 jam            |
+| 12 Nov      | Civil Crew    | Formwork tank bunding area          | 5 orang            | 8 jam            |
+
+---
+
+### **5. Pekerjaan Paralel vs Fast-Tracking**
+
+Dua strategi umum dalam percepatan proyek adalah **pekerjaan paralel** dan **fast-tracking**:
+
+- **Pekerjaan Paralel**: Aktivitas yang tidak saling tergantung dijalankan bersamaan. Contoh: instalasi tangki di area utility dilakukan bersamaan dengan pekerjaan sipil di area Octanol. Risiko rendah.
+- **Fast-Tracking**: Aktivitas yang seharusnya berurutan dijalankan secara tumpang tindih. Contoh: pemesanan equipment dilakukan sebelum desain 100% final. Risiko tinggi karena berpotensi menimbulkan rework.
+
+**Pemahaman perbedaan ini penting agar insinyur muda bisa mengantisipasi risiko yang timbul akibat percepatan jadwal.**
+
+---
+
+### **6. Tantangan dan Best Practice**
+
+Beberapa tantangan umum dalam penerapan multi-level schedule adalah:
+
+- Kompleksitas data akibat banyaknya aktivitas.
+- Koordinasi lintas disiplin yang intensif.
+- Perubahan scope dan desain di tengah jalan.
+
+Best practice yang dapat diterapkan:
+
+- Menetapkan **Level 3** sebagai baseline resmi.
+- Menyusun **Level 4–5** secara dinamis (rolling wave planning).
+- Menggunakan perangkat lunak manajemen jadwal seperti **Primavera P6** atau **MS Project**.
+- Melakukan review jadwal secara periodik dengan semua stakeholder.
+
+---
+
+### **7. Kesimpulan**
+
+Multi-level schedule merupakan salah satu instrumen terpenting dalam manajemen proyek EPC. Dengan memahami struktur Level 0 hingga Level 5, insinyur muda dapat:
+
+- Melihat gambaran besar sekaligus detail eksekusi proyek.
+- Menghubungkan aspek strategis manajemen dengan operasional di lapangan.
+- Mengantisipasi risiko keterlambatan dan meningkatkan efisiensi koordinasi.
+
+Jadwal bukan sekadar dokumen, melainkan **alat komunikasi teknis** yang menyatukan seluruh pihak dalam proyek EPC.
+
+---
+
+### 8. **Referensi**
+
+- AACE International, Recommended Practice 27R-03: _Schedule Classification System_.
+- AACE International, RP 37R-06: _Schedule Levels of Detail – Practice Guide_.
+- PMI, _PMBOK® Guide – Project Schedule Management_.
+- Construction Industry Institute (CII), _Project Control for Construction_.
+- COAA, _Best Practices in Project Controls_.
+
+---
+
+### Hak cipta[^1]. Artikel ini berdasar ChatGpt & penulis tidak menjamin seluruh akurasi isinya
+
+[^1]: [ChatGpt](https://chat.openai.com)
