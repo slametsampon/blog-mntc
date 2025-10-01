@@ -71,7 +71,12 @@ summary: Kegiatan _Turn Around_ (TA) merupakan salah satu fase paling kritikal d
   - [8.2. **Keterkaitan Antara Teknik yang Baik dan Eksekusi Lapangan**](#82-keterkaitan-antara-teknik-yang-baik-dan-eksekusi-lapangan)
   - [8.3. **Arah Masa Depan Perencanaan TA**](#83-arah-masa-depan-perencanaan-ta)
   - [8.4. **Penutup Akhir**](#84-penutup-akhir)
-- [IX. \*\*Lampiran - WBS Level vs Schedule Level \*\*](#ix-lampiran---wbs-level-vs-schedule-level-)
+- [IX **Estimasi Durasi, Personil, dan Man-Hour – WBS Overhaul Motor 6 kV / 250 kW**](#ix-estimasi-durasi-personil-dan-man-hour--wbs-overhaul-motor-6-kv--250-kw)
+  - [⚙️ WBS Level 1: `MTR-OH-01` – Overhaul Motor Induksi 6 kV, 250 kW](#️-wbs-level-1-mtr-oh-01--overhaul-motor-induksi-6-kv-250-kw)
+  - [🔹 **WBS Level 2 \& 3 Detail:**](#-wbs-level-2--3-detail)
+  - [🔹 **Ringkasan Total**](#-ringkasan-total)
+    - [⚠️ **Catatan Estimasi**:](#️-catatan-estimasi)
+- [X. \*\*Lampiran - WBS Level vs Schedule Level \*\*](#x-lampiran---wbs-level-vs-schedule-level-)
   - [📚 Referensi Teknis yang Bisa Dirujuk](#-referensi-teknis-yang-bisa-dirujuk)
   - [🔖 Kesimpulan Ringkas](#-kesimpulan-ringkas)
 - [Hak cipta^1. Artikel ini berdasar ChatGpt \& penulis tidak menjamin seluruh akurasi isinya](#hak-cipta1-artikel-ini-berdasar-chatgpt--penulis-tidak-menjamin-seluruh-akurasi-isinya)
@@ -766,7 +771,97 @@ Jika diperlukan, artikel ini dapat dikembangkan lebih lanjut menjadi:
 
 ---
 
-### IX. **Lampiran - WBS Level vs Schedule Level **
+### IX **Estimasi Durasi, Personil, dan Man-Hour – WBS Overhaul Motor 6 kV / 250 kW**
+
+Berikut adalah **estimasi durasi, jumlah personil, dan total man-hour (MH)** untuk **WBS Level 3** dari pekerjaan **Overhaul Motor Induksi 3 Phase, 6 kV, 250 kW**. Estimasi ini disusun berdasarkan pengalaman lapangan, standard praktik di TA, dan asumsi kondisi motor dalam keadaan _average condition_ (tanpa kerusakan berat atau rekondisi berat winding).
+
+---
+
+#### ⚙️ WBS Level 1: `MTR-OH-01` – Overhaul Motor Induksi 6 kV, 250 kW
+
+🔹 **Total Durasi**: ± 2 hari kerja (24 jam efektif)
+🔹 **Jumlah personil aktif**: 2–3 orang per shift
+🔹 **Total Man-Hour estimasi**: ± **48–56 MH**
+
+---
+
+#### 🔹 **WBS Level 2 & 3 Detail:**
+
+| WBS Code         | Deskripsi Aktivitas            | Durasi (Jam) | Personil | Man-Hour   |
+| ---------------- | ------------------------------ | ------------ | -------- | ---------- |
+| **MTR-OH-01.01** | Preparation & Isolation        |              |          |            |
+| MTR-OH-01.01.01  | Verifikasi dokumen dan histori | 1.0 h        | 1        | 1.0 MH     |
+| MTR-OH-01.01.02  | Isolasi listrik dan AOV        | 1.0 h        | 2        | 2.0 MH     |
+| MTR-OH-01.01.03  | Pemasangan LOTO                | 0.5 h        | 2        | 1.0 MH     |
+|                  | **Subtotal**                   | **2.5 h**    |          | **4.0 MH** |
+
+---
+
+| WBS Code        | Disassembly                        |           |     |             |
+| --------------- | ---------------------------------- | --------- | --- | ----------- |
+| MTR-OH-01.02.01 | Buka terminal & identifikasi kabel | 1.0 h     | 2   | 2.0 MH      |
+| MTR-OH-01.02.02 | Bongkar kopling dan mounting       | 1.5 h     | 2   | 3.0 MH      |
+| MTR-OH-01.02.03 | Bongkar rotor & bearing housing    | 2.0 h     | 3   | 6.0 MH      |
+|                 | **Subtotal**                       | **4.5 h** |     | **11.0 MH** |
+
+---
+
+| WBS Code        | Inspection & Testing              |           |     |            |
+| --------------- | --------------------------------- | --------- | --- | ---------- |
+| MTR-OH-01.03.01 | Visual stator, rotor, fan         | 1.0 h     | 2   | 2.0 MH     |
+| MTR-OH-01.03.02 | IR dan PI test                    | 1.0 h     | 2   | 2.0 MH     |
+| MTR-OH-01.03.03 | Surge / tan-delta test (opsional) | 1.0 h     | 2   | 2.0 MH     |
+| MTR-OH-01.03.04 | Bearing & shaft inspection        | 0.5 h     | 2   | 1.0 MH     |
+|                 | **Subtotal**                      | **3.5 h** |     | **7.0 MH** |
+
+---
+
+| WBS Code        | Repair & Replacement                 |           |     |             |
+| --------------- | ------------------------------------ | --------- | --- | ----------- |
+| MTR-OH-01.04.01 | Ganti bearing dan seal               | 2.0 h     | 2   | 4.0 MH      |
+| MTR-OH-01.04.02 | Pembersihan, pengecatan stator/rotor | 1.0 h     | 2   | 2.0 MH      |
+| MTR-OH-01.04.03 | Re-varnish winding (jika diperlukan) | 2.0 h     | 2   | 4.0 MH      |
+|                 | **Subtotal**                         | **5.0 h** |     | **10.0 MH** |
+
+---
+
+| WBS Code        | Reassembly & Alignment         |           |     |            |
+| --------------- | ------------------------------ | --------- | --- | ---------- |
+| MTR-OH-01.05.01 | Rakit ulang motor dan bearing  | 2.0 h     | 2   | 4.0 MH     |
+| MTR-OH-01.05.02 | Alignment ke driven equipment  | 1.5 h     | 2   | 3.0 MH     |
+| MTR-OH-01.05.03 | Koneksi terminal dan grounding | 1.0 h     | 2   | 2.0 MH     |
+|                 | **Subtotal**                   | **4.5 h** |     | **9.0 MH** |
+
+---
+
+| WBS Code        | Testing & Commissioning         |           |     |            |
+| --------------- | ------------------------------- | --------- | --- | ---------- |
+| MTR-OH-01.06.01 | IR test pasca rakit             | 0.5 h     | 2   | 1.0 MH     |
+| MTR-OH-01.06.02 | No-load test, vibrasi, arus     | 1.0 h     | 2   | 2.0 MH     |
+| MTR-OH-01.06.03 | Final checklist dan dokumentasi | 1.0 h     | 1   | 1.0 MH     |
+|                 | **Subtotal**                    | **2.5 h** |     | **4.0 MH** |
+
+---
+
+#### 🔹 **Ringkasan Total**
+
+| **Kategori**                | **Jumlah**     |
+| --------------------------- | -------------- |
+| **Total Durasi Efektif**    | ± 22.5 jam     |
+| **Personil Rata-Rata**      | 2–3 orang      |
+| **Total Estimasi Man-Hour** | **± 45–48 MH** |
+
+---
+
+##### ⚠️ **Catatan Estimasi**:
+
+- Jika diperlukan _rewind stator_, man-hour bisa meningkat signifikan (+20–40 MH)
+- Estimasi ini tidak termasuk lead time untuk pengeringan winding (jika dilakukan oven drying)
+- Untuk motor dengan mounting rumit atau area terbatas, durasi bisa bertambah 15–20%
+
+---
+
+### X. **Lampiran - WBS Level vs Schedule Level **
 
 Berikut adalah **perbedaan antara WBS Level dan Schedule Level dalam proyek EPC (Engineering, Procurement, and Construction)** beserta **referensi yang bisa dirujuk**. Perbedaan ini penting untuk dipahami oleh engineer maupun planner, karena sering kali kedua istilah ini disalahartikan sebagai hal yang sama.
 
